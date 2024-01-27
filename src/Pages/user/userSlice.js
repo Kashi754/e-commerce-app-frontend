@@ -1,12 +1,12 @@
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-export const loadHomeData = createAsyncThunk(
-    'home/loadHomeData',
+export const loadUserData = createAsyncThunk(
+    'user/loadUserData',
     async(params) => {       
-        const uri = process.env.SERVER_URL;
+        const uri = process.env.SERVER_URI;
         const port = process.env.PORT;
-        const serverUrl = `http://${uri}:${port}/`;
+        const serverUrl = `http://${uri}:${port}/users/${params}`;
         
         const response = await fetch(serverUrl);
         if(!response.ok) {
@@ -19,10 +19,10 @@ export const loadHomeData = createAsyncThunk(
     }
 )
 
-const homeSlice = createSlice({
-    name: 'home',
+const userSlice = createSlice({
+    name: 'user',
     initialState: {
-        home: {},
+        user: {},
         isLoading: false,
         isError: false,
         error: null
@@ -40,17 +40,17 @@ const homeSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-        .addCase(loadHomeData.pending, (state, action) => {
+        .addCase(loadUserData.pending, (state, action) => {
             state.isLoading = true;
             state.isError = false;
         })
-        .addCase(loadHomeData.fulfilled, (state, action) => {
+        .addCase(loadUserData.fulfilled, (state, action) => {
             const data = action.payload;
             state.isLoading = false;
             state.isError = false;
-            state.home = data;
+            state.user = data;
         })
-        .addCase(loadHomeData.rejected, (state, action) => {
+        .addCase(loadUserData.rejected, (state, action) => {
             state.isLoading = false;
             state.isError = true;
             state.error = action.error.message;
@@ -58,9 +58,9 @@ const homeSlice = createSlice({
     }
 });
 
-export const selectHome = (state) => state.home.home;
-export const selectIsLoading = (state) => state.home.isLoading;
-export const selectIsError = (state) => state.home.isError;
-export const selectError = (state) => state.home.error;
+export const selectUser = (state) => state.user.user;
+export const selectIsLoading = (state) => state.user.isLoading;
+export const selectIsError = (state) => state.user.isError;
+export const selectError = (state) => state.user.error;
 // export const { incrementCount, decrementCount, resetCount } = homeSlice.actions;
-export default homeSlice.reducer;
+export default userSlice.reducer;

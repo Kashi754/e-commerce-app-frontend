@@ -1,10 +1,10 @@
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-export const loadProductsData = createAsyncThunk(
-    'products/loadProductsData',
+export const loadHomeData = createAsyncThunk(
+    'home/loadHomeData',
     async(params) => {       
-        const uri = process.env.SERVER_URL;
+        const uri = process.env.SERVER_URI;
         const port = process.env.PORT;
         const serverUrl = `http://${uri}:${port}/`;
         
@@ -19,10 +19,10 @@ export const loadProductsData = createAsyncThunk(
     }
 )
 
-const productsSlice = createSlice({
-    name: 'products',
+const homeSlice = createSlice({
+    name: 'home',
     initialState: {
-        products: [],
+        home: {},
         isLoading: false,
         isError: false,
         error: null
@@ -40,17 +40,17 @@ const productsSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-        .addCase(loadProductsData.pending, (state, action) => {
+        .addCase(loadHomeData.pending, (state, action) => {
             state.isLoading = true;
             state.isError = false;
         })
-        .addCase(loadProductsData.fulfilled, (state, action) => {
+        .addCase(loadHomeData.fulfilled, (state, action) => {
             const data = action.payload;
             state.isLoading = false;
             state.isError = false;
-            state.products = data;
+            state.home = data;
         })
-        .addCase(loadProductsData.rejected, (state, action) => {
+        .addCase(loadHomeData.rejected, (state, action) => {
             state.isLoading = false;
             state.isError = true;
             state.error = action.error.message;
@@ -58,9 +58,9 @@ const productsSlice = createSlice({
     }
 });
 
-export const selectProducts = (state) => state.products.products;
-export const selectIsLoading = (state) => state.products.isLoading;
-export const selectIsError = (state) => state.products.isError;
-export const selectError = (state) => state.products.error;
+export const selectHome = (state) => state.home.home;
+export const selectIsLoading = (state) => state.home.isLoading;
+export const selectIsError = (state) => state.home.isError;
+export const selectError = (state) => state.home.error;
 // export const { incrementCount, decrementCount, resetCount } = homeSlice.actions;
-export default productsSlice.reducer;
+export default homeSlice.reducer;

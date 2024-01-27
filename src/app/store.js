@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import cartSliceReducer from '../pages/cart/cartSlice';
-import homeSliceReducer from '../pages/home/homeSlice';
-import orderSliceReducer from '../pages/order/orderSlice';
-import ordersSliceReducer from '../pages/orders/ordersSlice';
-import productSliceReducer from '../pages/product/productSlice';
-import productsSliceReducer from '../pages/products/productsSlice';
-import userSliceReducer from '../pages/user/userSlice';
+import cartSliceReducer from '../Pages/cart/cartSlice';
+import homeSliceReducer from '../Pages/home/homeSlice';
+import orderSliceReducer from '../Pages/order/orderSlice';
+import ordersSliceReducer from '../Pages/orders/ordersSlice';
+import productSliceReducer from '../Pages/product/productSlice';
+import productsSliceReducer from '../Pages/products/productsSlice';
+import userSliceReducer from '../Pages/user/userSlice';
 
 const rootReducer = {
   cart: cartSliceReducer,

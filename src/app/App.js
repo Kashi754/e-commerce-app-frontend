@@ -1,16 +1,16 @@
 import React from 'react';
 import './App.css';
-import { Root } from '../pages/root/Root';
-import { Cart } from '../pages/cart/Cart';
-import { Checkout } from '../pages/checkout/Checkout';
-import { Home } from '../pages/home/Home';
-import { Login } from '../pages/login/Login';
-import { Order } from '../pages/order/Order';
-import { Orders } from '../pages/orders/Orders';
-import { Product } from '../pages/product/Product';
-import { Products } from '../pages/products/Products';
-import { Registration } from '../pages/registration/Registration';
-import { User } from '../pages/user/User';
+import { Root } from '../Pages/root/Root';
+import { Cart } from '../Pages/cart/Cart';
+import { Checkout } from '../Pages/checkout/Checkout';
+import { Home } from '../Pages/home/Home';
+import { Login } from '../Pages/login/Login';
+import { Order } from '../Pages/order/Order';
+import { Orders } from '../Pages/orders/Orders';
+import { Product } from '../Pages/product/Product';
+import { Products } from '../Pages/products/Products';
+import { Registration } from '../Pages/registration/Registration';
+import { User } from '../Pages/user/User';
 import { createRoutesFromElements, Route } from 'react-router-dom';
 
 function App() {

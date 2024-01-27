@@ -1,12 +1,12 @@
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-export const loadCartData = createAsyncThunk(
-    'cart/loadCartData',
+export const loadProductsData = createAsyncThunk(
+    'products/loadProductsData',
     async(params) => {       
-        const uri = process.env.SERVER_URL;
+        const uri = process.env.SERVER_URI;
         const port = process.env.PORT;
-        const serverUrl = `http://${uri}:${port}/`;
+        const serverUrl = `http://${uri}:${port}/products`;
         
         const response = await fetch(serverUrl);
         if(!response.ok) {
@@ -19,10 +19,10 @@ export const loadCartData = createAsyncThunk(
     }
 )
 
-const cartSlice = createSlice({
-    name: 'cart',
+const productsSlice = createSlice({
+    name: 'products',
     initialState: {
-        cart: {},
+        products: [],
         isLoading: false,
         isError: false,
         error: null
@@ -40,17 +40,17 @@ const cartSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-        .addCase(loadCartData.pending, (state, action) => {
+        .addCase(loadProductsData.pending, (state, action) => {
             state.isLoading = true;
             state.isError = false;
         })
-        .addCase(loadCartData.fulfilled, (state, action) => {
+        .addCase(loadProductsData.fulfilled, (state, action) => {
             const data = action.payload;
             state.isLoading = false;
             state.isError = false;
-            state.cart = data;
+            state.products = data;
         })
-        .addCase(loadCartData.rejected, (state, action) => {
+        .addCase(loadProductsData.rejected, (state, action) => {
             state.isLoading = false;
             state.isError = true;
             state.error = action.error.message;
@@ -58,9 +58,9 @@ const cartSlice = createSlice({
     }
 });
 
-export const selectCart = (state) => state.cart.cart;
-export const selectIsLoading = (state) => state.cart.isLoading;
-export const selectIsError = (state) => state.cart.isError;
-export const selectError = (state) => state.cart.error;
+export const selectProducts = (state) => state.products.products;
+export const selectIsLoading = (state) => state.products.isLoading;
+export const selectIsError = (state) => state.products.isError;
+export const selectError = (state) => state.products.error;
 // export const { incrementCount, decrementCount, resetCount } = homeSlice.actions;
-export default cartSlice.reducer;
+export default productsSlice.reducer;
