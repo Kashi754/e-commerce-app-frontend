@@ -10,6 +10,7 @@ import { Orders } from '../pages/orders/Orders';
 import { Product } from '../pages/product/Product';
 import { Products } from '../pages/products/Products';
 import { Registration } from '../pages/registration/Registration';
+import { User } from '../pages/user/User';
 import { createRoutesFromElements, Route } from 'react-router-dom';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
       <Route path='product' element={<Products />} />
       <Route path='product/:id' element={<Product />} />
       <Route path='registration' element={<Registration />} />
+      <Route path='user' element={<User />} />
     </Route>
   );
 
