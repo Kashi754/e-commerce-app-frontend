@@ -4,8 +4,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 export const loadProductData = createAsyncThunk(
     'product/loadProductData',
     async(params) => {       
-        const uri = process.env.SERVER_URI;
-        const port = process.env.PORT;
+        const uri = process.env.REACT_APP_SERVER_URI;
+        const port = process.env.REACT_APP_PORT;
         const serverUrl = `http://${uri}:${port}/products/${params}`;
         
         const response = await fetch(serverUrl);
