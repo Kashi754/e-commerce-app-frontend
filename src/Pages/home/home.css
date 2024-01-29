@@ -1,0 +1,29 @@
+.categories {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 1rem;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+}
+
+.category-tile {
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-transform: capitalize;
+}
+
+.category-tile img {
+  width: clamp(250px, 15vw, 350px);
+  height: clamp(4rem, 10vw, 350px);
+  object-fit: cover;
+}
+
+.error {
+  white-space: pre-wrap;
+}

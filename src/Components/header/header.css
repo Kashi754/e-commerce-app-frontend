@@ -1,0 +1,18 @@
+.header {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  box-sizing: border-box;
+  padding: 2rem;
+  grid-row-gap: 1rem;
+}
+
+.logo-container {
+  grid-column: 2;
+  justify-self: center;
+  align-self: center;
+}
+
+.logo {
+  width: clamp(5rem, 13vw, 15rem);
+  height: auto;
+}

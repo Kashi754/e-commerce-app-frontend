@@ -1,56 +1,55 @@
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-export const loadHomeData = createAsyncThunk(
-    'home/loadHomeData',
-    async(params) => {       
+export const loadProductCategories = createAsyncThunk(
+    'home/loadProductCategories',
+    async() => {       
         const uri = process.env.REACT_APP_SERVER_URI;
         const port = process.env.REACT_APP_PORT;
-        const serverUrl = `http://${uri}:${port}/`;
+        const serverUrl = `http://${uri}:${port}/categories`;
         
-        const response = await fetch(serverUrl);
-        if(!response.ok) {
-            const error = await response.json()
-            const message = `An error has occured: ${response.status} ${error.message}`;
-            throw new Error(message);
+        try {
+            const response = await fetch(serverUrl);
+            if(!response.ok) {
+                const error = await response.json()
+                const message = `STATUS ${response.status}\nAn error has occured: ${error.message}`;
+                throw new Error(message);
+            }
+            const data = await response.json();
+            return data;
+        } catch (err){
+            err.message=`STATUS 500\nAn error has occured: ${err.message}`
+            throw err;
         }
-        const data = await response.json();
-        return data;
     }
 )
 
 const homeSlice = createSlice({
     name: 'home',
     initialState: {
-        home: {},
+        categories: [
+            {id: 1, name: 'electronics'},
+            {id: 2, name: 'toiletries'},
+            {id: 3, name: 'tools'},
+            {id: 4, name: 'outdoor'},
+        ],
         isLoading: false,
         isError: false,
         error: null
     },
-    reducers: {
-        incrementCount(state) {
-            state.count += 25
-        },
-        decrementCount(state) {
-            state.count -= 25
-        },
-        resetCount(state) {
-            state.count = 0;
-        }
-    },
     extraReducers: (builder) => {
         builder
-        .addCase(loadHomeData.pending, (state, action) => {
+        .addCase(loadProductCategories.pending, (state, action) => {
             state.isLoading = true;
             state.isError = false;
         })
-        .addCase(loadHomeData.fulfilled, (state, action) => {
+        .addCase(loadProductCategories.fulfilled, (state, action) => {
             const data = action.payload;
             state.isLoading = false;
             state.isError = false;
-            state.home = data;
+            state.categories = data;
         })
-        .addCase(loadHomeData.rejected, (state, action) => {
+        .addCase(loadProductCategories.rejected, (state, action) => {
             state.isLoading = false;
             state.isError = true;
             state.error = action.error.message;
@@ -58,7 +57,7 @@ const homeSlice = createSlice({
     }
 });
 
-export const selectHome = (state) => state.home.home;
+export const selectCategories = (state) => state.home.categories;
 export const selectIsLoading = (state) => state.home.isLoading;
 export const selectIsError = (state) => state.home.isError;
 export const selectError = (state) => state.home.error;

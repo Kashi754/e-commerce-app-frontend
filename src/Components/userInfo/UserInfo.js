@@ -4,8 +4,8 @@ import { selectIsLoggedIn, selectIsError, selectIsLoading, selectError, logout }
 import { useDispatch, useSelector } from "react-redux";
 import { UserLink } from "./UserLink";
 import { UserCart } from "./UserCart";
-import { quantum } from "ldrs";
 import './UserInfo.css';
+import { quantum } from "ldrs";
 quantum.register();
 
 export function UserInfo() {
