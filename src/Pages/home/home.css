@@ -23,7 +23,3 @@
   height: clamp(4rem, 10vw, 350px);
   object-fit: cover;
 }
-
-.error {
-  white-space: pre-wrap;
-}

@@ -61,7 +61,16 @@ const userSlice = createSlice({
     name: 'user',
     initialState: {
         isLoggedIn: true,
-        user: {},
+        user: {
+            id: 1,
+            username: "kashi754",
+            email: "arigorn15@gmail.com",
+            first_name: "Terry",
+            last_name: "Petersen",
+            role: "admin",
+            password_hash: "j23rt0nmq2304jn5t034jt0834hjt3h4t89h348th34t",
+            cartId: 1
+        },
         serializedUser: {},
         isLoading: false,
         isError: false,

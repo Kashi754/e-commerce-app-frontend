@@ -3,26 +3,39 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const loadProductsData = createAsyncThunk(
     'products/loadProductsData',
-    async(params) => {       
+    async(params) => {
         const uri = process.env.REACT_APP_SERVER_URI;
         const port = process.env.REACT_APP_PORT;
-        const serverUrl = `http://${uri}:${port}/products`;
-        
-        const response = await fetch(serverUrl);
-        if(!response.ok) {
-            const error = await response.json()
-            const message = `An error has occured: ${response.status} ${error.message}`;
-            throw new Error(message);
+        const serverUrl = params ? 
+            `http://${uri}:${port}/products?${params}` : 
+            `http://${uri}:${port}/products`;
+        try {
+            const response = await fetch(serverUrl);
+            if(!response.ok) {
+                const error = await response.json()
+                const message = `STATUS ${response.status}\nAn error has occured: ${error.message}`;
+                throw new Error(message);
+            }
+            const data = await response.json();
+            return data;
+        } catch (err){
+            err.message=`STATUS 500\nAn error has occured: ${err.message}`
+            throw err;
         }
-        const data = await response.json();
-        return data;
     }
 )
 
 const productsSlice = createSlice({
     name: 'products',
     initialState: {
-        products: [],
+        products: [
+            {id: 1, name: 'bag', price: "$13.59"},
+            {id: 2, name: 'tool', price: "$19.99"},
+            {id: 3, name: 'watch', price: "$27.63"},
+            {id: 4, name: 'toy', price: "$13.98"},
+            {id: 5, name: 'toiletries', price: "$13.99"},
+            {id: 6, name: 'projector', price: "$194.98"},
+        ],
         isLoading: false,
         isError: false,
         error: null

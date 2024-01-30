@@ -3,26 +3,37 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const loadProductData = createAsyncThunk(
     'product/loadProductData',
-    async(params) => {       
+    async(productId) => {       
         const uri = process.env.REACT_APP_SERVER_URI;
         const port = process.env.REACT_APP_PORT;
-        const serverUrl = `http://${uri}:${port}/products/${params}`;
+        const serverUrl = `http://${uri}:${port}/products/${productId}`;
         
-        const response = await fetch(serverUrl);
-        if(!response.ok) {
-            const error = await response.json()
-            const message = `An error has occured: ${response.status} ${error.message}`;
-            throw new Error(message);
+        try {
+            const response = await fetch(serverUrl);
+            if(!response.ok) {
+                const error = await response.json()
+                const message = `STATUS ${response.status}\nAn error has occured: ${error.message}`;
+                throw new Error(message);
+            }
+            const data = await response.json();
+            return data;
+        } catch (err){
+            err.message=`STATUS 500\nAn error has occured: ${err.message}`
+            throw err;
         }
-        const data = await response.json();
-        return data;
     }
 )
 
 const productSlice = createSlice({
     name: 'product',
     initialState: {
-        product: {},
+        product: {
+            id: 1, 
+            name: 'bag', 
+            price: "$13.59",
+            description: "Classic Monogram Embroidery Font & Personalized Gifts:Each personalized gifts bag is individual using a high thread density monogram in a classic font. Allowing you to give your Gifts a personal touch.So the monogrammed initial canvas tote bag could be as a great for women gift, mom gift, teacher gift, boss gift, coworker retirement gift, bride gift, hostess gift, friend gift, employee gift. Also, the monogrammed tote bags can be an adorable way to thank bridesmaids, mother of the bride.",
+            qty_in_stock: 34
+        },
         isLoading: false,
         isError: false,
         error: null

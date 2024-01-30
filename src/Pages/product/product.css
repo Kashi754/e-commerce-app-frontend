@@ -1,0 +1,45 @@
+.product {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  height: fit-content;
+}
+
+.product img {
+  width: auto;
+  height: clamp(200px, 20vw, 350px);
+}
+
+.product-infobox {
+  width: 100%;
+  height: clamp(200px, 20vw, 350px);
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  width: 20vw;
+  justify-content: space-between;
+}
+
+.product-info {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.product-info h4,
+.product-info h5 {
+  text-transform: capitalize;
+  justify-self: flex-start;
+}
+
+.description {
+  font-size: 0.75rem;
+  line-height: 0.85rem;
+}
+
+.quantity {
+  padding-top: 0.5rem;
+  font-size: 0.9em;
+}
