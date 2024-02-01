@@ -1,0 +1,94 @@
+.profile-container {
+  width: 25vw;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
+
+.profile-container h2 {
+  text-align: center;
+  width: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+  font-size: 1.75rem;
+  color: var(--pink);
+  background-color: var(--purple);
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  gap: 2rem;
+  align-self: center;
+  padding: 2rem 3rem;
+}
+
+
+.profile-form .label,
+.profile-form label {
+  display: inline-block;
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-wrap: nowrap;
+}
+
+.profile-form h4 {
+  font-size: 1rem;
+  font-weight: 400;
+  padding-block: 1px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+}
+
+.profile-form p {
+  display: flex;
+  justify-content: space-between;
+}
+
+.profile-form input {
+  height: 1rem;
+  width: 10rem;
+  border-radius: 0.25rem;
+  border: var(--border-style);
+  background-color: var(--pink);
+}
+
+.button-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.profile-form button {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  color: rgba(162, 0, 255);
+  background-color: rgb(239, 188, 255);
+  border: 2px solid rgb(78, 78, 78);
+  border-radius: 0.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 0.75rem;
+  width: 50%;
+  justify-self: center;
+}
+
+.profile-form button:hover {
+  background-color: rgba(162, 0, 255);
+  border-color: rgb(239, 188, 255);
+  color: rgb(239, 188, 255);
+}
+
+.profile-form button:active {
+  padding: 0.4rem;
+}
+
+.profile-form a {
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: 1rem;
+  color: rgb(60, 60, 60);
+}

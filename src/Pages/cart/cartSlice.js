@@ -1,26 +1,16 @@
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { getApi, postApi } from "../../utilities/fetchApi";
+
+const uri = process.env.REACT_APP_SERVER_URI;
+const port = process.env.REACT_APP_PORT;
 
 export const loadCartData = createAsyncThunk(
     'cart/loadCartData',
     async(params) => {    
-        const uri = process.env.REACT_APP_SERVER_URI;
-        const port = process.env.REACT_APP_PORT;
         const serverUrl = `http://${uri}:${port}/cart/${params}`;
         
-        try {
-            const response = await fetch(serverUrl);
-            if(!response.ok) {
-                const error = await response.json()
-                const message = `STATUS ${response.status}\nAn error has occured: ${error.message}`;
-                throw new Error(message);
-            }
-            const data = await response.json();
-            return data;
-        } catch (err){
-            err.message=`STATUS 500\nAn error has occured: ${err.message}`
-            throw err;
-        }
+        return await getApi(serverUrl);
     }
 )
 
@@ -38,32 +28,9 @@ export const addCartItem = createAsyncThunk(
             qty
         };
 
-        const uri = process.env.REACT_APP_SERVER_URI;
-        const port = process.env.REACT_APP_PORT;
         const serverUrl = `http://${uri}:${port}/cart/${cartId}`;
 
-        try {
-            const response = await fetch(serverUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(itemData)
-            })
-
-            if(!response.ok) {
-                const error = await response.json()
-                const message = `STATUS ${response.status}\nAn error has occured: ${error.message}`;
-                throw new Error(message);
-            }
-            const data = await response.json();
-            return data;
-        } catch(err) {
-            err.message=`STATUS 500\nAn error has occured: ${err.message}`
-            throw err;
-        }
-
-
+        return await postApi(serverUrl, itemData);
     }
 )
 

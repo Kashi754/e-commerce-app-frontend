@@ -1,5 +1,6 @@
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { getApi } from "../../utilities/fetchApi";
 
 export const loadProductCategories = createAsyncThunk(
     'home/loadProductCategories',
@@ -8,19 +9,7 @@ export const loadProductCategories = createAsyncThunk(
         const port = process.env.REACT_APP_PORT;
         const serverUrl = `http://${uri}:${port}/categories`;
         
-        try {
-            const response = await fetch(serverUrl);
-            if(!response.ok) {
-                const error = await response.json()
-                const message = `STATUS ${response.status}\nAn error has occured: ${error.message}`;
-                throw new Error(message);
-            }
-            const data = await response.json();
-            return data;
-        } catch (err){
-            err.message=`STATUS 500\nAn error has occured: ${err.message}`
-            throw err;
-        }
+        return await getApi(serverUrl);
     }
 )
 

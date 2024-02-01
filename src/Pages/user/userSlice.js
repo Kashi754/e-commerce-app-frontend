@@ -1,5 +1,6 @@
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { getApi, putApi } from "../../utilities/fetchApi";
 
 const uri = process.env.REACT_APP_SERVER_URI;
 const port = process.env.REACT_APP_PORT;
@@ -10,16 +11,24 @@ export const loadUserData = createAsyncThunk(
     async(params) => {       
         const serverUrl = `${urlBase}/users/${params}`;
         
-        const response = await fetch(serverUrl);
-        if(!response.ok) {
-            const error = await response.json();
-            const message = `An error has occured: ${response.status} ${error.message}`;
-            throw new Error(message);
-        }
-        const data = await response.json();
-        return data;
+        return await getApi(serverUrl);
     }
 );
+
+export const editUserData = createAsyncThunk(
+    'user/editUserData',
+    async(user) => {
+        const serverUrl = `${urlBase}/users/${user.id}`
+        const body = {
+            username: user.username,
+            email: user.email,
+            first_name: user.first_name,
+            last_name: user.last_name
+        }
+        console.log(body);
+        return await putApi(serverUrl, body);
+    }
+)
 
 export const login = createAsyncThunk(
     'user/login',
@@ -68,7 +77,6 @@ const userSlice = createSlice({
             first_name: "Terry",
             last_name: "Petersen",
             role: "admin",
-            password_hash: "j23rt0nmq2304jn5t034jt0834hjt3h4t89h348th34t",
             cartId: 1
         },
         serializedUser: {},
@@ -89,6 +97,29 @@ const userSlice = createSlice({
             state.user = data;
         })
         .addCase(loadUserData.rejected, (state, action) => {
+            state.isLoading = false;
+            state.isError = true;
+            state.error = action.error.message;
+        })
+        .addCase(editUserData.pending, (state, action) => {
+            state.isLoading = true;
+            state.isError = false;
+        })
+        .addCase(editUserData.fulfilled, (state, action) => {
+            const {
+                username,
+                email,
+                first_name,
+                last_name
+            } = action.payload;
+            state.isLoading = false;
+            state.isError = false;
+            state.user.username = username;
+            state.user.email = email;
+            state.user.first_name = first_name;
+            state.user.last_name = last_name;
+        })
+        .addCase(editUserData.rejected, (state, action) => {
             state.isLoading = false;
             state.isError = true;
             state.error = action.error.message;
