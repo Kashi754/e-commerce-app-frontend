@@ -1,0 +1,30 @@
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  width: 50vw;
+  background-color: var(--pink);
+  border: var(--border-style);
+  border-radius: 0.5rem;
+}
+
+.order-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.order-section h3 {
+  color: var(--purple);
+}
+
+.order-section h4{
+  font-weight: 400;
+  color: var(--grey);
+}
+
+.order-section a {
+  text-decoration: underline;
+}

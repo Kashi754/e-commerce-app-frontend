@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectProduct, selectIsLoading, selectIsError, selectError, loadProductData } from "./productSlice";
 import { selectUser } from "../user/userSlice";

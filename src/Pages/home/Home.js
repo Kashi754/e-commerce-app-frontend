@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCategories, selectIsLoading, selectIsError, selectError, loadProductCategories } from "./homeSlice";
 import { Link } from "react-router-dom";

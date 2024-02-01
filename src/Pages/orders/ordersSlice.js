@@ -1,28 +1,41 @@
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { getApi } from "../../utilities/fetchApi";
 
 export const loadOrdersData = createAsyncThunk(
     'orders/loadOrdersData',
-    async(params) => {       
+    async() => {       
         const uri = process.env.REACT_APP_SERVER_URI;
         const port = process.env.REACT_APP_PORT;
         const serverUrl = `http://${uri}:${port}/orders`;
         
-        const response = await fetch(serverUrl);
-        if(!response.ok) {
-            const error = await response.json()
-            const message = `An error has occured: ${response.status} ${error.message}`;
-            throw new Error(message);
-        }
-        const data = await response.json();
-        return data;
+        return await getApi(serverUrl);
     }
 )
 
 const ordersSlice = createSlice({
     name: 'orders',
     initialState: {
-        orders: [],
+        orders: [
+            {
+                id: 1,
+                date: '02/24/1989',
+                total: '$100',
+                status: 'delivered'
+            },
+            {
+                id: 2,
+                date: '03/05/1991',
+                total: '$348.99',
+                status: 'canceled'
+            },
+            {
+                id: 3,
+                date: '04/27/2013',
+                total: '$100',
+                status: 'pending'
+            },
+        ],
         isLoading: false,
         isError: false,
         error: null

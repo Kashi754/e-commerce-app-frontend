@@ -1,11 +1,14 @@
 import { Link } from 'react-router-dom';
-import { selectUser, editUserData } from './userSlice';
+import { selectUser, editUserData, selectError, selectIsError, selectIsLoading } from './userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import './user.css';
 
 export function User () {
   const user = useSelector(selectUser);
+  const error = useSelector(selectError);
+  const isError = useSelector(selectIsError);
+  const isLoading = useSelector(selectIsLoading);
   const [ editMode, setEditMode ] = useState(false);
   const [ userToEdit, setUserToEdit ] = useState({
     id: user.id,
@@ -41,6 +44,26 @@ export function User () {
     updatedUser[e.target.name] = e.target.value;
     setUserToEdit({...updatedUser});
   }
+
+  if(isLoading) {
+    return (
+      <div data-testid='loader' className="loader">
+          {<l-quantum
+              size={300}
+              speed={1}
+              color='#000000'
+          />}
+      </div>
+    )
+  }
+
+  // if(isError) {
+  //   return (
+  //       <div className="error">
+  //           <p role='alert'>{error}</p>
+  //       </div>
+  //   )
+  // }
 
   if(!editMode) {
     return (
