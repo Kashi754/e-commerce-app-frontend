@@ -66,7 +66,7 @@ export function Product() {
       <section className="product-infobox">
         <div className="product-info">
           <h4>{product.name}</h4>
-          <h5>{product.price}</h5>
+          <h5>{`$${product.price}`}</h5>
           <figure className="description">
             {product.description}
             <figcaption className="quantity">Quantity in stock: {product.qty_in_stock}</figcaption>

@@ -19,7 +19,7 @@ const productSlice = createSlice({
         product: {
             id: 1, 
             name: 'bag', 
-            price: "$13.59",
+            price: 13.59,
             description: "Classic Monogram Embroidery Font & Personalized Gifts:Each personalized gifts bag is individual using a high thread density monogram in a classic font. Allowing you to give your Gifts a personal touch.So the monogrammed initial canvas tote bag could be as a great for women gift, mom gift, teacher gift, boss gift, coworker retirement gift, bride gift, hostess gift, friend gift, employee gift. Also, the monogrammed tote bags can be an adorable way to thank bridesmaids, mother of the bride.",
             qty_in_stock: 34
         },

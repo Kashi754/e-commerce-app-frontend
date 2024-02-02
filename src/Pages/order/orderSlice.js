@@ -19,12 +19,12 @@ const orderSlice = createSlice({
         order: {
             id: 1,
             date: '02/01/2024',
-            total: '$130.06',
+            total: 130.06,
             status: 'delivered',
             products: [
-                {id: 1, name: 'bag', price: "$13.59", qty: 2},
-                {id: 2, name: 'tool', price: "$19.99", qty: 1},
-                {id: 3, name: 'watch', price: "$27.63", qty: 3},
+                {id: 1, name: 'bag', price: 13.59, qty: 2},
+                {id: 2, name: 'tool', price: 19.99, qty: 1},
+                {id: 3, name: 'watch', price: 27.63, qty: 3},
             ],
             shipping_address: {
                 addr_line_1: '117 Harrington Rd',

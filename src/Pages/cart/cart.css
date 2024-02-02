@@ -1,0 +1,156 @@
+.cart {
+  align-items: center;
+}
+
+.cart-card {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  width: 50vw;
+  background-color: var(--pink);
+  border: var(--border-style);
+  border-radius: 0.5rem;
+  gap: 0.75rem;
+}
+
+.cart-card h2 {
+  background-color: var(--purple);
+  padding: 1rem;
+  text-align: center;
+  font-size: 1.5rem;
+  color: var(--pink);
+  border-radius: 0.5rem;
+}
+
+.cart-product {
+  width: 100%;
+  background-color: var(--pink);
+  border: 2px solid var(--purple);
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  box-sizing: border-box;
+  text-transform: capitalize;
+  border-radius: 0.5rem;
+  color: var(--purple);
+}
+
+.cart-product-card {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.cart-product-card img {
+  width: clamp(75px, 5vw, 150px);
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border: 2px solid var(--purple);
+  border-radius: 0.5rem;
+}
+
+.checkout-button {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  color: var(--pink);
+  background-color: var(--purple);
+  border-radius: 0.5rem;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  font-size: 0.75rem;
+  width: 50%;
+  justify-self: center;
+  box-sizing: border-box;
+}
+
+.checkout-button:hover {
+  background-color: var(--pink);
+  border: 2px solid var(--purple);
+  color: var(--purple);
+}
+
+.checkout-button:active {
+  padding: 0.4rem;
+}
+
+.cart-product-field {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cart-product-field label {
+  font-weight: bold;
+}
+
+.cart-product-field input {
+  width: 4rem;
+  padding-left: 0.25rem;
+  height: 1.5rem;
+  font-size: 1.25rem;
+  line-height: 0;
+  box-sizing: border-box;
+  border: 2px solid var(--purple);
+  border-radius: 0.5rem;
+}
+
+.cart-product-field h6 {
+  font-size: 0.75rem;
+}
+
+.cart-product-field button {
+  border-radius: 50%;
+  padding: 0.5em;
+  width: 20px;
+  height: 20px;
+  border: 2px solid red;
+  background-color: var(--pink);
+  color: red;
+  position: relative;
+}
+
+.cart-product-field button:hover {
+  border: 2px solid red;
+  background-color: yellow;
+  color: #ffffff;
+}
+
+.cart-product-field button::before {
+  content: " ";
+  position: absolute;
+  display: block;
+  background-color: red;
+  width: 2px;
+  left: 7px;
+  top: 2px;
+  bottom: 2px;
+  transform: rotate(45deg);
+  transition: transform .5s ease-in-out;  
+}
+
+.cart-product-field button::after {
+  content: " ";
+  position: absolute;
+  display: block;
+  background-color: red;
+  height: 2px;
+  top:7px;
+  left: 2px;
+  right: 2px;
+  transform: rotate(45deg);
+  transition: transform .5s ease-in-out;  
+}
+
+.cart-product-field button:hover::before {
+  transform: rotate(135deg);
+}
+
+.cart-product-field button:hover::after {
+  transform: rotate(135deg);
+}

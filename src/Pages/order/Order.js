@@ -1,7 +1,7 @@
 import { loadOrderData, selectError, selectIsError, selectIsLoading, selectOrder } from "./orderSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import './order.css';
 
 export function Order() {
@@ -11,9 +11,10 @@ export function Order() {
   const error = useSelector(selectError);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    dispatch(loadOrderData());
+    dispatch(loadOrderData(location.pathname));
   }, [dispatch]);
 
   if(isLoading) {
@@ -45,7 +46,7 @@ export function Order() {
         </div>
         <div className="order-section">
           <h3>TOTAL</h3>
-          <h4>{order.total}</h4>
+          <h4>`$${order.total}`</h4>
         </div>
         <div className="order-section">
           <h3>ORDER STATUS</h3>
@@ -64,7 +65,7 @@ export function Order() {
         <h3><span className="label">State: </span>{order.shipping_address.state}</h3>
         <h3><span className="label">Zip: </span>{order.shipping_address.zip_code}</h3>
       </section>
-      <section className="order-card order-products">
+      <section className="order-card">
         <h2>Ordered Items</h2>
         {
           order.products.map((product) => {
@@ -75,16 +76,16 @@ export function Order() {
                   <h4 className="product-info">{product.name}</h4>
                 </div>
                 <h5 className="product-info">{`Qty: ${product.qty}`}</h5>
-                <h5 className="product-info">{product.price}</h5>
+                <h5 className="product-info">{`$${product.price}`}</h5>
               </Link>
             );
           })
         }
         <div className='button-container'>
-              <button type="button" onClick={() => navigate('/orders')}>
-                Back to Orders
-              </button>
-            </div>
+          <button type="button" onClick={() => navigate('/orders')}>
+            Back to Orders
+          </button>
+        </div>
       </section>
     </main>
   );
