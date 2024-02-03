@@ -11,6 +11,10 @@ import { Products } from '../Pages/products/Products';
 import { Registration } from '../Pages/registration/Registration';
 import { User } from '../Pages/user/User';
 import { createRoutesFromElements, Route } from 'react-router-dom';
+import { loadStripe } from '@stripe/stripe-js';
+
+const stripeApiKey = process.env.REACT_APP_STRIPE_PROMISE;
+export const stripePromise = loadStripe(stripeApiKey);
 
 function App() {
   const routes = createRoutesFromElements(

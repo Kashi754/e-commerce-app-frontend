@@ -1,0 +1,13 @@
+.checkout {
+  align-items: center;
+}
+
+.checkout h2 {
+  background-color: var(--purple);
+  padding: 1rem;
+  text-align: center;
+  font-size: 1.5rem;
+  color: var(--pink);
+  border-radius: 0.5rem;
+}
+
