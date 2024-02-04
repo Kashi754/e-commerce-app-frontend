@@ -20,7 +20,7 @@ export function Header() {
   return (
     <header className="header">
       <Link className="logo-container" to={''}>
-          <img className='logo' src='/images/shopping-logo.png' alt='e-commerce-app logo' />
+          <img className='logo' src={`/images/shopping-logo.png`} alt='e-commerce-app logo' />
       </Link>
       <SearchBar search={search} setSearch={setSearch} handleSubmit={handleSearch} />
       <UserInfo />

@@ -11,7 +11,7 @@ export function UserCart() {
 
   return (
     <Link className="user-cart" to={'/cart'}>
-      <h3 className="price">${cartPrice}</h3>
+      <h3 className="price">{cartPrice}</h3>
       <h4 className="cart-qty">{cartQuantity}</h4>
       <FontAwesomeIcon className="cart-icon" icon={faCartShopping} />
     </Link>

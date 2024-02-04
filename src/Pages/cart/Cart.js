@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import { 
-  loadCartData,  
   editCartItem, 
   deleteCartItem, 
   selectCart, 
@@ -21,26 +20,24 @@ export function Cart () {
   const isError = useSelector(selectIsError);
   const error = useSelector(selectError);
   const totalPrice = useSelector(selectPrice);
-  const location = useLocation();
-  const cartId = location.pathname;
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
-  useEffect(() => {
-    dispatch(loadCartData);
-  }, [dispatch]);
 
   function handleChange(e, productId) {
-    dispatch(editCartItem({
-      cartId,
-      productId, 
-      qty: e.target.value
-    }));
+    if(e.target.value === "0") {
+      console.log(e.target.value);
+      dispatch(deleteCartItem({productId}));
+    } else {
+      dispatch(editCartItem({
+        productId, 
+        qty: e.target.value
+      }));
+    }
   }
 
   function handleClick(e, productId) {
+    e.preventDefault();
     dispatch(deleteCartItem({
-      cartId,
       productId
     }));
   }
@@ -53,17 +50,17 @@ export function Cart () {
     dispatch(setIsHovering({productId, isHovering: false}));
   }
 
-  if(isLoading) {
-    return (
-      <div data-testid='loader' className="loader">
-          {<l-quantum
-              size={300}
-              speed={1}
-              color='#000000'
-          />}
-      </div>
-    )
-  }
+  // if(isLoading) {
+  //   return (
+  //     <div data-testid='loader' className="loader">
+  //         {<l-quantum
+  //             size={300}
+  //             speed={1}
+  //             color='#000000'
+  //         />}
+  //     </div>
+  //   )
+  // }
 
   // if(isError) {
   //   return (
@@ -78,7 +75,7 @@ export function Cart () {
     <main className="cart">
       <form className="cart-card">
         <h2>Cart Items</h2>
-        {
+        { cart.length > 0 &&
           cart.map((product) => {
             return (
               <fieldset key={product.id} className="cart-product">
@@ -86,7 +83,7 @@ export function Cart () {
                   <img src={`/images/products/${product.id}.jpg`} alt={product.name} />
                   <h4 className="cart-product-info">{product.name}</h4>
                 </Link>
-                <h5 className="cart-product-info">{`$${product.price}`}</h5>
+                <h5 className="cart-product-info">{`${product.price}`}</h5>
                 <div className="cart-product-field">
                   <label className="product-info" htmlFor={product.id}>qty: </label>
                   <input
@@ -109,12 +106,20 @@ export function Cart () {
             )
           })
         }
+        { cart.length < 1 &&
+          <h5 className="cart-product-info">NOTHING IN CART</h5>
+        }
         <div className="order-section">
-          <h3>CART TOTAL: ${totalPrice}</h3>
+          <h3>CART TOTAL: {totalPrice}</h3>
         </div>
 
         <div className="button-container">
-          <button type="button" className="checkout-button" onClick={() => navigate('/checkout')}>
+          <button 
+            type="button" 
+            className={cart.length > 0 ? "checkout-button" : "disabled-checkout-button"} 
+            onClick={() => navigate('/checkout')} 
+            disabled={cart.length < 1}
+          >
             Go to Checkout
           </button>
         </div>

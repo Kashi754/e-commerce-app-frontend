@@ -2,6 +2,32 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getApi } from "../../utilities/fetchApi";
 
+const initialState = {
+    orders: [
+        {
+            id: 1,
+            date: '02/24/1989',
+            total: '$100',
+            status: 'delivered'
+        },
+        {
+            id: 2,
+            date: '03/05/1991',
+            total: '$348.99',
+            status: 'canceled'
+        },
+        {
+            id: 3,
+            date: '04/27/2013',
+            total: '$100',
+            status: 'pending'
+        },
+    ],
+    isLoading: false,
+    isError: false,
+    error: null
+};
+
 export const loadOrdersData = createAsyncThunk(
     'orders/loadOrdersData',
     async() => {       
@@ -16,26 +42,7 @@ export const loadOrdersData = createAsyncThunk(
 const ordersSlice = createSlice({
     name: 'orders',
     initialState: {
-        orders: [
-            {
-                id: 1,
-                date: '02/24/1989',
-                total: '$100',
-                status: 'delivered'
-            },
-            {
-                id: 2,
-                date: '03/05/1991',
-                total: '$348.99',
-                status: 'canceled'
-            },
-            {
-                id: 3,
-                date: '04/27/2013',
-                total: '$100',
-                status: 'pending'
-            },
-        ],
+        orders: [],
         isLoading: false,
         isError: false,
         error: null
@@ -66,7 +73,7 @@ const ordersSlice = createSlice({
         .addCase(loadOrdersData.rejected, (state, action) => {
             state.isLoading = false;
             state.isError = true;
-            state.error = action.error.message;
+            state.error = action.error;
         })
     }
 });

@@ -6,7 +6,7 @@
   gap: 0.5rem;
   justify-content: center;
   align-items: center;
-  width: 6rem;
+  width: min-content;
   height: 2.5rem;
   background-color: rgb(239, 188, 255);
   border: 2px solid rgb(78, 78, 78);

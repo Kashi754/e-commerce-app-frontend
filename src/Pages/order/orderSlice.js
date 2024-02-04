@@ -2,6 +2,30 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getApi } from "../../utilities/fetchApi";
 
+const initialState = {
+    order: {
+        id: 1,
+        date: '02/01/2024',
+        total: 130.06,
+        status: 'delivered',
+        products: [
+            {id: 1, name: 'bag', price: 13.59, qty: 2},
+            {id: 2, name: 'tool', price: 19.99, qty: 1},
+            {id: 3, name: 'watch', price: 27.63, qty: 3},
+        ],
+        shipping_address: {
+            addr_line_1: '117 Harrington Rd',
+            addr_line_2: null,
+            city: 'Newport News',
+            state: 'VA',
+            zip_code: 23602
+        }
+    },
+    isLoading: false,
+    isError: false,
+    error: null
+};
+
 export const loadOrderData = createAsyncThunk(
     'order/loadOrderData',
     async(orderId) => {       
@@ -16,24 +40,7 @@ export const loadOrderData = createAsyncThunk(
 const orderSlice = createSlice({
     name: 'order',
     initialState: {
-        order: {
-            id: 1,
-            date: '02/01/2024',
-            total: 130.06,
-            status: 'delivered',
-            products: [
-                {id: 1, name: 'bag', price: 13.59, qty: 2},
-                {id: 2, name: 'tool', price: 19.99, qty: 1},
-                {id: 3, name: 'watch', price: 27.63, qty: 3},
-            ],
-            shipping_address: {
-                addr_line_1: '117 Harrington Rd',
-                addr_line_2: null,
-                city: 'Newport News',
-                state: 'VA',
-                zip_code: 23602
-            }
-        },
+        order: {},
         isLoading: false,
         isError: false,
         error: null
@@ -64,7 +71,7 @@ const orderSlice = createSlice({
         .addCase(loadOrderData.rejected, (state, action) => {
             state.isLoading = false;
             state.isError = true;
-            state.error = action.error.message;
+            state.error = action.error;
         })
     }
 });

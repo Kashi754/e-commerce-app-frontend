@@ -1,18 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
+import unformat from 'accounting-js/lib/unformat';
 import { 
-  loadCartData,  
-  editCartItem, 
-  deleteCartItem, 
   selectCart, 
   selectPrice, 
   selectIsLoading, 
   selectIsError, 
   selectError,
-  checkoutCart
 } from "../cart/cartSlice";
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router";
-import { Link } from "react-router-dom";
 import { Elements } from '@stripe/react-stripe-js';
 import { stripePromise } from "../../app/App";
 import { CheckoutProductCard } from "../../Components/checkoutProductCard/CheckoutProductCard";
@@ -26,25 +21,22 @@ export function Checkout () {
   const error = useSelector(selectError);
   const totalPrice = useSelector(selectPrice);
   const [ clientSecret, setClientSecret ] = useState(null);
-  const location = useLocation();
-  const cartId = location.pathname;
   const dispatch = useDispatch();
 
   const uri = process.env.REACT_APP_SERVER_URI;
   const port = process.env.REACT_APP_PORT;
 
   useEffect(() => {
-    fetch(`http://${uri}:${port}/secret?total=${totalPrice}`)
+    fetch(`http://${uri}:${port}/secret?total=${unformat(totalPrice)}`, {
+      method: 'GET',
+      credentials: 'include'
+    })
       .then(response => response.json())
       .then(data => {
         const {client_secret: clientSecret} = data;
         setClientSecret(clientSecret);
       });
   }, [uri, port, totalPrice])
-  
-  useEffect(() => {
-    dispatch(loadCartData);
-  }, [dispatch]);
 
   const options = {
     clientSecret: clientSecret,
@@ -71,6 +63,9 @@ export function Checkout () {
   //       </div>
   //   )
   // }
+  if(!clientSecret) {
+    return null;
+  }
 
 
   return (

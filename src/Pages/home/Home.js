@@ -40,7 +40,7 @@ export function Home() {
   return (
     <main className="categories">
       <Link className="category-tile" to={`/products`}>
-            <img src='/images/categories/all_products.jpg' alt='all products' />
+            <img src={`/images/categories/all_products.jpg`} alt='all products' />
             <h4>all products</h4>
           </Link>
       {categories.map(category => {

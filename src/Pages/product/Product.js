@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectProduct, selectIsLoading, selectIsError, selectError, loadProductData } from "./productSlice";
-import { selectUser } from "../user/userSlice";
 import { addCartItem } from "../cart/cartSlice";
 import { useLocation } from "react-router-dom";
 import { AddCart } from "../../Components/addCart/AddCart";
@@ -13,25 +12,19 @@ export function Product() {
   const isLoading = useSelector(selectIsLoading);
   const isError = useSelector(selectIsError);
   const error = useSelector(selectError);
-  const user = useSelector(selectUser);
   const product = useSelector(selectProduct);
   const dispatch = useDispatch();
-  const location = useLocation;
-  const [ quantity, setQuantity ] = useState(0);
+  const location = useLocation();
+  const [ quantity, setQuantity ] = useState(1);
 
   useEffect(() => {
     dispatch(loadProductData(location.pathname));
   }, [dispatch, location]);
 
-  useEffect(() => {
-    console.log(quantity);
-  }, [quantity]);
-
   function handleSubmit(e) {
     e.preventDefault();
     if (quantity > 0) {
       dispatch(addCartItem({
-        cartId: user.cartId,
         productId: product.id,
         qty: quantity
       }));
@@ -78,7 +71,7 @@ export function Product() {
             handleSubmit={handleSubmit} 
             qty={quantity}
             setQty={setQuantity} 
-            quantity={product.qty_in_stock} 
+            quantityInStock={product.qty_in_stock} 
           /> :
           <h3 className="stock-shortage">Out of stock</h3>
         }

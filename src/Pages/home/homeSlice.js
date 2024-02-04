@@ -2,12 +2,24 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getApi } from "../../utilities/fetchApi";
 
+const initialState = {
+    categories: [
+        {id: 1, name: 'electronics'},
+        {id: 2, name: 'toiletries'},
+        {id: 3, name: 'tools'},
+        {id: 4, name: 'outdoor'},
+    ],
+    isLoading: false,
+    isError: false,
+    error: null
+};
+
 export const loadProductCategories = createAsyncThunk(
     'home/loadProductCategories',
     async() => {       
         const uri = process.env.REACT_APP_SERVER_URI;
         const port = process.env.REACT_APP_PORT;
-        const serverUrl = `http://${uri}:${port}/categories`;
+        const serverUrl = `http://${uri}:${port}/products/categories`;
         
         return await getApi(serverUrl);
     }
@@ -16,12 +28,7 @@ export const loadProductCategories = createAsyncThunk(
 const homeSlice = createSlice({
     name: 'home',
     initialState: {
-        categories: [
-            {id: 1, name: 'electronics'},
-            {id: 2, name: 'toiletries'},
-            {id: 3, name: 'tools'},
-            {id: 4, name: 'outdoor'},
-        ],
+        categories: [],
         isLoading: false,
         isError: false,
         error: null
@@ -41,7 +48,7 @@ const homeSlice = createSlice({
         .addCase(loadProductCategories.rejected, (state, action) => {
             state.isLoading = false;
             state.isError = true;
-            state.error = action.error.message;
+            state.error = action.error;
         })
     }
 });

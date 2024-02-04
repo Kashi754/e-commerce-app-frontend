@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { selectUser, editUserData, selectError, selectIsError, selectIsLoading } from './userSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './user.css';
 
 export function User () {

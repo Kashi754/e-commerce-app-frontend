@@ -69,6 +69,21 @@
   box-sizing: border-box;
 }
 
+.disabled-checkout-button {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  color: rgb(239, 188, 255);
+  background-color: rgba(114, 1, 180, 0.50);
+  border-radius: 0.5rem;
+  font-weight: bold;
+  border: none;
+  cursor: 'not-allowed';
+  font-size: 0.75rem;
+  width: 50%;
+  justify-self: center;
+  box-sizing: border-box;
+}
+
 .checkout-button:hover {
   background-color: var(--pink);
   border: 2px solid var(--purple);

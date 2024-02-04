@@ -2,6 +2,20 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getApi } from "../../utilities/fetchApi";
 
+const initialState = {
+    products: [
+        {id: 1, name: 'bag', price: "$13.59"},
+        {id: 2, name: 'tool', price: "$19.99"},
+        {id: 3, name: 'watch', price: "$27.63"},
+        {id: 4, name: 'toy', price: "$13.98"},
+        {id: 5, name: 'toiletries', price: "$13.99"},
+        {id: 6, name: 'projector', price: "$194.98"},
+    ],
+    isLoading: false,
+    isError: false,
+    error: null
+};
+
 export const loadProductsData = createAsyncThunk(
     'products/loadProductsData',
     async(params) => {
@@ -17,14 +31,7 @@ export const loadProductsData = createAsyncThunk(
 const productsSlice = createSlice({
     name: 'products',
     initialState: {
-        products: [
-            {id: 1, name: 'bag', price: "$13.59"},
-            {id: 2, name: 'tool', price: "$19.99"},
-            {id: 3, name: 'watch', price: "$27.63"},
-            {id: 4, name: 'toy', price: "$13.98"},
-            {id: 5, name: 'toiletries', price: "$13.99"},
-            {id: 6, name: 'projector', price: "$194.98"},
-        ],
+        products: [],
         isLoading: false,
         isError: false,
         error: null
@@ -55,7 +62,7 @@ const productsSlice = createSlice({
         .addCase(loadProductsData.rejected, (state, action) => {
             state.isLoading = false;
             state.isError = true;
-            state.error = action.error.message;
+            state.error = action.error;
         })
     }
 });

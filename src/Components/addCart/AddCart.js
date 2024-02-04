@@ -5,7 +5,7 @@ export function AddCart(props) {
     handleSubmit,
     qty,
     setQty,
-    quantity
+    quantityInStock
   } = props;
 
   return (
@@ -19,8 +19,8 @@ export function AddCart(props) {
           onChange={e => setQty(e.target.value)}
         >
           {
-            [...Array(quantity + 1)].map((_, i) => {
-              return <option key={i} value={i}>{i}</option>
+            [...Array(quantityInStock + 1)].map((_, i) => {
+              if (i !== 0) return (<option key={i} value={i}>{i}</option>)
             })
           }
         </select>

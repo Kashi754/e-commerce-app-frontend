@@ -6,10 +6,27 @@ const uri = process.env.REACT_APP_SERVER_URI;
 const port = process.env.REACT_APP_PORT;
 const urlBase = `http://${uri}:${port}`;
 
+const initialState = {
+    user: {
+        id: 1,
+        username: "kashi754",
+        email: "arigorn15@gmail.com",
+        first_name: "Terry",
+        last_name: "Petersen",
+        role: "admin",
+        cartId: 1
+    },
+    isLoggedIn: true,
+    serializedUser: {},
+    isLoading: false,
+    isError: false,
+    error: null
+};
+
 export const loadUserData = createAsyncThunk(
     'user/loadUserData',
-    async(params) => {       
-        const serverUrl = `${urlBase}/users/${params}`;
+    async() => {       
+        const serverUrl = `${urlBase}/users/`;
         
         return await getApi(serverUrl);
     }
@@ -25,7 +42,6 @@ export const editUserData = createAsyncThunk(
             first_name: user.first_name,
             last_name: user.last_name
         }
-        console.log(body);
         return await putApi(serverUrl, body);
     }
 )
@@ -36,6 +52,7 @@ export const login = createAsyncThunk(
         const serverUrl = `${urlBase}/login`;
         const response = await fetch(serverUrl, {
             method: "POST",
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -55,31 +72,24 @@ export const logout = createAsyncThunk(
     async() => {
         const serverUrl = `${urlBase}/logout`;
 
-        const response = await fetch(serverUrl);
+        const response = await fetch(serverUrl, {
+            method: 'GET',
+            credentials: 'include'
+        });
         if(!response.ok) {
             const error = await response.json();
             const message = `An error has occured: ${response.status} ${error.message}`;
             throw new Error(message);
         }
-        const data = await response.json();
-        return data;
+        return;
     }
 );
 
 const userSlice = createSlice({
     name: 'user',
     initialState: {
-        isLoggedIn: true,
-        user: {
-            id: 1,
-            username: "kashi754",
-            email: "arigorn15@gmail.com",
-            first_name: "Terry",
-            last_name: "Petersen",
-            role: "admin",
-            cartId: 1
-        },
-        serializedUser: {},
+        user: {},
+        isLoggedIn: false,
         isLoading: false,
         isError: false,
         error: null
@@ -89,21 +99,25 @@ const userSlice = createSlice({
         .addCase(loadUserData.pending, (state, action) => {
             state.isLoading = true;
             state.isError = false;
+            state.error = null;
         })
         .addCase(loadUserData.fulfilled, (state, action) => {
             const data = action.payload;
             state.isLoading = false;
             state.isError = false;
+            state.error = null;
             state.user = data;
+            state.isLoggedIn = true;
         })
         .addCase(loadUserData.rejected, (state, action) => {
             state.isLoading = false;
             state.isError = true;
-            state.error = action.error.message;
+            state.error = action.error;
         })
         .addCase(editUserData.pending, (state, action) => {
             state.isLoading = true;
             state.isError = false;
+            state.error = null;
         })
         .addCase(editUserData.fulfilled, (state, action) => {
             const {
@@ -118,46 +132,53 @@ const userSlice = createSlice({
             state.user.email = email;
             state.user.first_name = first_name;
             state.user.last_name = last_name;
+            state.error = null;
         })
         .addCase(editUserData.rejected, (state, action) => {
             state.isLoading = false;
             state.isError = true;
-            state.error = action.error.message;
+            state.error = action.error;
+            console.log('editing user data failed');
         })
         .addCase(logout.pending, (state, action) => {
             state.isLoading = true;
             state.isError = false;
+            state.error = null;
         })
         .addCase(logout.fulfilled, (state, action) => {
             state.isLoading = false;
             state.isError = false;
             state.isLoggedIn = false;
-            state.user = {};
+            state.error = null;
+            state.error = null;
+            // state.user = {};
         })
         .addCase(logout.rejected, (state, action) => {
             state.isLoading = false;
             state.isError = true;
             state.isLoggedIn = false;
-            state.user = {};
-            state.error = action.error.message;
+            // state.user = {};
+            state.error = action.error;
+            console.log('logout user failed');
         })
         .addCase(login.pending, (state, action) => {
             state.isLoading = true;
             state.isError = false;
             state.isLoggedIn = false;
+            state.error = null;
         })
         .addCase(login.fulfilled, (state, action) => {
             const data = action.payload;
             state.isLoading = false;
             state.isError = false;
             state.isLoggedIn = true;
-            state.serializedUser = data;
+            state.user = data;
+            state.error = null;
         })
     }
 });
 
 export const selectUser = (state) => state.user.user;
-export const selectSerializedUser = (state) => state.user.serializedUser;
 export const selectIsLoggedIn = (state) => state.user.isLoggedIn;
 export const selectIsLoading = (state) => state.user.isLoading;
 export const selectIsError = (state) => state.user.isError;
