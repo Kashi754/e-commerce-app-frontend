@@ -14,8 +14,7 @@ import { User } from '../Pages/user/User';
 import { createRoutesFromElements, Route } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
 
-const stripeApiKey = process.env.REACT_APP_STRIPE_PROMISE;
-export const stripePromise = loadStripe(stripeApiKey);
+export const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PROMISE);
 
 function App() {
   const routes = createRoutesFromElements(

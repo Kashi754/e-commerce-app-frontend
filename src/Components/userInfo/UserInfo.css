@@ -20,12 +20,12 @@
   cursor: pointer;
   text-decoration: underline;
   font-size: 0.75rem;
-  color: rgb(60, 60, 60);
+  color: var(--purple);
 }
 
 .logout-button:hover {
   text-decoration: none;
-  color: rgba(255, 0, 0, 0.322);
+  color: var(--grey);
 }
 
 .login-button {

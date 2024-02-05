@@ -2,8 +2,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getApi, postApi, putApi, deleteApi } from "../../utilities/fetchApi";
 
-const uri = process.env.REACT_APP_SERVER_URI;
-const port = process.env.REACT_APP_PORT;
+const url = process.env.REACT_APP_SERVER_URL;
 
 const initialState = {
     cart: [
@@ -21,7 +20,7 @@ const initialState = {
 export const loadCartData = createAsyncThunk(
     'cart/loadCartData',
     async() => {    
-        const serverUrl = `http://${uri}:${port}/cart/`;
+        const serverUrl = `http://${url}/cart/`;
         
         return await getApi(serverUrl);
     }
@@ -40,7 +39,7 @@ export const addCartItem = createAsyncThunk(
             qty
         };
 
-        const serverUrl = `http://${uri}:${port}/cart/`;
+        const serverUrl = `http://${url}/cart/`;
 
         return await postApi(serverUrl, itemData);
     }
@@ -59,7 +58,7 @@ export const editCartItem = createAsyncThunk(
             qty
         };
 
-        const serverUrl = `http://${uri}:${port}/cart/`;
+        const serverUrl = `http://${url}/cart/`;
 
         return await putApi(serverUrl, itemData);
     }
@@ -72,24 +71,20 @@ export const deleteCartItem = createAsyncThunk(
             productId
         } = params;
 
-        const serverUrl = `http://${uri}:${port}/cart/?product_id=${productId}`;
+        const serverUrl = `http://${url}/cart/`;
 
         return await deleteApi(serverUrl);
     }
 )
 
-// export const checkoutCart = createAsyncThunk(
-//     'cart/checkoutCart',
-//     async(params) => {
-//         const {
-//             checkoutInfo
-//         } = params;
+export const checkoutCart = createAsyncThunk(
+    'cart/checkoutCart',
+    async(body) => {
+        const serverUrl = `http://${url}/cart/checkout`;
 
-//         const serverUrl = `http://${uri}:${port}/cart/${cartId}/checkout`;
-
-//         return await postApi(serverUrl, checkoutInfo);
-//     }
-// )
+        return await postApi(serverUrl, body);
+    }
+)
 
 const cartSlice = createSlice({
     name: 'cart',
@@ -198,27 +193,25 @@ const cartSlice = createSlice({
             state.isError = true;
             state.error = action.error;
         })
-        // .addCase(checkoutCart.pending, (state, action) => {
-        //     state.isLoading = true;
-        //     state.isError = false;
-        //     state.error = null;
-        // })
-        // .addCase(checkoutCart.fulfilled, (state, action) => {
-        //     const data = action.payload;
-        //     state.isLoading = false;
-        //     state.isError = false;
-        //     state.error = null;
-        //     data.products.forEach(item => item.isHovering = false);
-        //     state.cart = data;
-        //     state.qty = data.map(item => item.qty).reduce((acc, val) => acc + val);
-        //     state.totalPrice = data.map(item => item.price * item.qty).reduce((acc, val) => acc + val);
-        // })
-        // .addCase(checkoutCart.rejected, (state, action) => {
-        //     state.isLoading = false;
-        //     state.isError = true;
-        //     state.error = action.error;
-        //     state.error = null;
-        // })
+        .addCase(checkoutCart.pending, (state, action) => {
+            state.isLoading = true;
+            state.isError = false;
+            state.error = null;
+        })
+        .addCase(checkoutCart.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.isError = false;
+            state.error = null;
+            state.cart = [];
+            state.qty = 0;
+            state.totalPrice = "$0.00";
+        })
+        .addCase(checkoutCart.rejected, (state, action) => {
+            state.isLoading = false;
+            state.isError = true;
+            state.error = action.error;
+            state.error = null;
+        })
     }
 });
 

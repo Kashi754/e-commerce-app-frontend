@@ -1,12 +1,16 @@
-import {useState, useEffect} from 'react';
-import {useStripe} from '@stripe/react-stripe-js';
+import { useState, useEffect } from 'react';
+import { useStripe } from '@stripe/react-stripe-js';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { postApi } from '../../utilities/fetchApi';
+import { checkoutCart } from '../../Pages/cart/cartSlice';
+import { useDispatch } from 'react-redux';
 
 export function PaymentStatus() {
   const stripe = useStripe();
   const [message, setMessage] = useState(null);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!stripe) {
@@ -16,7 +20,6 @@ export function PaymentStatus() {
     // Retrieve the "payment_intent_client_secret" query parameter appended to
     // your return_url by Stripe.js
     const clientSecret = searchParams.get('payment_intent_client_secret');
-
     // Retrieve the PaymentIntent
     stripe
       .retrievePaymentIntent(clientSecret)
@@ -28,12 +31,30 @@ export function PaymentStatus() {
         // confirmation, while others will first enter a `processing` state.
         //
         // [0]: https://stripe.com/docs/payments/payment-methods#payment-notification
+        let body;
+
         switch (paymentIntent.status) {
           case 'succeeded':
+            body = {
+              payment_intent: paymentIntent.id,
+              payment_status: paymentIntent.status,
+              shipping_address: paymentIntent.shipping.address,
+              shipping_method: paymentIntent.shipping.carrier || 'none'
+            }
+
+            dispatch(checkoutCart(body));
             setMessage('Success! Payment received.');
             break;
 
           case 'processing':
+            body = {
+              payment_intent: paymentIntent.id,
+              payment_status: paymentIntent.status,
+              shipping_address: paymentIntent.shipping.address,
+              shipping_method: paymentIntent.shipping.carrier || 'none'
+            }
+
+            dispatch(checkoutCart(body));
             setMessage("Payment processing. We'll update you when payment is received.");
             break;
 
@@ -48,9 +69,10 @@ export function PaymentStatus() {
             setMessage('Something went wrong.');
             break;
         }
+        setMessage(JSON.stringify(paymentIntent, null, 2));
       });
-  }, [stripe, searchParams]);
+  }, [dispatch, navigate, stripe, searchParams]);
 
 
-  return message;
+  return (<pre>{message}</pre>);
 };

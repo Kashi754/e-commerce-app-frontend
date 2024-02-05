@@ -2,9 +2,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getApi, putApi } from "../../utilities/fetchApi";
 
-const uri = process.env.REACT_APP_SERVER_URI;
-const port = process.env.REACT_APP_PORT;
-const urlBase = `http://${uri}:${port}`;
+const url = process.env.REACT_APP_SERVER_URL;
+const urlBase = `http://${url}`;
 
 const initialState = {
     user: {

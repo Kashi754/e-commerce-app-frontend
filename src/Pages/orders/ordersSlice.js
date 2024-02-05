@@ -31,9 +31,8 @@ const initialState = {
 export const loadOrdersData = createAsyncThunk(
     'orders/loadOrdersData',
     async() => {       
-        const uri = process.env.REACT_APP_SERVER_URI;
-        const port = process.env.REACT_APP_PORT;
-        const serverUrl = `http://${uri}:${port}/orders`;
+        const url = process.env.REACT_APP_SERVER_URl;
+        const serverUrl = `http://${url}/orders`;
         
         return await getApi(serverUrl);
     }

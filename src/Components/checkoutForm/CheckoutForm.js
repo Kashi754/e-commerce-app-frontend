@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {useStripe, useElements, PaymentElement, AddressElement} from '@stripe/react-stripe-js';
+import './checkoutForm.css';
 
 export function CheckoutForm() {
   const stripe = useStripe();
@@ -8,7 +9,7 @@ export function CheckoutForm() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [address, setAddress] = useState(null);
 
-  const url = process.env.REACT_APP_URI;
+  const url = process.env.REACT_APP_URL;
   const protocol = process.env.NODE_ENV === 'development'? 'http' : 'https';
 
   const handleSubmit = async (event) => {
@@ -22,7 +23,7 @@ export function CheckoutForm() {
       return;
     }
 
-    const {error} = await stripe.confirmPayment({
+    const response = await stripe.confirmPayment({
       //`Elements` instance that was used to create the Payment Element
       elements,
       confirmParams: {
@@ -31,11 +32,11 @@ export function CheckoutForm() {
     });
 
 
-    if (error) {
+    if (response.error) {
       // This point will only be reached if there is an immediate error when
       // confirming the payment. Show error to your customer (for example, payment
       // details incomplete)
-      setErrorMessage(error.message);
+      setErrorMessage(response.error.message);
     } else {
       // Your customer will be redirected to your `return_url`. For some payment
       // methods like iDEAL, your customer will be redirected to an intermediate
@@ -44,8 +45,10 @@ export function CheckoutForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className='checkout-form' onSubmit={handleSubmit}>
+      <h5>Shipping Address:</h5>
       <AddressElement options={{mode: 'shipping', allowedCountries: ['US']}} onChange={(event) => setAddress(event.value)} />
+      <h5>Payment Details:</h5>
       <PaymentElement />
       <button type="submit" className="checkout-button" disabled={!stripe}>
         Submit Payment

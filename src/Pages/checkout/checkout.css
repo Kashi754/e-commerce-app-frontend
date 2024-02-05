@@ -11,3 +11,15 @@
   border-radius: 0.5rem;
 }
 
+.link {
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: 1rem;
+  color: var(--purple);
+}
+
+.link:hover {
+  color: var(--grey);
+  text-decoration: none;
+}
+

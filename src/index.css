@@ -1,9 +1,9 @@
 :root {
-  --grey: rgb(50, 50, 50);
-  --pink: rgb(239, 188, 255);
-  --purple: rgb(114, 1, 180);
-  --purple-placeholder: rgb(181, 53, 255);
-  --border-style: 2px solid rgb(78, 78, 78);
+  --grey: #323232;
+  --pink: #efbcff;
+  --purple: #7201b4;
+  --purple-placeholder: #b535ff;
+  --border-style: 2px solid #4e4e4e;
 }
 
 body {

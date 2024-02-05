@@ -13,6 +13,9 @@ import { stripePromise } from "../../app/App";
 import { CheckoutProductCard } from "../../Components/checkoutProductCard/CheckoutProductCard";
 import './checkout.css';
 import { CheckoutForm } from "../../Components/checkoutForm/CheckoutForm";
+import { quantum } from "ldrs";
+import { Link } from "react-router-dom";
+quantum.register();
 
 export function Checkout () {
   const cart = useSelector(selectCart);
@@ -23,28 +26,60 @@ export function Checkout () {
   const [ clientSecret, setClientSecret ] = useState(null);
   const dispatch = useDispatch();
 
-  const uri = process.env.REACT_APP_SERVER_URI;
-  const port = process.env.REACT_APP_PORT;
+  const url = process.env.REACT_APP_SERVER_URL;
 
   useEffect(() => {
-    fetch(`http://${uri}:${port}/secret?total=${unformat(totalPrice)}`, {
-      method: 'GET',
-      credentials: 'include'
-    })
-      .then(response => response.json())
-      .then(data => {
-        const {client_secret: clientSecret} = data;
-        setClientSecret(clientSecret);
-      });
-  }, [uri, port, totalPrice])
+    if(totalPrice) {
+      console.log(unformat(totalPrice));
+      fetch(`http://${url}/secret?total=${unformat(totalPrice) * 100}`, {
+        method: 'GET',
+        credentials: 'include'
+      })
+        .then(response => response.json())
+        .then(data => {
+          const {client_secret: clientSecret} = data;
+          setClientSecret(clientSecret);
+        });
+    }
+  }, [url, totalPrice])
 
   const options = {
     clientSecret: clientSecret,
     // Fully customizable with appearance API.
-    appearance: {/*...*/},
+    appearance: {
+      theme: 'stripe',
+      variables: {
+        fontWeightNormal: '500',
+        borderRadius: '0.5rem',
+        colorPrimary: '#7201b4',
+        tabIconSelectedColor: '#fff',
+        gridRowSpacing: '16px',
+        spacingUnit: '0.25rem',
+        colorText: '#7201b4'
+      },
+      rules: {
+        '.Tab, .Input, .Block, .CheckboxInput, .CodeInput': {
+          boxShadow: '0px 3px 10px rgba(18, 42, 66, 0.08)'
+        },
+        '.Block': {
+          borderColor: 'transparent'
+        },
+        '.BlockDivider': {
+          backgroundColor: '#ebebeb'
+        },
+        '.Tab, .Tab:hover, .Tab:focus': {
+          border: '0',
+          marginTop: '0.5rem'
+        },
+        '.Tab--selected, .Tab--selected:hover': {
+          backgroundColor: '#7201b4',
+          color: '#fff'
+        }
+      }
+    },
   };
 
-  if(isLoading) {
+  if(isLoading || !clientSecret) {
     return (
       <div data-testid='loader' className="loader">
           {<l-quantum
@@ -63,15 +98,13 @@ export function Checkout () {
   //       </div>
   //   )
   // }
-  if(!clientSecret) {
-    return null;
-  }
 
 
   return (
     <main className="checkout">
+      <Link className='link' to={'/'}>Continue Shopping</Link>
       <CheckoutProductCard cart={cart} totalPrice={totalPrice} />
-      <Elements stripe={stripePromise} options={options}>
+      <Elements stripe={stripePromise} options={options} key={clientSecret}>
         <CheckoutForm />
       </Elements>
         <div className="button-container">
