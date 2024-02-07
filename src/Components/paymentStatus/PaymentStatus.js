@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useStripe } from '@stripe/react-stripe-js';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { postApi } from '../../utilities/fetchApi';
-import { checkoutCart } from '../../Pages/cart/cartSlice';
 import { useDispatch } from 'react-redux';
+import { loadCartData } from '../../Pages/cart/cartSlice';
 
 export function PaymentStatus() {
   const stripe = useStripe();
@@ -31,31 +30,16 @@ export function PaymentStatus() {
         // confirmation, while others will first enter a `processing` state.
         //
         // [0]: https://stripe.com/docs/payments/payment-methods#payment-notification
-        let body;
 
         switch (paymentIntent.status) {
           case 'succeeded':
-            body = {
-              payment_intent: paymentIntent.id,
-              payment_status: paymentIntent.status,
-              shipping_address: paymentIntent.shipping.address,
-              shipping_method: paymentIntent.shipping.carrier || 'none'
-            }
-
-            dispatch(checkoutCart(body));
             setMessage('Success! Payment received.');
+            dispatch(loadCartData());
             break;
 
           case 'processing':
-            body = {
-              payment_intent: paymentIntent.id,
-              payment_status: paymentIntent.status,
-              shipping_address: paymentIntent.shipping.address,
-              shipping_method: paymentIntent.shipping.carrier || 'none'
-            }
-
-            dispatch(checkoutCart(body));
             setMessage("Payment processing. We'll update you when payment is received.");
+            dispatch(loadCartData());
             break;
 
           case 'requires_payment_method':
@@ -69,7 +53,6 @@ export function PaymentStatus() {
             setMessage('Something went wrong.');
             break;
         }
-        setMessage(JSON.stringify(paymentIntent, null, 2));
       });
   }, [dispatch, navigate, stripe, searchParams]);
 

@@ -9,8 +9,7 @@ import {
   selectError,
   setIsHovering
 } from "./cartSlice";
-import { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import './cart.css';
 
@@ -25,7 +24,6 @@ export function Cart () {
 
   function handleChange(e, productId) {
     if(e.target.value === "0") {
-      console.log(e.target.value);
       dispatch(deleteCartItem({productId}));
     } else {
       dispatch(editCartItem({

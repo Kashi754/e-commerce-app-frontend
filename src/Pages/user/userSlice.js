@@ -137,7 +137,6 @@ const userSlice = createSlice({
             state.isLoading = false;
             state.isError = true;
             state.error = action.error;
-            console.log('editing user data failed');
         })
         .addCase(logout.pending, (state, action) => {
             state.isLoading = true;
@@ -158,7 +157,6 @@ const userSlice = createSlice({
             state.isLoggedIn = false;
             // state.user = {};
             state.error = action.error;
-            console.log('logout user failed');
         })
         .addCase(login.pending, (state, action) => {
             state.isLoading = true;

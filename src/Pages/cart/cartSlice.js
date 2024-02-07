@@ -77,15 +77,6 @@ export const deleteCartItem = createAsyncThunk(
     }
 )
 
-export const checkoutCart = createAsyncThunk(
-    'cart/checkoutCart',
-    async(body) => {
-        const serverUrl = `http://${url}/cart/checkout`;
-
-        return await postApi(serverUrl, body);
-    }
-)
-
 const cartSlice = createSlice({
     name: 'cart',
     initialState: {
@@ -164,7 +155,6 @@ const cartSlice = createSlice({
             state.totalPrice = data.total;
         })
         .addCase(editCartItem.rejected, (state, action) => {
-            console.log(action.error);
             state.isLoading = false;
             state.isError = true;
             state.error = action.error;
@@ -192,25 +182,6 @@ const cartSlice = createSlice({
             state.isLoading = false;
             state.isError = true;
             state.error = action.error;
-        })
-        .addCase(checkoutCart.pending, (state, action) => {
-            state.isLoading = true;
-            state.isError = false;
-            state.error = null;
-        })
-        .addCase(checkoutCart.fulfilled, (state, action) => {
-            state.isLoading = false;
-            state.isError = false;
-            state.error = null;
-            state.cart = [];
-            state.qty = 0;
-            state.totalPrice = "$0.00";
-        })
-        .addCase(checkoutCart.rejected, (state, action) => {
-            state.isLoading = false;
-            state.isError = true;
-            state.error = action.error;
-            state.error = null;
         })
     }
 });

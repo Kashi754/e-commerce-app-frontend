@@ -3,16 +3,17 @@ import './orderItem.css';
 
 export function OrderItem(props) {
   const { order } = props;
+  const dt = new Date(order.date);
 
   return (
     <li className="order-item">
       <div className="order-section">
         <h3>ORDER PLACED</h3>
-        <h4>{order.date}</h4>
+        <h4>{dt.toLocaleDateString() + ' | ' + dt.toLocaleTimeString()}</h4>
       </div>
       <div className="order-section">
         <h3>TOTAL</h3>
-        <h4>{`$${order.total}`}</h4>
+        <h4>{`${order.total}`}</h4>
       </div>
       <div className="order-section">
         <h3>ORDER STATUS</h3>

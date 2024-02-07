@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import unformat from 'accounting-js/lib/unformat';
+import { postApi } from '../../utilities/fetchApi';
 import { 
   selectCart, 
   selectPrice, 
@@ -24,13 +25,11 @@ export function Checkout () {
   const error = useSelector(selectError);
   const totalPrice = useSelector(selectPrice);
   const [ clientSecret, setClientSecret ] = useState(null);
-  const dispatch = useDispatch();
 
   const url = process.env.REACT_APP_SERVER_URL;
 
   useEffect(() => {
     if(totalPrice) {
-      console.log(unformat(totalPrice));
       fetch(`http://${url}/secret?total=${unformat(totalPrice) * 100}`, {
         method: 'GET',
         credentials: 'include'
@@ -39,6 +38,9 @@ export function Checkout () {
         .then(data => {
           const {client_secret: clientSecret} = data;
           setClientSecret(clientSecret);
+          const serverUrl = `http://${url}/cart/checkout`;
+          const paymentIntent = clientSecret.split('_secret_')[0];
+          postApi(serverUrl, {paymentIntent: paymentIntent});
         });
     }
   }, [url, totalPrice])

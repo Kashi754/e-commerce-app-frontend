@@ -28,9 +28,9 @@ const initialState = {
 
 export const loadOrderData = createAsyncThunk(
     'order/loadOrderData',
-    async(orderId) => {       
+    async(path) => {     
         const url = process.env.REACT_APP_SERVER_URL;
-        const serverUrl = `http://${url}/orders/${orderId}`;
+        const serverUrl = `http://${url}${path}`;
         
         return await getApi(serverUrl);
     }
@@ -40,7 +40,7 @@ const orderSlice = createSlice({
     name: 'order',
     initialState: {
         order: {},
-        isLoading: false,
+        isLoading: true,
         isError: false,
         error: null
     },

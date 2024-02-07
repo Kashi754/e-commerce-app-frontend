@@ -5,7 +5,9 @@ export function AddCart(props) {
     handleSubmit,
     qty,
     setQty,
-    quantityInStock
+    quantityInStock,
+    productId,
+    cartProducts
   } = props;
 
   return (
@@ -17,6 +19,7 @@ export function AddCart(props) {
           name="qty" 
           value={qty} 
           onChange={e => setQty(e.target.value)}
+          disabled={cartProducts.indexOf(productId) >= 0}
         >
           {
             [...Array(quantityInStock + 1)].map((_, i) => {
@@ -25,7 +28,7 @@ export function AddCart(props) {
           }
         </select>
       </fieldset>
-      <button type="submit" >Add to Cart</button>
+      <button type="submit" disabled={cartProducts.indexOf(productId) >= 0}>{cartProducts.indexOf(productId) < 0 ? 'Add to Cart' : 'Product Already In Cart'}</button>
     </form>
   );
 }
