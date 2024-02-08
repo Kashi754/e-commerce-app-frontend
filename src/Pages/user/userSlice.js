@@ -24,12 +24,35 @@ const initialState = {
 
 export const loadUserData = createAsyncThunk(
     'user/loadUserData',
-    async() => {       
+    async() => {  
         const serverUrl = `${urlBase}/users/`;
         
         return await getApi(serverUrl);
     }
 );
+
+export const loadUser = createAsyncThunk(
+    'user/loadUser',
+    async() => {
+        const serverUrl = `${urlBase}/login/success`;
+        const response = await fetch(serverUrl, {
+            method: "GET",
+            credentials: "include",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Credentials": true
+            }
+        });
+
+        if(!response.ok) {
+            const error = await response.json();
+            throw error;
+        }
+        const data = await response.json();
+        return data;
+    }
+)
 
 export const editUserData = createAsyncThunk(
     'user/editUserData',
@@ -171,6 +194,33 @@ const userSlice = createSlice({
             state.isLoggedIn = true;
             state.user = data;
             state.error = null;
+        })
+        .addCase(login.rejected, (state, action) => {
+            state.isError = true;
+            state.isLoggedIn = false;
+            state.isLoading = false;
+            state.error = action.error;
+        })
+        .addCase(loadUser.pending, (state, action) => {
+            state.isLoading = true;
+            state.isError = false;
+            state.isLoggedIn = false;
+            state.error = null;
+        })
+        .addCase(loadUser.fulfilled, (state, action) => {
+            const data = action.payload;
+            state.isLoading = false;
+            state.isError = false;
+            state.isError = false;
+            state.isLoggedIn = true;
+            state.error = null;
+            state.user = data;
+        })
+        .addCase(loadUser.rejected, (state, action) => {
+            state.isError = true;
+            state.isLoggedIn = false;
+            state.isLoading = false;
+            state.error = action.error;
         })
     }
 });

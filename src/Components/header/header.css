@@ -4,6 +4,7 @@
   box-sizing: border-box;
   padding: 2rem;
   grid-row-gap: 1rem;
+  height: 16rem;
 }
 
 .logo-container {

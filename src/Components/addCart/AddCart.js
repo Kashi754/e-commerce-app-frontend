@@ -22,8 +22,8 @@ export function AddCart(props) {
           disabled={cartProducts.indexOf(productId) >= 0}
         >
           {
-            [...Array(quantityInStock + 1)].map((_, i) => {
-              if (i !== 0) return (<option key={i} value={i}>{i}</option>)
+            [...Array(quantityInStock)].map((_, i) => {
+              return (<option key={i} value={i + 1}>{i + 1}</option>)
             })
           }
         </select>

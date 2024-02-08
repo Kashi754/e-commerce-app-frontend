@@ -17,27 +17,27 @@
     justify-self: center;
 }
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus,
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover,
-textarea:-webkit-autofill:focus,
-select:-webkit-autofill,
-select:-webkit-autofill:hover,
-select:-webkit-autofill:focus {
+.search-bar input:-webkit-autofill,
+.search-bar input:-webkit-autofill:hover, 
+.search-bar input:-webkit-autofill:focus,
+.search-bar textarea:-webkit-autofill,
+.search-bar textarea:-webkit-autofill:hover,
+.search-bar textarea:-webkit-autofill:focus,
+.search-bar select:-webkit-autofill,
+.search-bar select:-webkit-autofill:hover,
+.search-bar select:-webkit-autofill:focus {
     caret-color: rgba(223, 223, 223, 0.281);
 }
 
-input:autofill,
-input:autofill:hover, 
-input:autofill:focus,
-textarea:autofill,
-textarea:autofill:hover,
-textarea:autofill:focus,
-select:autofill,
-select:autofill:hover,
-select:autofill:focus {
+.search-bar input:autofill,
+.search-bar input:autofill:hover, 
+.search-bar input:autofill:focus,
+.search-bar textarea:autofill,
+.search-bar textarea:autofill:hover,
+.search-bar textarea:autofill:focus,
+.search-bar select:autofill,
+.search-bar select:autofill:hover,
+.search-bar select:autofill:focus {
     font-size: 2rem;
     caret-color: rgba(223, 223, 223, 0.281);
 }

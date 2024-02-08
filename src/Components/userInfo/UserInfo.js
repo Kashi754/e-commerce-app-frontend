@@ -18,12 +18,16 @@ export function UserInfo() {
   const error = useSelector(selectError);
 
   useEffect(() => {
-    dispatch(loadUserData());
-  },[dispatch]);
+    if(isLoggedIn) {
+      dispatch(loadUserData());
+    }
+  },[isLoggedIn, dispatch]);
 
   useEffect(() => {
-    dispatch(loadCartData());
-  },[dispatch]);
+    if(isLoggedIn) {
+      dispatch(loadCartData());
+    }
+  },[isLoggedIn, dispatch]);
 
   function handleClick(event) {
     event.preventDefault();
