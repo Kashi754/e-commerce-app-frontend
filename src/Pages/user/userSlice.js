@@ -24,7 +24,7 @@ const initialState = {
 
 export const loadUserData = createAsyncThunk(
     'user/loadUserData',
-    async() => {  
+    async(userId) => {  
         const serverUrl = `${urlBase}/users/`;
         
         return await getApi(serverUrl);
@@ -82,6 +82,7 @@ export const login = createAsyncThunk(
         });
         if(!response.ok) {
             const error = await response.json();
+            console.log(error);
             throw new Error(error.message);
         }
         const data = await response.json();
@@ -98,6 +99,7 @@ export const logout = createAsyncThunk(
             method: 'GET',
             credentials: 'include'
         });
+
         if(!response.ok) {
             const error = await response.json();
             const message = `An error has occured: ${response.status} ${error.message}`;
@@ -172,7 +174,7 @@ const userSlice = createSlice({
             state.isLoggedIn = false;
             state.error = null;
             state.error = null;
-            // state.user = {};
+            state.user = {};
         })
         .addCase(logout.rejected, (state, action) => {
             state.isLoading = false;
@@ -196,6 +198,7 @@ const userSlice = createSlice({
             state.error = null;
         })
         .addCase(login.rejected, (state, action) => {
+            console.log(action);
             state.isError = true;
             state.isLoggedIn = false;
             state.isLoading = false;

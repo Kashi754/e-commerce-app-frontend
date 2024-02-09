@@ -1,12 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { selectIsLoggedIn, selectIsError, selectIsLoading, selectError, logout, loadUserData } from "../../Pages/user/userSlice";
+import { selectIsLoggedIn, selectIsError, selectIsLoading, selectError, logout } from "../../Pages/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { UserLink } from "./UserLink";
 import { UserCart } from "./UserCart";
 import './UserInfo.css';
 import { quantum } from "ldrs";
-import { useEffect } from "react";
-import { loadCartData } from "../../Pages/cart/cartSlice";
 quantum.register();
 
 export function UserInfo() {
@@ -16,18 +14,6 @@ export function UserInfo() {
   const isError = useSelector(selectIsError);
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
-
-  useEffect(() => {
-    if(isLoggedIn) {
-      dispatch(loadUserData());
-    }
-  },[isLoggedIn, dispatch]);
-
-  useEffect(() => {
-    if(isLoggedIn) {
-      dispatch(loadCartData());
-    }
-  },[isLoggedIn, dispatch]);
 
   function handleClick(event) {
     event.preventDefault();

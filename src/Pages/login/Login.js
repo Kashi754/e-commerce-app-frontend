@@ -1,9 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
-import { login, selectIsError, selectError } from "../user/userSlice";
-import { selectIsLoggedIn } from "../user/userSlice";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { LoginForm } from "../../Components/loginForm/LoginForm";
+import { login, selectError, selectIsError, selectIsLoggedIn } from "../user/userSlice";
 import './login.css';
 
 export function Login () {
