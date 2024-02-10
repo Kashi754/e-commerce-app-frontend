@@ -66,12 +66,8 @@ export const editCartItem = createAsyncThunk(
 
 export const deleteCartItem = createAsyncThunk(
     'cart/deleteCartItem',
-    async(params) => {
-        const {
-            productId
-        } = params;
-
-        const serverUrl = `http://${url}/cart/`;
+    async(productId) => {
+        const serverUrl = `http://${url}/cart/?product_id=${productId}`;
 
         return await deleteApi(serverUrl);
     }

@@ -1,0 +1,128 @@
+.registration-container {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  background-color: var(--pink);
+  border: var(--border-style);
+  border-radius: 0.5rem;
+  padding: 2.5rem;
+  -webkit-box-shadow: 0px 5px 33px -21px rgba(66, 68, 90, 1);
+  -moz-box-shadow: px 5px 33px -21px rgba(66, 68, 90, 1);
+  box-shadow: 5px 5px 33px -21px rgba(66, 68, 90, 1);
+}
+
+.registration-container h2 {
+  text-align: center;
+  width: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+  font-size: 1.75rem;
+  color: var(--pink);
+  background-color: var(--purple);
+  border-radius: 0.5rem;
+}
+
+.registration-form {
+  display: flex;
+  padding-top: 2rem;
+  flex-direction: column;
+  width: fit-content;
+  gap: 1rem;
+}
+
+#username,
+#password,
+#password2,
+#email,
+#first-name,
+#last-name {
+  height: 1rem;
+  border-radius: 0.25rem;
+  border: var(--border-style);
+  font-size: 1rem;
+  padding: 0.75rem;
+  box-sizing: border-box;
+  width: 15rem;
+}
+
+.field {
+  display: flex;
+  width: 30vw;
+  justify-content: space-between;
+}
+
+.password1-field {
+  position: relative;
+}
+
+.password-field {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 30vw;
+}
+
+.password-error {
+  width: 50%;
+  align-self: flex-end;
+}
+
+.show-password-button {
+  position: absolute;
+  right: -2rem;
+  background-color: var(--purple);
+  box-sizing: border-box;
+  height: 1.5rem;
+  width: 1.5rem;
+  border: none;
+  border-radius: 50%;
+  align-self: center;
+  font-size: 1rem;
+  color: var(--pink);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.show-password-button:hover {
+  background-color: rgba(240, 240, 240, 0.63);
+  box-shadow: inset 0 0 10px black;
+}
+
+.show-password-button:active {
+  background-color: rgba(240, 240, 240, 0.342);
+  box-shadow: 0 0 10px black inset;
+}
+
+.registration-submit-button {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  color: var(--pink);
+  background-color: var(--purple);
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 0.75rem;
+  width: 25%;
+  justify-self: center;
+  align-self: center;
+}
+
+.registration-submit-button:hover {
+  background-color: var(--pink);
+  border: 2px solid var(--purple);
+  color: var(--purple);
+}
+
+.registration-submit-button:active {
+  padding: 0.4rem;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.75rem;
+}

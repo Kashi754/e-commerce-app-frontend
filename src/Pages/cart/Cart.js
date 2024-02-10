@@ -24,7 +24,7 @@ export function Cart () {
 
   function handleChange(e, productId) {
     if(e.target.value === "0") {
-      dispatch(deleteCartItem({productId}));
+      dispatch(deleteCartItem(productId));
     } else {
       dispatch(editCartItem({
         productId, 
@@ -35,9 +35,9 @@ export function Cart () {
 
   function handleClick(e, productId) {
     e.preventDefault();
-    dispatch(deleteCartItem({
+    dispatch(deleteCartItem(
       productId
-    }));
+    ));
   }
 
   function handleMouseOver(productId) {
@@ -114,7 +114,7 @@ export function Cart () {
         <div className="button-container">
           <button 
             type="button" 
-            className={cart.length > 0 ? "checkout-button" : "disabled-checkout-button"} 
+            className="checkout-button"
             onClick={() => navigate('/checkout')} 
             disabled={cart.length < 1}
           >

@@ -91,7 +91,7 @@ export function User () {
         <div className='profile-container'>
           <h2>User Information</h2>
           <form className='profile-form' onSubmit={handleSubmit}>
-            <p>
+            <fieldset className='field'>
               <label htmlFor='username'>Username: </label>
               <input 
                 type='text' 
@@ -100,8 +100,8 @@ export function User () {
                 onChange={handleChange} 
                 value={userToEdit.username} 
               />
-            </p>
-            <p>
+            </fieldset>
+            <fieldset className='field'>
               <label htmlFor='first-name'>First Name: </label>
               <input 
                 type='text' 
@@ -110,8 +110,8 @@ export function User () {
                 onChange={handleChange} 
                 value={userToEdit.first_name} 
               />
-            </p>
-            <p>
+            </fieldset>
+            <fieldset className='field'>
               <label htmlFor='last-name'>Last Name: </label>
               <input 
                 type='text' 
@@ -120,8 +120,8 @@ export function User () {
                 onChange={handleChange} 
                 value={userToEdit.last_name} 
               />
-            </p>
-            <p>
+            </fieldset>
+            <fieldset className='field'>
               <label htmlFor='email'>Email: </label>
               <input 
                 type='email'
@@ -130,10 +130,8 @@ export function User () {
                 onChange={handleChange} 
                 value={userToEdit.email} 
               />
-            </p>
-            <div className='button-container'>
-              <button type='submit'>Save Changes</button>
-            </div>
+            </fieldset>
+            <button type='submit'>Save Changes</button>
           </form>
         </div>
       </main>

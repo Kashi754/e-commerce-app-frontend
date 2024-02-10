@@ -54,7 +54,7 @@
   padding: 0.5rem;
   color: var(--pink);
   background-color: var(--purple);
-  border: var(--border-style);
+  border: none;
   border-radius: 0.5rem;
   font-weight: bold;
   cursor: pointer;
@@ -64,13 +64,30 @@
 }
 
 .login-submit-button:hover {
-  background-color: rgba(162, 0, 255);
-  border-color: rgb(239, 188, 255);
-  color: rgb(239, 188, 255);
+  background-color: var(--pink);
+  border: 2px solid var(--purple);
+  color: var(--purple);
 }
 
 .login-submit-button:active {
   padding: 0.4rem;
+}
+
+.register-button {
+  color: var(--purple);
+  background: none;
+  border: none;
+  font-weight: bold;
+  font-size: 0.75rem;
+  text-decoration: underline;
+  width: 25%;
+  justify-self: center;
+}
+
+.register-button:hover {
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--grey);
 }
 
 .error-message {

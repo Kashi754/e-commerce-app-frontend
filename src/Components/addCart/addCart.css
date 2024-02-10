@@ -4,6 +4,7 @@
   flex-direction: column;
   justify-self: last-baseline;
   align-self: end;
+  margin-top: 2rem;
 }
 
 .add-cart-form fieldset {
@@ -24,26 +25,32 @@
   content: '\25B2';
 }
 
-.add-cart-form button {
+.add-item-button {
   margin-top: 1rem;
   padding: 0.5rem;
-  color: rgba(162, 0, 255);
-  background-color: rgb(239, 188, 255);
-  border: 2px solid rgb(78, 78, 78);
+  color: var(--pink);
+  background-color: var(--purple);
+  border: none;
   border-radius: 0.5rem;
   font-weight: bold;
   cursor: pointer;
   font-size: 0.75rem;
 }
 
-.add-cart-form button:hover {
-  background-color: rgba(162, 0, 255);
-  border-color: rgb(239, 188, 255);
-  color: rgb(239, 188, 255);
+.add-item-button:hover {
+  background-color: var(--pink);
+  border: 2px solid var(--purple);
+  color: var(--purple);
 }
 
-.add-cart-form button:active {
+.add-item-button:active {
   padding: 0.4rem;
+}
+
+.add-item-button:disabled {
+  background-color: rgba(114, 1, 180, 0.50);
+  border: none;
+  cursor: not-allowed;
 }
 
 select {
@@ -67,4 +74,18 @@ select {
 
 select::-webkit-scrollbar {
   width: 0;
+}
+
+.remove-item-button {
+  background: none;
+  border: none;
+  text-decoration: underline;
+  color: var(--purple);
+  padding-top: 0.25rem;
+}
+
+.remove-item-button:hover {
+  text-decoration: none;
+  color: var(--grey);
+  cursor: pointer;
 }

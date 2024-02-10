@@ -3,9 +3,11 @@ import "./loginForm.css"
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
+import { useNavigate } from "react-router";
 
 export function LoginForm({ handleSubmit, formData, handleChange, isError, error }) {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const navigate = useNavigate();
 
   function handleClick(e) {
     e.preventDefault();
@@ -37,6 +39,7 @@ export function LoginForm({ handleSubmit, formData, handleChange, isError, error
         </div>
         {isError && <h4 className="error-message">{error.message}</h4>}
         <button type="submit" className="login-submit-button">Login</button>
+        <button type="button" className="register-button" onClick={e => navigate('/registration')}>Register</button>
       </form>
   );
 }

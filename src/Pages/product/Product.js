@@ -1,12 +1,11 @@
+import { quantum } from "ldrs";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectProduct, selectIsLoading, selectIsError, selectError, loadProductData } from "./productSlice";
-import { selectCart } from "../cart/cartSlice";
-import { addCartItem } from "../cart/cartSlice";
 import { useLocation } from "react-router-dom";
 import { AddCart } from "../../Components/addCart/AddCart";
+import { addCartItem, selectCart, deleteCartItem } from "../cart/cartSlice";
 import './product.css';
-import { quantum } from "ldrs";
+import { loadProductData, selectError, selectIsError, selectIsLoading, selectProduct } from "./productSlice";
 quantum.register();
 
 export function Product() {
@@ -26,14 +25,17 @@ export function Product() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (quantity > 0) {
-      dispatch(addCartItem({
-        productId: product.id,
-        qty: quantity
-      }));
-  
-      setQuantity(0);
-    }
+    console.log(quantity);
+    dispatch(addCartItem({
+      productId: product.id,
+      qty: quantity
+    }));
+    setQuantity(1);
+  }
+
+  function handleRemoveItem(e) {
+    e.preventDefault();
+    dispatch(deleteCartItem(product.id));
   }
 
   if(isLoading) {
@@ -58,29 +60,32 @@ export function Product() {
 
   return (
     <main className="product">
-      <img src={`/images/products/${product.id}.jpg`} alt={product.name}/>
-      <section className="product-infobox">
-        <div className="product-info">
-          <h4>{product.name}</h4>
-          <h5>{`${product.price}`}</h5>
-          <figure className="description">
-            {product.description}
-            <figcaption className="quantity">Quantity in stock: {product.qty_in_stock}</figcaption>
-          </figure>
-        </div>
-        {
-          product.qty_in_stock > 0 ? 
-          <AddCart 
-            handleSubmit={handleSubmit} 
-            qty={quantity}
-            setQty={setQuantity} 
-            quantityInStock={product.qty_in_stock}
-            productId = {product.id}
-            cartProducts={cartProducts}
-          /> :
-          <h3 className="stock-shortage">Out of stock</h3>
-        }
-      </section>
+      <div className="product-container">
+        <img src={`/images/products/${product.id}.jpg`} alt={product.name}/>
+        <section className="product-infobox">
+          <div className="product-info">
+            <h4>{product.name}</h4>
+            <h5>{`${product.price}`}</h5>
+            <figure className="description">
+              {product.description}
+              <figcaption className="quantity">Quantity in stock: {product.qty_in_stock}</figcaption>
+            </figure>
+          </div>
+          {
+            product.qty_in_stock > 0 ? 
+            <AddCart 
+              handleSubmit={handleSubmit}
+              handleRemoveItem={handleRemoveItem}
+              qty={quantity}
+              setQty={setQuantity} 
+              quantityInStock={product.qty_in_stock}
+              productId = {product.id}
+              cartProducts={cartProducts}
+            /> :
+            <h3 className="stock-shortage">Out of stock</h3>
+          }
+        </section>
+      </div>
     </main>
   )
 }
