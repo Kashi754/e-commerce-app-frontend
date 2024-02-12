@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import './user.css';
 
-export function User () {
+export function User() {
   const user = useSelector(selectUser);
   const error = useSelector(selectError);
   const isError = useSelector(selectIsError);
@@ -75,7 +75,11 @@ export function User () {
             <h4><span className='label'>First Name: </span>{user.first_name}</h4>
             <h4><span className='label'>Last Name: </span>{user.last_name}</h4>
             <h4><span className='label'>Email: </span>{user.email}</h4>
-            <Link to="/orders">Order History</Link>
+            {/* {
+              user.role !== 'admin' ? */}
+              <Link to="/orders">Order History</Link> :
+              <Link to="/admin">Admin Panel</Link>
+            {/* } */}
             <div className='button-container'>
               <button type="button" onClick={() => setEditMode(true)}>
                 Edit Profile

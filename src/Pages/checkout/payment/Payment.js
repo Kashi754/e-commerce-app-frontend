@@ -1,24 +1,24 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import unformat from 'accounting-js/lib/unformat';
-import { postApi } from '../../utilities/fetchApi';
+import { postApi } from '../../../utilities/fetchApi';
 import { 
   selectCart, 
   selectPrice, 
   selectIsLoading, 
   selectIsError, 
   selectError,
-} from "../cart/cartSlice";
+} from "../../cart/cartSlice";
 import { useEffect, useState } from "react";
 import { Elements } from '@stripe/react-stripe-js';
-import { stripePromise } from "../../app/App";
-import { CheckoutProductCard } from "../../Components/checkoutProductCard/CheckoutProductCard";
-import './checkout.css';
-import { CheckoutForm } from "../../Components/checkoutForm/CheckoutForm";
+import { stripePromise } from "../../../app/App";
+import { CheckoutProductCard } from "../../../Components/checkoutProductCard/CheckoutProductCard";
+import './payment.css';
+import { PaymentForm } from "../../../Components/paymentForm/PaymentForm";
 import { quantum } from "ldrs";
 import { Link } from "react-router-dom";
 quantum.register();
 
-export function Checkout () {
+export function Payment () {
   const cart = useSelector(selectCart);
   const isLoading = useSelector(selectIsLoading);
   const isError = useSelector(selectIsError);
@@ -107,7 +107,7 @@ export function Checkout () {
       <Link className='link' to={'/'}>Continue Shopping</Link>
       <CheckoutProductCard cart={cart} totalPrice={totalPrice} />
       <Elements stripe={stripePromise} options={options} key={clientSecret}>
-        <CheckoutForm />
+        <PaymentForm />
       </Elements>
         <div className="button-container">
         </div>

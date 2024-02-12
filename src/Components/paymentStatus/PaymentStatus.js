@@ -15,10 +15,13 @@ export function PaymentStatus() {
     if (!stripe) {
       return;
     }
-
     // Retrieve the "payment_intent_client_secret" query parameter appended to
     // your return_url by Stripe.js
     const clientSecret = searchParams.get('payment_intent_client_secret');
+    
+    if(!clientSecret) {
+      return;
+    }
     // Retrieve the PaymentIntent
     stripe
       .retrievePaymentIntent(clientSecret)
@@ -46,7 +49,7 @@ export function PaymentStatus() {
             // Redirect your user back to your payment page to attempt collecting
             // payment again
             setMessage('Payment failed. Please try another payment method.');
-            navigate('/checkout');
+            navigate('/checkout/payment');
             break;
 
           default:

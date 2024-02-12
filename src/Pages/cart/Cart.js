@@ -72,7 +72,7 @@ export function Cart () {
   return (
     <main className="cart">
       <form className="cart-card">
-        <h2>Cart Items</h2>
+        <h2>Your Cart</h2>
         { cart.length > 0 &&
           cart.map((product) => {
             return (
@@ -115,7 +115,7 @@ export function Cart () {
           <button 
             type="button" 
             className="checkout-button"
-            onClick={() => navigate('/checkout')} 
+            onClick={() => navigate('/checkout/shipping')} 
             disabled={cart.length < 1}
           >
             Go to Checkout

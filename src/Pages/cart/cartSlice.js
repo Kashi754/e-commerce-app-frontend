@@ -81,7 +81,8 @@ const cartSlice = createSlice({
         totalPrice: 0,
         isLoading: false,
         isError: false,
-        error: {}
+        error: {},
+        totalWeight: 0
     },
     reducers: {
         setIsHovering(state, action) {
@@ -128,6 +129,7 @@ const cartSlice = createSlice({
             data.products.forEach(item => item.isHovering = false);
             state.cart = data.products;
             state.qty = data.products.map(item => item.qty).reduce((acc, val) => acc + val);
+            state.totalWeight = data.products.map(item => item.weight || 0).reduce((acc, val) => acc + val);
             state.totalPrice = data.total;
         })
         .addCase(addCartItem.rejected, (state, action) => {

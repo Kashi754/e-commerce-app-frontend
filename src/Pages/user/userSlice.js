@@ -22,15 +22,6 @@ const initialState = {
     error: null
 };
 
-export const loadUserData = createAsyncThunk(
-    'user/loadUserData',
-    async(userId) => {  
-        const serverUrl = `${urlBase}/users/`;
-        
-        return await getApi(serverUrl);
-    }
-);
-
 export const loadUser = createAsyncThunk(
     'user/loadUser',
     async() => {
@@ -39,7 +30,7 @@ export const loadUser = createAsyncThunk(
             method: "GET",
             credentials: "include",
             headers: {
-                Accept: "application/json",
+                "Accept": "application/json",
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Credentials": true
             }
@@ -57,7 +48,7 @@ export const loadUser = createAsyncThunk(
 export const editUserData = createAsyncThunk(
     'user/editUserData',
     async(user) => {
-        const serverUrl = `${urlBase}/users/${user.id}`
+        const serverUrl = `${urlBase}/users`
         const body = {
             username: user.username,
             email: user.email,
@@ -120,24 +111,6 @@ const userSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-        .addCase(loadUserData.pending, (state, action) => {
-            state.isLoading = true;
-            state.isError = false;
-            state.error = null;
-        })
-        .addCase(loadUserData.fulfilled, (state, action) => {
-            const data = action.payload;
-            state.isLoading = false;
-            state.isError = false;
-            state.error = null;
-            state.user = data;
-            state.isLoggedIn = true;
-        })
-        .addCase(loadUserData.rejected, (state, action) => {
-            state.isLoading = false;
-            state.isError = true;
-            state.error = action.error;
-        })
         .addCase(editUserData.pending, (state, action) => {
             state.isLoading = true;
             state.isError = false;

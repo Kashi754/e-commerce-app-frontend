@@ -7,7 +7,7 @@ import './registration.css';
 import { useNavigate } from "react-router";
 
 export function Registration () {
-  const dispatch = useDispatch();
+
   const [formData, setFormData] = useState({
     username: "",
     email: "",
