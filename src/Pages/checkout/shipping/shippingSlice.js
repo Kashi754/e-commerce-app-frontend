@@ -1,6 +1,6 @@
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getApi, putApi } from "../../../utilities/fetchApi";
+import { postApi } from "../../../utilities/fetchApi";
 
 const initialState = {
   access_token: null,
@@ -8,114 +8,18 @@ const initialState = {
   scope: null
 };
 
-const url = 'https://apis-sandbox.fedex.com';
-
-export const determineShippingServices = createAsyncThunk(
-  'shipping/determineShippingServices',
+export const determineShippingServicesAndTransitTimes = createAsyncThunk(
+  'shipping/determineShippingServicesAndTransitTimes',
   async(params) => {
-    const { cart, shippingAddress, accessToken } = params;
-    const path = '/availability/v1/packageandserviceoptions'
+    const url = process.env.REACT_APP_SERVER_URL;
+    const urlBase = `http://${url}`;
+    
+    const serverUrl = `${urlBase}/cart/shipping`;
 
-    const body = JSON.stringify({
-      shipper: {
-        address: {
-          postalCode: 23602,
-          countryCode: 'US',
-        }
-      },
-      recipients: [{
-        address: {
-          postalCode: shippingAddress.zip,
-          countryCode: 'US',
-        }
-      }],
-      requestedPackageLineItems: [{
-        weight: {
-          units: 'LB',
-          value: cart.totalWeight
-        }
-      }],
-      carrierCodes: [
-        'FDXG'
-      ]
-    });
-
-    const response = await fetch(url + path, {
-      method: "POST",
-      headers: {
-          "Content-Type": "application/json",
-          'X-locale': "en_US",
-          'Authorization': `Bearer ${accessToken}`
-      },
-      body: body,
-      credentials: 'include'
-    });
-
-    if(!response.ok) {
-        const error = await response.json();
-        throw error;
-    }
-
-    const data = await response.json();
-    return data;
+    return await postApi(serverUrl, params);
   }
 )
 
-export const determineTransitTimes = createAsyncThunk(
-  'shipping/determineTransitTimes',
-  async(params) => {
-    const { cart, shippingAddress, accessToken } = params;
-    const path = '/availability/v1/transittimes';
-
-    const body = JSON.stringify({
-      shipper: {
-        address: {
-          postalCode: 23602,
-          countryCode: 'US',
-        }
-      },
-      recipients: [{
-        address: {
-          postalCode: shippingAddress.zip,
-          countryCode: 'US',
-        }
-      }],
-      packagingType: 'FEDEX_MEDIUM_BOX',
-      requestedPackageLineItems: [{
-        declaredValue: {
-          amount: Number(cart.totalPrice.replace(/[^0-9.-]+/g,"")),
-          currency: 'USD'
-        },
-        weight: {
-          units: 'LB',
-          value: cart.totalWeight
-        }
-      }],
-      carrierCodes: [
-        'FDXG'
-      ]
-    });
-
-    const response = await fetch(url + path, {
-      method: "POST",
-      headers: {
-          "Content-Type": "application/json",
-          'X-locale': "en_US",
-          'Authorization': `Bearer ${accessToken}`
-      },
-      body: body,
-      credentials: 'include'
-    });
-
-    if(!response.ok) {
-        const error = await response.json();
-        throw error;
-    }
-
-    const data = await response.json();
-    return data;
-  }
-)
 
 const shippingSlice = createSlice({
   name: 'shipping',
@@ -129,8 +33,8 @@ const shippingSlice = createSlice({
       residential: true
     },
     accessToken: null,
-    transitTimes: [],
-    shippingServices: [],
+    shippingInfo: [],
+    selectedShippingInfo: {}
   },
   reducers: {
     setAddress(state, action) {
@@ -138,40 +42,31 @@ const shippingSlice = createSlice({
     },
     setAccessToken(state, action) {
       state.accessToken = action.payload;
+    },
+    toggleResidential(state, action) {
+      console.log(action.payload);
+      state.address = { ...state.address, ...action.payload };
+    },
+    setSelectedShippingInfo(state, action) {
+      state.selectedShippingInfo = action.payload;
     }
   },
   extraReducers: (builder) => {
     builder
-    .addCase(determineShippingServices.pending, (state, action) => {
+    .addCase(determineShippingServicesAndTransitTimes.pending, (state, action) => {
       state.isLoading = true;
       state.isError = false;
       state.error = null;
     })
-    .addCase(determineShippingServices.fulfilled, (state, action) => {
-      const data = action.payload;
+    .addCase(determineShippingServicesAndTransitTimes.fulfilled, (state, action) => {
+      const data = action.payload.sort((a, b) => a.totalCharge - b.totalCharge);
+      state.selectedShippingInfo = data[0];
       state.isLoading = false;
       state.isError = false;
       state.error = null;
-      state.shippingServices = data.output.serviceOptions;
+      state.shippingInfo = data;
     })
-    .addCase(determineShippingServices.rejected, (state, action) => {
-      state.isLoading = false;
-      state.isError = true;
-      state.error = action.error;
-    })
-    .addCase(determineTransitTimes.pending, (state, action) => {
-      state.isLoading = true;
-      state.isError = false;
-      state.error = null;
-    })
-    .addCase(determineTransitTimes.fulfilled, (state, action) => {
-      const data = action.payload;
-      state.isLoading = false;
-      state.isError = false;
-      state.error = null;
-      state.transitTimes = data.output.transitTimes;
-    })
-    .addCase(determineTransitTimes.rejected, (state, action) => {
+    .addCase(determineShippingServicesAndTransitTimes.rejected, (state, action) => {
       state.isLoading = false;
       state.isError = true;
       state.error = action.error;
@@ -179,12 +74,18 @@ const shippingSlice = createSlice({
   }
 });
 
-export const selectAccessToken = (state) => state.accessToken;
+export const selectAccessToken = (state) => state.shipping.accessToken;
 export const selectAddress = (state) => state.shipping.address;
-export const selectTransitTimes = (state) => state.shipping.transitTimes;
-export const selectShippingServices = (state) => state.shipping.shippingServices;
+export const selectShippingInfo = (state) => state.shipping.shippingInfo;
 export const selectIsLoading = (state) => state.shipping.isLoading;
 export const selectIsError = (state) => state.shipping.isError;
 export const selectError = (state) => state.shipping.error;
-export const { setAddress, setAccessToken } = shippingSlice.actions;
+export const selectSelectedShippingInfo = (state) => state.shipping.selectedShippingInfo;
+export const { 
+  setAddress, 
+  setAccessToken, 
+  toggleResidential ,
+  setSelectedShippingInfo
+} = shippingSlice.actions;
+
 export default shippingSlice.reducer;

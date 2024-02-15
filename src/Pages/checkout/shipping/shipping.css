@@ -1,0 +1,100 @@
+.shipping {
+  align-items: center;
+}
+
+.address-section {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  width: 50vw;
+  background-color: var(--pink);
+  border: var(--border-style);
+  border-radius: 0.5rem;
+  gap: 0.25rem;
+  counter-reset: item;
+}
+
+.address-section h2 {
+  background-color: var(--purple);
+  padding: 2.5rem;
+  text-align: center;
+  font-size: 1.5rem;
+  color: var(--pink);
+  border-radius: 0.5rem;
+  -webkit-box-shadow: 0px 5px 33px -21px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 0px 5px 33px -21px rgba(66, 68, 90, 1);
+  box-shadow: 0px 5px 33px -21px rgba(66, 68, 90, 1);
+}
+
+a {
+  color: #0015ff;
+}
+
+.address-section h4 {
+  color: var(--purple);
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-align: end;
+  padding-right: 2rem;
+  padding-left: 2rem;
+}
+
+.address-section div > button{
+  margin-top: 1rem;
+  padding: 0.5rem;
+  color: var(--pink);
+  background-color: var(--purple);
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 0.75rem;
+}
+
+.address-section div > button:hover {
+  background-color: var(--pink);
+  border: 2px solid var(--purple);
+  color: var(--purple);
+}
+
+.address-section div > button:active {
+  padding: 0.4rem;
+}
+
+.address-section div > button:disabled {
+  background-color: rgba(114, 1, 180, 0.50);
+  border: none;
+  cursor: not-allowed;
+  color: rgba(255, 0, 0, 0.70);
+}
+
+.submit-shipping-button {
+  margin: 1rem;
+  padding: 0.5rem;
+  color: var(--pink);
+  background-color: var(--purple);
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 0.75rem;
+}
+
+.submit-shipping-button:hover {
+  background-color: var(--pink);
+  border: 2px solid var(--purple);
+  color: var(--purple);
+}
+
+.submit-shipping-button:active {
+  padding: 0.4rem;
+}
+
+.submit-shipping-button:disabled {
+  background-color: rgba(114, 1, 180, 0.50);
+  border: none;
+  cursor: not-allowed;
+  color: var(--pink);
+}

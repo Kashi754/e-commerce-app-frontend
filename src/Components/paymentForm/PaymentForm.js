@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {useStripe, useElements, PaymentElement, AddressElement} from '@stripe/react-stripe-js';
+import {useStripe, useElements, PaymentElement} from '@stripe/react-stripe-js';
 import './paymentForm.css';
 import { useSelector } from 'react-redux';
 import { selectAddress } from '../../Pages/checkout/shipping/shippingSlice';
@@ -10,15 +10,15 @@ export function PaymentForm() {
   const elements = useElements();
 
   const [errorMessage, setErrorMessage] = useState(null);
-  const {residential, ...address} = useSelector(selectAddress);
+  const address = useSelector(selectAddress);
   const user = useSelector(selectUser);
-  const [shipping, setShipping] = useState({
-    carrier: null,
-    trackingNumber: null
-  });
 
   const url = process.env.REACT_APP_URL;
   const protocol = process.env.NODE_ENV === 'development'? 'http' : 'https';
+
+  useEffect(() => {
+    console.log(address);
+  })
 
   const handleSubmit = async (event) => {
     // We don't want to let default form submission happen here,
@@ -31,12 +31,14 @@ export function PaymentForm() {
       return;
     }
 
+    const { residential, ...shippingAddress } = address;
     const { error } = await stripe.confirmPayment({
       //`Elements` instance that was used to create the Payment Element
       elements,
       confirmParams: {
         shipping: {
-          address
+          name: user.first_name + " " + user.last_name,
+          address: shippingAddress
         },
         return_url: `${protocol}://${url}/checkout/complete`,
       },
@@ -50,29 +52,17 @@ export function PaymentForm() {
     }
   };
 
-  useEffect(() => {
-    console.log(address);
-  }, [address]);
-
   return (
     <form className='checkout-form' onSubmit={handleSubmit}>
-      <h5>Shipping Address:</h5>
-      {/* <AddressElement options={{
-          mode: 'shipping',
-          allowedCountries: ['US'],
-          defaultValues: {
-            name: user.first_name + ' ' + user.last_name,
-            address: {
-              line1: address.line_1,
-              line2: address.line_2,
-              city: address.city,
-              state: address.state,
-              postal_code: address.zip,
-              country: 'US'
-            }
-          }
-        }}
-      /> */}
+      <h5>Shipping Information:</h5>
+      <section className='shipping-address-section'>
+        <h3><span className="label">Address 1: </span>{address.line1}</h3>
+        {address.line2 && <h3><span className="label">Address 2: </span>{address.line2}</h3>}
+        <h3><span className="label">City: </span>{address.city}</h3>
+        <h3><span className="label">State: </span>{address.state}</h3>
+        <h3><span className="label">Zip Code: </span>{address.postal_code}</h3>
+        <h3><span className="label">Residential: </span>{address.residential ? 'YES' : 'NO'}</h3>
+      </section>
       <h5>Payment Details:</h5>
       <PaymentElement />
       <button type="submit" className="checkout-button" disabled={!stripe}>

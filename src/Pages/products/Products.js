@@ -4,6 +4,7 @@ import { selectProducts, selectIsLoading, selectIsError, selectError, loadProduc
 import { Link, useLocation } from "react-router-dom";
 import './products.css';
 import { quantum } from "ldrs";
+import formatMoney from "accounting-js/lib/formatMoney";
 quantum.register();
 
 export function Products() {
@@ -45,7 +46,7 @@ export function Products() {
           <Link className="product-tile" key={product.id} to={`/products/${product.id}`}>
             <img src={`/images/products/${product.id}.jpg`} alt={product.name}/>
             <h4>{product.name}</h4>
-            <h5>{product.price}</h5>
+            <h5>${formatMoney(product.price)}</h5>
           </Link>
         )
       })}

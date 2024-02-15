@@ -1,16 +1,43 @@
-import { StateDropdown } from "./StateDropdown";
+import formatMoney from "accounting-js/lib/formatMoney";
+import { useDispatch } from "react-redux";
+import './shippingForm.css';
 
-export function ShippingForm() {
+export function ShippingForm(props) {
+  const {
+    shippingInfo,
+    selectedShippingInfo,
+    setSelectedShippingInfo
+  } = props;
+
+  const dispatch = useDispatch();
+
+
   return (
     <form className="shipping-form">
-      <fieldset className="address-fieldset">
-        <input type="text" name="addr_line_1" id="addr_line_1" />
-        <input type="text" name="addr_line_2" id="addr_line_2" />
-        <input type="text" name="city" id="city" />
-        <StateDropdown />
-        <input type="text" name="zip" id="zip" />
-        <input type="text" name="residential" id="residential" />
-      </fieldset>
+      <h2>Shipping Options</h2>
+      <ul className="shipping-options">
+        {
+          shippingInfo.map((item) => {
+            return (
+              <li key={item.serviceType}>
+                <input 
+                  type="radio"
+                  id={item.serviceType} 
+                  name="shipmentType" 
+                  value={item.serviceType} 
+                  key={item.serviceType}
+                  checked={selectedShippingInfo.serviceType === item.serviceType}
+                  onChange={(e) => dispatch(setSelectedShippingInfo(shippingInfo.find(info => info.serviceType === e.target.value)))}
+                  />
+                <label htmlFor="{item.serviceType}">
+                  <h5>{item.serviceName}</h5>
+                  <h6>{item.transitDays} | {formatMoney(item.totalCharge)}</h6>
+                </label>
+              </li>
+            )
+          })
+        }
+      </ul>
     </form>
   )
 }

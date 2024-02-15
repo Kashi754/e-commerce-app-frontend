@@ -5,6 +5,8 @@
   box-sizing: border-box;
   border: var(--border-style);
   border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .checkout-form h5 {
@@ -13,4 +15,27 @@
   margin: 0.5rem 0;
   background-color: var(--purple);
   border-radius: 0.5rem;
+}
+
+.shipping-address-section {
+  padding: 1rem;
+  width: 75%;
+  align-self: center;
+}
+
+.shipping-address-section h3 {
+  padding: 0.125rem 0;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 400;
+}
+
+.shipping-address-section .label {
+  color: var(--purple);
+  font-weight: bold;
+}
+
+.checkout-button {
+  width: 50%;
+  align-self: center;
 }

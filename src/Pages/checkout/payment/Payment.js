@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux";
-import unformat from 'accounting-js/lib/unformat';
 import { postApi } from '../../../utilities/fetchApi';
 import { 
   selectCart, 
@@ -15,7 +14,8 @@ import { CheckoutProductCard } from "../../../Components/checkoutProductCard/Che
 import './payment.css';
 import { PaymentForm } from "../../../Components/paymentForm/PaymentForm";
 import { quantum } from "ldrs";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { selectSelectedShippingInfo } from "../shipping/shippingSlice";
 quantum.register();
 
 export function Payment () {
@@ -23,14 +23,17 @@ export function Payment () {
   const isLoading = useSelector(selectIsLoading);
   const isError = useSelector(selectIsError);
   const error = useSelector(selectError);
-  const totalPrice = useSelector(selectPrice);
+  const cartTotal = useSelector(selectPrice);
+  const shippingInfo = useSelector(selectSelectedShippingInfo);
+  const navigate = useNavigate();
   const [ clientSecret, setClientSecret ] = useState(null);
 
   const url = process.env.REACT_APP_SERVER_URL;
 
   useEffect(() => {
-    if(totalPrice) {
-      fetch(`http://${url}/secret?total=${unformat(totalPrice) * 100}`, {
+    if(cartTotal && !!shippingInfo && !isLoading) {
+      const totalPrice = cartTotal + shippingInfo.totalCharge;
+      fetch(`http://${url}/secret?total=${totalPrice}`, {
         method: 'GET',
         credentials: 'include'
       })
@@ -40,10 +43,15 @@ export function Payment () {
           setClientSecret(clientSecret);
           const serverUrl = `http://${url}/cart/checkout`;
           const paymentIntent = clientSecret.split('_secret_')[0];
+          console.log(paymentIntent);
           postApi(serverUrl, {paymentIntent: paymentIntent});
+        })
+        .catch((err) => {
+          console.log(err);
+          navigate('/cart');
         });
     }
-  }, [url, totalPrice])
+  }, [url, cartTotal, shippingInfo, isLoading, navigate]);
 
   const options = {
     clientSecret: clientSecret,
@@ -105,12 +113,10 @@ export function Payment () {
   return (
     <main className="checkout">
       <Link className='link' to={'/'}>Continue Shopping</Link>
-      <CheckoutProductCard cart={cart} totalPrice={totalPrice} />
+      <CheckoutProductCard cart={cart} cartTotal={cartTotal} shippingInfo={shippingInfo} />
       <Elements stripe={stripePromise} options={options} key={clientSecret}>
         <PaymentForm />
       </Elements>
-        <div className="button-container">
-        </div>
     </main>
   )
 }

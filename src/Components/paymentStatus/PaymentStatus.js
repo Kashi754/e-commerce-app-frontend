@@ -3,6 +3,7 @@ import { useStripe } from '@stripe/react-stripe-js';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { loadCartData } from '../../Pages/cart/cartSlice';
+import { quantum } from "ldrs";
 
 export function PaymentStatus() {
   const stripe = useStripe();
@@ -10,6 +11,7 @@ export function PaymentStatus() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
 
   useEffect(() => {
     if (!stripe) {
@@ -20,7 +22,7 @@ export function PaymentStatus() {
     const clientSecret = searchParams.get('payment_intent_client_secret');
     
     if(!clientSecret) {
-      return;
+      navigate('/');
     }
     // Retrieve the PaymentIntent
     stripe
@@ -59,6 +61,13 @@ export function PaymentStatus() {
       });
   }, [dispatch, navigate, stripe, searchParams]);
 
+  if(!message) {
+    return (
+      <div className="loader">
+          <l-quantum size="45" speed="1.75" color="black" />
+      </div>
+    )
+  }
 
   return (<pre>{message}</pre>);
 };

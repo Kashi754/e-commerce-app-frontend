@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import './registration.css';
 import { useNavigate } from "react-router";
+import { postApi } from "../../utilities/fetchApi";
 
 export function Registration () {
 
@@ -28,26 +29,15 @@ export function Registration () {
     e.preventDefault();
     setError(null);
     const serverUrl = `${urlBase}/register`;
-        const {password2, ...body} = formData;
+    const {password2, ...body} = formData;
 
-        const response = await fetch(serverUrl, {
-            method: "POST",
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(body)
-        });
-
-        if(!response.ok) {
-            const error = await response.json();
-            setError(error);
-            throw new Error(error.message);
-        }
-        const data = await response.json();
-        console.log(data.message);
-        
-        navigate('/login');
+    try {
+      await postApi(serverUrl, body)
+    } catch(err) {
+      return;
+    }
+    
+    navigate('/login');
   }
 
   function verifyPassword(name, value) {

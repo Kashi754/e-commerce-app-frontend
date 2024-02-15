@@ -12,6 +12,7 @@ import {
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import './cart.css';
+import formatMoney from "accounting-js/lib/formatMoney";
 
 export function Cart () {
   const cart = useSelector(selectCart);
@@ -81,7 +82,7 @@ export function Cart () {
                   <img src={`/images/products/${product.id}.jpg`} alt={product.name} />
                   <h4 className="cart-product-info">{product.name}</h4>
                 </Link>
-                <h5 className="cart-product-info">{`${product.price}`}</h5>
+                <h5 className="cart-product-info">{`${formatMoney(product.price)}`}</h5>
                 <div className="cart-product-field">
                   <label className="product-info" htmlFor={product.id}>qty: </label>
                   <input
@@ -108,7 +109,7 @@ export function Cart () {
           <h5 className="cart-product-info">NOTHING IN CART</h5>
         }
         <div className="order-section">
-          <h3>CART TOTAL: {totalPrice}</h3>
+          <h3>CART TOTAL: {formatMoney(totalPrice)}</h3>
         </div>
 
         <div className="button-container">

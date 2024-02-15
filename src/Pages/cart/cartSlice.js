@@ -99,9 +99,6 @@ const cartSlice = createSlice({
         })
         .addCase(loadCartData.fulfilled, (state, action) => {
             const data = action.payload;
-            state.isLoading = false;
-            state.isError = false;
-            state.error = null;
             if(data.products.length > 0) {
                 data.products.forEach(item => item.isHovering = false);
                 state.qty = data.products.map(item => item.qty).reduce((acc, val) => acc + val);
@@ -109,7 +106,11 @@ const cartSlice = createSlice({
                 state.qty = 0;
             }
             state.cart = data.products;
-            state.totalPrice = data.total;
+            state.totalPrice = parseFloat(data.total);
+            console.log(data.total);
+            state.isLoading = false;
+            state.isError = false;
+            state.error = null;
         })
         .addCase(loadCartData.rejected, (state, action) => {
             state.isLoading = false;
@@ -130,7 +131,7 @@ const cartSlice = createSlice({
             state.cart = data.products;
             state.qty = data.products.map(item => item.qty).reduce((acc, val) => acc + val);
             state.totalWeight = data.products.map(item => item.weight || 0).reduce((acc, val) => acc + val);
-            state.totalPrice = data.total;
+            state.totalPrice = parseFloat(data.total);
         })
         .addCase(addCartItem.rejected, (state, action) => {
             state.isLoading = false;
@@ -150,7 +151,7 @@ const cartSlice = createSlice({
             data.products.forEach(item => item.isHovering = false);
             state.cart = data.products;
             state.qty = data.products.map(item => item.qty).reduce((acc, val) => acc + val);
-            state.totalPrice = data.total;
+            state.totalPrice = parseFloat(data.total);
         })
         .addCase(editCartItem.rejected, (state, action) => {
             state.isLoading = false;
@@ -174,7 +175,7 @@ const cartSlice = createSlice({
                 state.qty = 0;
             }
             state.cart = data.products;
-            state.totalPrice = data.total;
+            state.totalPrice = parseFloat(data.total);
         })
         .addCase(deleteCartItem.rejected, (state, action) => {
             state.isLoading = false;
@@ -187,6 +188,7 @@ const cartSlice = createSlice({
 export const selectCart = (state) => state.cart.cart;
 export const selectQty = (state) => state.cart.qty;
 export const selectPrice = (state) => state.cart.totalPrice;
+export const selectWeight = (state) => state.cart.totalWeight;
 export const selectIsLoading = (state) => state.cart.isLoading;
 export const selectIsError = (state) => state.cart.isError;
 export const selectError = (state) => state.cart.error;

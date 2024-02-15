@@ -1,0 +1,64 @@
+.verification-result {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-self: center;
+  width: 96%;
+}
+
+.apiResultContainer,
+.apiErrorText {
+  padding: 1rem;
+  margin: 0 2rem;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.apiErrorText {
+  background-color: red;
+  align-self: center;
+  color: var(--pink);
+}
+
+.apiResultContainer p,
+.apiResultContainer h5 {
+  align-self: center;
+  color: var(--pink);
+}
+
+.apiResultContainer h5 {
+  text-transform: uppercase;
+}
+
+.green {
+  background-color: green;
+}
+
+.red {
+  background-color: red;
+}
+
+.reset-form-button {
+  width: 100%;
+  margin: 1rem 0;
+  padding: 0.5rem;
+  color: var(--pink);
+  background-color: var(--purple);
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 0.75rem;
+}
+
+.reset-form-button:hover {
+  background-color: var(--pink);
+  border: 2px solid var(--purple);
+  color: var(--purple);
+}
+
+.reset-form-button:active {
+  padding: 0.4rem;
+}

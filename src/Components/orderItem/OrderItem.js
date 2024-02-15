@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import './orderItem.css';
+import formatMoney from "accounting-js/lib/formatMoney";
 
 export function OrderItem(props) {
   const { order } = props;
@@ -13,7 +14,7 @@ export function OrderItem(props) {
       </div>
       <div className="order-section">
         <h3>TOTAL</h3>
-        <h4>{`${order.total}`}</h4>
+        <h4>{formatMoney(order.total)}</h4>
       </div>
       <div className="order-section">
         <h3>ORDER STATUS</h3>

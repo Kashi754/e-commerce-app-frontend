@@ -1,3 +1,4 @@
+import formatMoney from "accounting-js/lib/formatMoney";
 import { Link, useNavigate } from "react-router-dom";
 
 export function OrderCard(props) {
@@ -14,7 +15,7 @@ export function OrderCard(props) {
           </div>
           <div className="order-section">
             <h3>TOTAL</h3>
-            <h4>{order.total}</h4>
+            <h4>{formatMoney(order.total)}</h4>
           </div>
           <div className="order-section">
             <h3>ORDER STATUS</h3>
@@ -44,7 +45,7 @@ export function OrderCard(props) {
                     <h4 className="product-info">{product.name}</h4>
                   </div>
                   <h5 className="product-info">{`Qty: ${product.qty}`}</h5>
-                  <h5 className="product-info">{`${product.price}`}</h5>
+                  <h5 className="product-info">{`${formatMoney(product.price)}`}</h5>
                 </Link>
               );
             })

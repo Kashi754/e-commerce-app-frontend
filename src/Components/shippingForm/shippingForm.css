@@ -1,0 +1,29 @@
+.shipping-form {
+  padding-top: 1rem;
+}
+
+.residential-fieldset {
+  padding-top: 0.5rem;
+}
+
+.residential-fieldset label {
+  color: var(--purple);
+  padding-left: 0.5rem;
+}
+
+.shipping-options {
+  list-style-type: none;
+  display: flex;
+  justify-content: space-around;
+  padding-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.shipping-options li {
+  display: flex;
+}
+
+.shipping-options label {
+  color: var(--purple);
+  padding-left: 0.5rem;
+}
