@@ -16,10 +16,24 @@
   justify-content: center;
   gap: 0.5rem;
   text-transform: capitalize;
+  background-color: var(--pink);
+  padding: 0.5rem;
+  box-sizing: border-box;
+  border: var(--border-style);
+  border-radius: 0.5rem;
 }
 
 .product-tile img {
   width: clamp(200px, 15vw, 350px);
   aspect-ratio: 1 / 1;
   object-fit: cover;
+  border-radius: 0.5rem;
+}
+
+.product-tile h4 {
+  color: var(--purple);
+}
+
+.product-tile h5 {
+  font-weight: 400;
 }

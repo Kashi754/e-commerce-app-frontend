@@ -43,7 +43,6 @@ export function Payment () {
           setClientSecret(clientSecret);
           const serverUrl = `http://${url}/cart/checkout`;
           const paymentIntent = clientSecret.split('_secret_')[0];
-          console.log(paymentIntent);
           postApi(serverUrl, {paymentIntent: paymentIntent});
         })
         .catch((err) => {

@@ -17,8 +17,12 @@ export function OrderItem(props) {
         <h4>{formatMoney(order.total)}</h4>
       </div>
       <div className="order-section">
-        <h3>ORDER STATUS</h3>
-        <h4>{order.status}</h4>
+        <h3>PAYMENT STATUS</h3>
+        <h4>{order.payment_status}</h4>
+      </div>
+      <div className="order-section">
+        <h3>SHIPPING STATUS</h3>
+        <h4>{order.shipping_status}</h4>
       </div>
       <div className="order-section">
         <h3>{`ORDER # ${order.id}`}</h3>

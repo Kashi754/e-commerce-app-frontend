@@ -48,6 +48,24 @@ export async function putApi(url, body) {
   return data;
 }
 
+export async function patchApi(url, body) {
+  const response = await fetch(url, {
+    method: 'PATCH',
+    credentials: 'include',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body)
+  })
+
+  if(!response.ok) {
+    const error = await response.json();
+    throw error;
+  }
+  const data = await response.json();
+  return data;
+}
+
 export async function deleteApi(url) {
   const response = await fetch(url, {
     method: 'DELETE',

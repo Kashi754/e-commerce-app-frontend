@@ -46,7 +46,7 @@ export function Products() {
           <Link className="product-tile" key={product.id} to={`/products/${product.id}`}>
             <img src={`/images/products/${product.id}.jpg`} alt={product.name}/>
             <h4>{product.name}</h4>
-            <h5>${formatMoney(product.price)}</h5>
+            <h5>{formatMoney(product.price)}</h5>
           </Link>
         )
       })}

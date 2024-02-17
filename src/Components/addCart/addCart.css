@@ -76,7 +76,7 @@ select::-webkit-scrollbar {
   width: 0;
 }
 
-.remove-item-button {
+.checkout-link {
   background: none;
   border: none;
   text-decoration: underline;
@@ -84,7 +84,7 @@ select::-webkit-scrollbar {
   padding-top: 0.25rem;
 }
 
-.remove-item-button:hover {
+.checkout-link:hover {
   text-decoration: none;
   color: var(--grey);
   cursor: pointer;

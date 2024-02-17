@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router';
 import './addCart.css';
 
 export function AddCart(props) {
@@ -10,6 +11,8 @@ export function AddCart(props) {
     productId,
     cartProducts
   } = props;
+
+  const navigate = useNavigate();
 
   return (
     <form className="add-cart-form" onSubmit={handleSubmit}>
@@ -32,21 +35,30 @@ export function AddCart(props) {
           </select>
         </fieldset>
       }
-      <button 
-        className='add-item-button' 
-        type="submit" 
-        disabled={cartProducts.indexOf(productId) >= 0}
-      >
-        {cartProducts.indexOf(productId) < 0 ? 'Add to Cart' : 'Product Already In Cart'}
-      </button>
+      { cartProducts.indexOf(productId) < 0 ?
+        <button 
+          className='add-item-button' 
+          type="submit" 
+        >
+          Add to Cart
+        </button> :
+        <button
+          className='add-item-button'
+          type='button'
+          onClick={handleRemoveItem}
+        >
+          Remove from Cart
+        </button>
+
+      }
       {
         cartProducts.indexOf(productId) >= 0 && 
         <button 
-          className='remove-item-button' 
+          className='checkout-link' 
           type='button' 
-          onClick={handleRemoveItem} 
+          onClick={() => navigate('/checkout/shipping')} 
         >
-          Remove from cart?
+          Go to Checkout?
         </button>
       }
     </form>

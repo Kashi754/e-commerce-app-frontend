@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import {useStripe, useElements, PaymentElement} from '@stripe/react-stripe-js';
 import './paymentForm.css';
 import { useSelector } from 'react-redux';
-import { selectAddress } from '../../Pages/checkout/shipping/shippingSlice';
+import { selectAddress, selectSelectedShippingInfo } from '../../Pages/checkout/shipping/shippingSlice';
 import { selectUser } from '../../Pages/user/userSlice';
 
 export function PaymentForm() {
@@ -11,6 +11,7 @@ export function PaymentForm() {
 
   const [errorMessage, setErrorMessage] = useState(null);
   const address = useSelector(selectAddress);
+  const selectedShippingInfo = useSelector(selectSelectedShippingInfo);
   const user = useSelector(selectUser);
 
   const url = process.env.REACT_APP_URL;
@@ -38,7 +39,8 @@ export function PaymentForm() {
       confirmParams: {
         shipping: {
           name: user.first_name + " " + user.last_name,
-          address: shippingAddress
+          address: shippingAddress,
+          carrier: selectedShippingInfo.serviceType,
         },
         return_url: `${protocol}://${url}/checkout/complete`,
       },

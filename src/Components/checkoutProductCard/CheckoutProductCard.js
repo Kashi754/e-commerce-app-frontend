@@ -1,4 +1,3 @@
-import unformat from 'accounting-js/lib/unformat';
 import formatMoney from 'accounting-js/lib/formatMoney';
 import './checkoutProductCard.css';
 

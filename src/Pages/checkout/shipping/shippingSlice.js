@@ -34,7 +34,10 @@ const shippingSlice = createSlice({
     },
     accessToken: null,
     shippingInfo: [],
-    selectedShippingInfo: {}
+    selectedShippingInfo: {},
+    isLoading: false,
+    isError: false,
+    error: null
   },
   reducers: {
     setAddress(state, action) {

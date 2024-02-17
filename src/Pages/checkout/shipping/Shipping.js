@@ -1,21 +1,24 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import validator from 'validator';
-import { determineShippingServicesAndTransitTimes, selectAccessToken, selectAddress, selectSelectedShippingInfo, selectShippingInfo, setAccessToken, setAddress, toggleResidential, setSelectedShippingInfo } from './shippingSlice';
+import { determineShippingServicesAndTransitTimes, selectAccessToken, selectAddress, selectSelectedShippingInfo, selectShippingInfo, setAccessToken, setAddress, toggleResidential, setSelectedShippingInfo, selectIsLoading, selectIsError, selectError } from './shippingSlice';
 import { selectCart, selectPrice, selectWeight } from '../../cart/cartSlice';
 import { AddressForm } from '@lob/react-address-autocomplete';
 import VerificationResult from '../../../Components/shippingForm/VerificationResult';
 import { useNavigate } from 'react-router';
 import { ShippingForm } from '../../../Components/shippingForm/ShippingForm';
 import './shipping.css';
+import { patchApi } from '../../../utilities/fetchApi';
 
 export function Shipping() {
   const accessToken = useSelector(selectAccessToken);
-  const cart = useSelector(selectCart);
   const cartPrice = useSelector(selectPrice);
   const cartWeight = useSelector(selectWeight);
   const shippingInfo = useSelector(selectShippingInfo);
   const selectedShippingInfo = useSelector(selectSelectedShippingInfo);
+  const isLoading = useSelector(selectIsLoading);
+  const isError = useSelector(selectIsError);
+  const error = useSelector(selectError);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [ fieldsVerified, setFieldsVerified ] = useState(false);
@@ -157,6 +160,16 @@ export function Shipping() {
     }
 
     dispatch(setAddress(shippingAddress));
+    console.log(selectedShippingInfo);
+    const serverUrl = `http://${process.env.REACT_APP_SERVER_URL}/cart/shipping`;
+    
+    try {
+      await patchApi(serverUrl, {shippingPrice: selectedShippingInfo.totalCharge});
+    } catch(err) {
+      console.error(err);
+      return;
+    }
+
     navigate('/checkout/payment');
   }
 
@@ -208,10 +221,10 @@ export function Shipping() {
           />
         }
         
-        {(verificationResult.deliverability || errorMessage) && 
+        {(verificationResult.deliverability || errorMessage || error) && 
           <VerificationResult 
             apiResponse={verificationResult} 
-            error={errorMessage}
+            error={errorMessage || error?.message}
             resetForm={resetForm}
           />
         }
@@ -225,6 +238,7 @@ export function Shipping() {
           <button 
             className='submit-shipping-button' 
             onClick={handleSubmit} 
+            disabled={isLoading && !isError}
           >
             Go to payment
           </button>
