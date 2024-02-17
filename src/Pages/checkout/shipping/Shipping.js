@@ -160,7 +160,6 @@ export function Shipping() {
     }
 
     dispatch(setAddress(shippingAddress));
-    console.log(selectedShippingInfo);
     const serverUrl = `http://${process.env.REACT_APP_SERVER_URL}/cart/shipping`;
     
     try {

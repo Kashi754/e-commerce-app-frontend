@@ -1,7 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectProducts, selectIsLoading, selectIsError, selectError, loadProductsData } from "./productsSlice";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import './products.css';
 import { quantum } from "ldrs";
 import formatMoney from "accounting-js/lib/formatMoney";
@@ -14,10 +14,17 @@ export function Products() {
   const products = useSelector(selectProducts);
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [filter, setFilter] = useState({
+    price_less_than: "",
+    price_greater_than: ""
+  });
 
   useEffect(() => {
     dispatch(loadProductsData(location.search));
   }, [dispatch, location.search]);
+
 
   if(isLoading) {
     return (
@@ -40,16 +47,18 @@ export function Products() {
   // }
 
   return (
-    <main className="products">
-      {products.map(product => {
-        return (
-          <Link className="product-tile" key={product.id} to={`/products/${product.id}`}>
-            <img src={`/images/products/${product.id}.jpg`} alt={product.name}/>
-            <h4>{product.name}</h4>
-            <h5>{formatMoney(product.price)}</h5>
-          </Link>
-        )
-      })}
+    <main className="products-page">
+      <section className="products">
+        {products.map(product => {
+          return (
+            <Link className="product-tile" key={product.id} to={`/products/${product.id}`}>
+              <img src={`/images/products/${product.id}.jpg`} alt={product.name}/>
+              <h4>{product.name}</h4>
+              <h5>{formatMoney(product.price)}</h5>
+            </Link>
+          )
+        })}
+      </section>
     </main>
   )
 }

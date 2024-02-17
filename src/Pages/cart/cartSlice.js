@@ -107,7 +107,6 @@ const cartSlice = createSlice({
             }
             state.cart = data.products;
             state.totalPrice = parseFloat(data.total);
-            console.log(data.total);
             state.isLoading = false;
             state.isError = false;
             state.error = null;

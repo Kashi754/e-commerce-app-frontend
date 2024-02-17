@@ -47,7 +47,6 @@ const shippingSlice = createSlice({
       state.accessToken = action.payload;
     },
     toggleResidential(state, action) {
-      console.log(action.payload);
       state.address = { ...state.address, ...action.payload };
     },
     setSelectedShippingInfo(state, action) {

@@ -21,7 +21,7 @@ export const loadProductsData = createAsyncThunk(
     async(params) => {
         const url = process.env.REACT_APP_SERVER_URL;
         const serverUrl = params ? 
-            `http://${url}/products?${params}` : 
+            `http://${url}/products${params}` : 
             `http://${url}/products`;
         return await getApi(serverUrl);
     }

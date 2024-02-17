@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import {useStripe, useElements, PaymentElement} from '@stripe/react-stripe-js';
 import './paymentForm.css';
 import { useSelector } from 'react-redux';
@@ -16,10 +16,6 @@ export function PaymentForm() {
 
   const url = process.env.REACT_APP_URL;
   const protocol = process.env.NODE_ENV === 'development'? 'http' : 'https';
-
-  useEffect(() => {
-    console.log(address);
-  })
 
   const handleSubmit = async (event) => {
     // We don't want to let default form submission happen here,
