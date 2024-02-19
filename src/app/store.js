@@ -20,12 +20,12 @@ const rootReducer = {
 };
 
 export const store = configureStore({
-  reducer: rootReducer
+  reducer: rootReducer,
 });
 
-export const setupStore = preloadedState => {
+export const setupStore = (preloadedState) => {
   return configureStore({
     reducer: rootReducer,
-    preloadedState
-  })
-}
+    preloadedState,
+  });
+};

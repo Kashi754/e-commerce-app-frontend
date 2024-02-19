@@ -1,10 +1,16 @@
-import { useNavigate } from "react-router-dom";
-import { selectIsLoggedIn, selectIsError, selectIsLoading, selectError, logout } from "../../Pages/user/userSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { UserLink } from "./UserLink";
-import { UserCart } from "./UserCart";
+import { useNavigate } from 'react-router-dom';
+import {
+  selectIsLoggedIn,
+  selectIsError,
+  selectIsLoading,
+  selectError,
+  logout,
+} from '../../Pages/user/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { UserLink } from './UserLink';
+import { UserCart } from './UserCart';
 import './UserInfo.css';
-import { quantum } from "ldrs";
+import { quantum } from 'ldrs';
 quantum.register();
 
 export function UserInfo() {
@@ -17,7 +23,7 @@ export function UserInfo() {
 
   function handleClick(event) {
     event.preventDefault();
-    if(isLoggedIn) {
+    if (isLoggedIn) {
       dispatch(logout());
       navigate('/login');
     } else {
@@ -25,27 +31,40 @@ export function UserInfo() {
     }
   }
 
-  if(isLoading) {
+  if (isLoading) {
     return (
-      <div className="loader">
-          <l-quantum size="45" speed="1.75" color="black" />
+      <div className='loader'>
+        <l-quantum
+          size='45'
+          speed='1.75'
+          color='black'
+        />
       </div>
-    )
+    );
   }
 
-
-  if(isLoggedIn) {
+  if (isLoggedIn) {
     return (
-      <div className="user-info">
-        <button className="logout-button" onClick={handleClick}>{isLoggedIn? "Logout" : "login"}</button>
+      <div className='user-info'>
+        <button
+          className='logout-button'
+          onClick={handleClick}
+        >
+          {isLoggedIn ? 'Logout' : 'login'}
+        </button>
         <UserLink />
         <UserCart />
       </div>
     );
   } else {
     return (
-      <div className="user-info">
-        <button className="login-button" onClick={handleClick}>{isLoggedIn? "Logout" : "login"}</button>
+      <div className='user-info'>
+        <button
+          className='login-button'
+          onClick={handleClick}
+        >
+          {isLoggedIn ? 'Logout' : 'login'}
+        </button>
       </div>
     );
   }

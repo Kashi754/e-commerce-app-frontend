@@ -1,21 +1,19 @@
-import { useDispatch } from "react-redux";
-import { useState } from "react";
+import { useState } from 'react';
 import validator from 'validator';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import './registration.css';
-import { useNavigate } from "react-router";
-import { postApi } from "../../utilities/fetchApi";
+import { useNavigate } from 'react-router';
+import { postApi } from '../../utilities/fetchApi';
 
-export function Registration () {
-
+export function Registration() {
   const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-    password2: "",
-    first_name: "",
-    last_name: ""
+    username: '',
+    email: '',
+    password: '',
+    password2: '',
+    first_name: '',
+    last_name: '',
   });
   const [matchedPasswords, setMatchedPasswords] = useState(false);
   const [correctPassword, setCorrectPassword] = useState(false);
@@ -29,37 +27,43 @@ export function Registration () {
     e.preventDefault();
     setError(null);
     const serverUrl = `${urlBase}/register`;
-    const {password2, ...body} = formData;
+    // eslint-disable-next-line no-unused-vars
+    const { password2, ...body } = formData;
 
     try {
-      await postApi(serverUrl, body)
-    } catch(err) {
+      await postApi(serverUrl, body);
+    } catch (err) {
       return;
     }
-    
+
     navigate('/login');
   }
 
   function verifyPassword(name, value) {
-    if(name ==="password") {
-      if (validator.isStrongPassword(value, { 
-        minLength: 8, minLowercase: 1, 
-        minUppercase: 1, minNumbers: 1, minSymbols: 1 
-      })) { 
-          setCorrectPassword(true);
-      } else { 
-          setCorrectPassword(false);
+    if (name === 'password') {
+      if (
+        validator.isStrongPassword(value, {
+          minLength: 8,
+          minLowercase: 1,
+          minUppercase: 1,
+          minNumbers: 1,
+          minSymbols: 1,
+        })
+      ) {
+        setCorrectPassword(true);
+      } else {
+        setCorrectPassword(false);
       }
 
-      if(formData.password2 === value) {
+      if (formData.password2 === value) {
         setMatchedPasswords(true);
       } else {
         setMatchedPasswords(false);
       }
     }
 
-    if(name === "password2") {
-      if(formData.password === value) {
+    if (name === 'password2') {
+      if (formData.password === value) {
         setMatchedPasswords(true);
       } else {
         setMatchedPasswords(false);
@@ -69,7 +73,7 @@ export function Registration () {
 
   function handleChange(e) {
     const { name, value } = e.target;
-    setFormData((prev) => ({...prev, [name]: value}));
+    setFormData((prev) => ({ ...prev, [name]: value }));
     verifyPassword(name, value);
   }
 
@@ -78,90 +82,105 @@ export function Registration () {
     setPasswordVisible(!passwordVisible);
   }
 
-
   return (
-    <main className="registration">
-      <section className="registration-container">
+    <main className='registration'>
+      <section className='registration-container'>
         <h2>Sign-Up</h2>
-        <form className='registration-form' onSubmit={handleSubmit}>
-          <fieldset className="username-field field">
-            <label htmlFor="username">Choose a Username: </label>
-            <input 
-              type='text' 
-              id="username" 
-              name="username" 
-              value={formData.username} 
-              onChange={handleChange} 
+        <form
+          className='registration-form'
+          onSubmit={handleSubmit}
+        >
+          <fieldset className='username-field field'>
+            <label htmlFor='username'>Choose a Username: </label>
+            <input
+              type='text'
+              id='username'
+              name='username'
+              value={formData.username}
+              onChange={handleChange}
             />
           </fieldset>
-          <fieldset className="email-field field">
-            <label htmlFor="email">Email: </label>
-            <input 
-              type="email" 
-              id="email" 
-              name="email" 
+          <fieldset className='email-field field'>
+            <label htmlFor='email'>Email: </label>
+            <input
+              type='email'
+              id='email'
+              name='email'
               value={formData.email}
-              onChange={handleChange} 
+              onChange={handleChange}
             />
           </fieldset>
-          <fieldset className="password-field">
-            <div className="password1-field field">
-              <label htmlFor="password">Choose a Password: </label>
-              <input 
-                type={passwordVisible ? "text" : "password"} 
-                id="password" 
-                name="password" 
+          <fieldset className='password-field'>
+            <div className='password1-field field'>
+              <label htmlFor='password'>Choose a Password: </label>
+              <input
+                type={passwordVisible ? 'text' : 'password'}
+                id='password'
+                name='password'
                 value={formData.password}
-                onChange={handleChange} 
+                onChange={handleChange}
               />
-              <button className="show-password-button" type="button" onClick={handleClick}>{
-                <FontAwesomeIcon icon={passwordVisible ? faEyeSlash : faEye} />
-              }</button>
+              <button
+                className='show-password-button'
+                type='button'
+                onClick={handleClick}
+              >
+                {
+                  <FontAwesomeIcon
+                    icon={passwordVisible ? faEyeSlash : faEye}
+                  />
+                }
+              </button>
             </div>
-            {
-              !correctPassword && 
-              <p className="error-message password-error">
-                Password must contain at least 8 characters including UPPER/lowercase, 1 number, and 1 special symbol.</p>
-            }
-            <div className="password2-field field">
-              <label htmlFor="password2">Re-Enter Password: </label>
-              <input 
-                type={passwordVisible ? "text" : "password"} 
-                id="password2" 
-                name="password2"
+            {!correctPassword && (
+              <p className='error-message password-error'>
+                Password must contain at least 8 characters including
+                UPPER/lowercase, 1 number, and 1 special symbol.
+              </p>
+            )}
+            <div className='password2-field field'>
+              <label htmlFor='password2'>Re-Enter Password: </label>
+              <input
+                type={passwordVisible ? 'text' : 'password'}
+                id='password2'
+                name='password2'
                 value={formData.password2}
-                onChange={handleChange} 
+                onChange={handleChange}
               />
             </div>
-            {
-              !matchedPasswords && 
-              <p className="error-message password-error">
+            {!matchedPasswords && (
+              <p className='error-message password-error'>
                 Passwords must match.
               </p>
-            }
+            )}
           </fieldset>
 
-          <fieldset className="first-name-field field">
-            <label htmlFor="first-name">First Name: </label>
-            <input 
-              type="text" 
-              id="first-name" 
-              name="first_name" 
+          <fieldset className='first-name-field field'>
+            <label htmlFor='first-name'>First Name: </label>
+            <input
+              type='text'
+              id='first-name'
+              name='first_name'
               value={formData.first_name}
-              onChange={handleChange} 
+              onChange={handleChange}
             />
           </fieldset>
-          <fieldset className="last-name-field field">
-            <label htmlFor="last-name">Last Name: </label>
-            <input 
-              type="text" 
-              id="last-name" 
-              name="last_name" 
+          <fieldset className='last-name-field field'>
+            <label htmlFor='last-name'>Last Name: </label>
+            <input
+              type='text'
+              id='last-name'
+              name='last_name'
               value={formData.last_name}
-              onChange={handleChange} 
+              onChange={handleChange}
             />
           </fieldset>
-          <button className="registration-submit-button" type="submit">Register User</button>
+          <button
+            className='registration-submit-button'
+            type='submit'
+          >
+            Register User
+          </button>
         </form>
       </section>
     </main>

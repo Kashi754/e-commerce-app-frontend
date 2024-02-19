@@ -1,12 +1,18 @@
-import { quantum } from "ldrs";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
-import { AddCart } from "../../Components/addCart/AddCart";
-import { addCartItem, selectCart, deleteCartItem } from "../cart/cartSlice";
+import { quantum } from 'ldrs';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import { AddCart } from '../../Components/addCart/AddCart';
+import { addCartItem, selectCart, deleteCartItem } from '../cart/cartSlice';
 import './product.css';
-import { loadProductData, selectError, selectIsError, selectIsLoading, selectProduct } from "./productSlice";
-import formatMoney from "accounting-js/lib/formatMoney";
+import {
+  loadProductData,
+  selectError,
+  selectIsError,
+  selectIsLoading,
+  selectProduct,
+} from './productSlice';
+import formatMoney from 'accounting-js/lib/formatMoney';
 quantum.register();
 
 export function Product() {
@@ -17,8 +23,8 @@ export function Product() {
   const product = useSelector(selectProduct);
   const dispatch = useDispatch();
   const location = useLocation();
-  const [ quantity, setQuantity ] = useState(1);
-  const cartProducts = cart.map(product => product.id);
+  const [quantity, setQuantity] = useState(1);
+  const cartProducts = cart.map((product) => product.id);
 
   useEffect(() => {
     dispatch(loadProductData(location.pathname));
@@ -26,10 +32,12 @@ export function Product() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(addCartItem({
-      productId: product.id,
-      qty: quantity
-    }));
+    dispatch(
+      addCartItem({
+        productId: product.id,
+        qty: quantity,
+      })
+    );
     setQuantity(1);
   }
 
@@ -38,16 +46,21 @@ export function Product() {
     dispatch(deleteCartItem(product.id));
   }
 
-  if(isLoading) {
+  if (isLoading) {
     return (
-      <div data-testid='loader' className="loader">
-          {<l-quantum
-              size={300}
-              speed={1}
-              color='#000000'
-          />}
+      <div
+        data-testid='loader'
+        className='loader'
+      >
+        {
+          <l-quantum
+            size={300}
+            speed={1}
+            color='#000000'
+          />
+        }
       </div>
-    )
+    );
   }
 
   // if(isError) {
@@ -59,33 +72,38 @@ export function Product() {
   // }
 
   return (
-    <main className="product">
-      <div className="product-container">
-        <img src={`/images/products/${product.id}.jpg`} alt={product.name}/>
-        <section className="product-infobox">
-          <div className="product-info">
+    <main className='product'>
+      <div className='product-container'>
+        <img
+          src={`/images/products/${product.id}.jpg`}
+          alt={product.name}
+        />
+        <section className='product-infobox'>
+          <div className='product-info'>
             <h4>{product.name}</h4>
             <h5>{`${formatMoney(product.price)}`}</h5>
-            <figure className="description">
+            <figure className='description'>
               {product.description}
-              <figcaption className="quantity">Quantity in stock: {product.qty_in_stock}</figcaption>
+              <figcaption className='quantity'>
+                Quantity in stock: {product.qty_in_stock}
+              </figcaption>
             </figure>
           </div>
-          {
-            product.qty_in_stock > 0 ? 
-            <AddCart 
+          {product.qty_in_stock > 0 ? (
+            <AddCart
               handleSubmit={handleSubmit}
               handleRemoveItem={handleRemoveItem}
               qty={quantity}
-              setQty={setQuantity} 
+              setQty={setQuantity}
               quantityInStock={product.qty_in_stock}
-              productId = {product.id}
+              productId={product.id}
               cartProducts={cartProducts}
-            /> :
-            <h3 className="stock-shortage">Out of stock</h3>
-          }
+            />
+          ) : (
+            <h3 className='stock-shortage'>Out of stock</h3>
+          )}
         </section>
       </div>
     </main>
-  )
+  );
 }

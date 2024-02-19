@@ -1,78 +1,53 @@
-
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getApi } from "../../utilities/fetchApi";
-
-const initialState = {
-    order: {
-        id: 1,
-        date: '02/01/2024',
-        total: 130.06,
-        status: 'delivered',
-        products: [
-            {id: 1, name: 'bag', price: 13.59, qty: 2},
-            {id: 2, name: 'tool', price: 19.99, qty: 1},
-            {id: 3, name: 'watch', price: 27.63, qty: 3},
-        ],
-        shipping_address: {
-            addr_line_1: '117 Harrington Rd',
-            addr_line_2: null,
-            city: 'Newport News',
-            state: 'VA',
-            zip_code: 23602
-        }
-    },
-    isLoading: false,
-    isError: false,
-    error: null
-};
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { getApi } from '../../utilities/fetchApi';
 
 export const loadOrderData = createAsyncThunk(
-    'order/loadOrderData',
-    async(path) => {     
-        const url = process.env.REACT_APP_SERVER_URL;
-        const serverUrl = `http://${url}${path}`;
-        
-        return await getApi(serverUrl);
-    }
-)
+  'order/loadOrderData',
+  async (path) => {
+    const url = process.env.REACT_APP_SERVER_URL;
+    const serverUrl = `http://${url}${path}`;
+
+    return await getApi(serverUrl);
+  }
+);
 
 const orderSlice = createSlice({
-    name: 'order',
-    initialState: {
-        order: {},
-        isLoading: true,
-        isError: false,
-        error: null
+  name: 'order',
+  initialState: {
+    order: {},
+    isLoading: true,
+    isError: false,
+    error: null,
+  },
+  reducers: {
+    incrementCount(state) {
+      state.count += 25;
     },
-    reducers: {
-        incrementCount(state) {
-            state.count += 25
-        },
-        decrementCount(state) {
-            state.count -= 25
-        },
-        resetCount(state) {
-            state.count = 0;
-        }
+    decrementCount(state) {
+      state.count -= 25;
     },
-    extraReducers: (builder) => {
-        builder
-        .addCase(loadOrderData.pending, (state, action) => {
-            state.isLoading = true;
-            state.isError = false;
-        })
-        .addCase(loadOrderData.fulfilled, (state, action) => {
-            const data = action.payload;
-            state.isLoading = false;
-            state.isError = false;
-            state.order = data;
-        })
-        .addCase(loadOrderData.rejected, (state, action) => {
-            state.isLoading = false;
-            state.isError = true;
-            state.error = action.error;
-        })
-    }
+    resetCount(state) {
+      state.count = 0;
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(loadOrderData.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+      })
+      .addCase(loadOrderData.fulfilled, (state, action) => {
+        const data = action.payload;
+        state.isLoading = false;
+        state.isError = false;
+        state.order = data;
+      })
+      .addCase(loadOrderData.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.error = action.error;
+      });
+  },
 });
 
 export const selectOrder = (state) => state.order.order;

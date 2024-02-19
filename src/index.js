@@ -11,7 +11,9 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 const container = document.getElementById('root');
 const root = createRoot(container);
 const AppRoutes = App();
-const AppRouter = () => <RouterProvider router={createBrowserRouter(AppRoutes)} />
+const AppRouter = () => (
+  <RouterProvider router={createBrowserRouter(AppRoutes)} />
+);
 
 root.render(
   <React.StrictMode>

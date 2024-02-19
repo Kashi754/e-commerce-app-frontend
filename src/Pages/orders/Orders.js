@@ -1,10 +1,16 @@
-import { loadOrdersData, selectOrders, selectIsLoading, selectError, selectIsError } from "./ordersSlice";
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { OrderItem } from "../../Components/orderItem/OrderItem";
+import {
+  loadOrdersData,
+  selectOrders,
+  selectIsLoading,
+  selectError,
+  selectIsError,
+} from './ordersSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { OrderItem } from '../../Components/orderItem/OrderItem';
 import './orders.css';
 
-export function Orders () {
+export function Orders() {
   const orders = useSelector(selectOrders);
   const isLoading = useSelector(selectIsLoading);
   const isError = useSelector(selectIsError);
@@ -15,16 +21,21 @@ export function Orders () {
     dispatch(loadOrdersData());
   }, [dispatch]);
 
-  if(isLoading) {
+  if (isLoading) {
     return (
-      <div data-testid='loader' className="loader">
-          {<l-quantum
-              size={300}
-              speed={1}
-              color='#000000'
-          />}
+      <div
+        data-testid='loader'
+        className='loader'
+      >
+        {
+          <l-quantum
+            size={300}
+            speed={1}
+            color='#000000'
+          />
+        }
       </div>
-    )
+    );
   }
 
   // if(isError) {
@@ -36,11 +47,14 @@ export function Orders () {
   // }
 
   return (
-    <main className="orders">
+    <main className='orders'>
       <ul>
-      {
-        orders.map(order => <OrderItem order={order} key={order.id}/>)
-      }
+        {orders.map((order) => (
+          <OrderItem
+            order={order}
+            key={order.id}
+          />
+        ))}
       </ul>
     </main>
   );

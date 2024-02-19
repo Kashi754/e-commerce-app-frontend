@@ -1,6 +1,3 @@
 export function Admin() {
-  return (
-    <>
-    </>
-  )
+  return <></>;
 }

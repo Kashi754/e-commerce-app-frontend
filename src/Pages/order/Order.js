@@ -1,9 +1,15 @@
-import { loadOrderData, selectError, selectIsError, selectIsLoading, selectOrder } from "./orderSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import {
+  loadOrderData,
+  selectError,
+  selectIsError,
+  selectIsLoading,
+  selectOrder,
+} from './orderSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import './order.css';
-import { OrderCard } from "../../Components/orderCard/OrderCard";
+import { OrderCard } from '../../Components/orderCard/OrderCard';
 
 export function Order() {
   const isLoading = useSelector(selectIsLoading);
@@ -17,16 +23,21 @@ export function Order() {
     dispatch(loadOrderData(location.pathname));
   }, [dispatch, location]);
 
-  if(isLoading) {
+  if (isLoading) {
     return (
-      <div data-testid='loader' className="loader">
-          {<l-quantum
-              size={300}
-              speed={1}
-              color='#000000'
-          />}
+      <div
+        data-testid='loader'
+        className='loader'
+      >
+        {
+          <l-quantum
+            size={300}
+            speed={1}
+            color='#000000'
+          />
+        }
       </div>
-    )
+    );
   }
 
   // if(isError) {
@@ -38,7 +49,7 @@ export function Order() {
   // }
 
   return (
-    <main className="order">
+    <main className='order'>
       <OrderCard order={order} />
     </main>
   );

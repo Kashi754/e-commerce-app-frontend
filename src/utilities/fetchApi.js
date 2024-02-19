@@ -1,12 +1,12 @@
 export async function getApi(url) {
   const response = await fetch(url, {
     method: 'GET',
-    credentials: 'include'
+    credentials: 'include',
   });
 
-  if(!response.ok) {
-      const error = await response.json()
-      throw error;
+  if (!response.ok) {
+    const error = await response.json();
+    throw error;
   }
   const data = await response.json();
   return data;
@@ -17,13 +17,13 @@ export async function postApi(url, body) {
     method: 'POST',
     credentials: 'include',
     headers: {
-        'Content-Type': 'application/json',
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify(body)
-  })
+    body: JSON.stringify(body),
+  });
 
-  if(!response.ok) {
-    const error = await response.json()
+  if (!response.ok) {
+    const error = await response.json();
     throw error;
   }
   const data = await response.json();
@@ -35,12 +35,12 @@ export async function putApi(url, body) {
     method: 'PUT',
     credentials: 'include',
     headers: {
-        'Content-Type': 'application/json',
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify(body)
-  })
+    body: JSON.stringify(body),
+  });
 
-  if(!response.ok) {
+  if (!response.ok) {
     const error = await response.json();
     throw error;
   }
@@ -53,12 +53,12 @@ export async function patchApi(url, body) {
     method: 'PATCH',
     credentials: 'include',
     headers: {
-        'Content-Type': 'application/json',
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify(body)
-  })
+    body: JSON.stringify(body),
+  });
 
-  if(!response.ok) {
+  if (!response.ok) {
     const error = await response.json();
     throw error;
   }
@@ -69,12 +69,12 @@ export async function patchApi(url, body) {
 export async function deleteApi(url) {
   const response = await fetch(url, {
     method: 'DELETE',
-    credentials: 'include'
-  })
+    credentials: 'include',
+  });
 
-  if(!response.ok) {
+  if (!response.ok) {
     const error = await response.json();
-    throw error
+    throw error;
   }
   const data = await response.json();
   return data;
