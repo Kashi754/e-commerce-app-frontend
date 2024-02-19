@@ -25,8 +25,12 @@ export function OrderItem(props) {
         <h4>{order.shipping_status}</h4>
       </div>
       <div className='order-section'>
-        <h3>{`ORDER # ${order.id}`}</h3>
-        <Link to={`/orders/${order.id}`}>View order details</Link>
+        <h3>TRACKING NUMBER</h3>
+        <h4>{order.tracking_number || 'Not available'}</h4>
+      </div>
+      <div className='order-section'>
+        <h3>{`ORDER ID`}</h3>
+        <Link to={`/orders/${order.id}`}>{order.id}</Link>
       </div>
     </li>
   );

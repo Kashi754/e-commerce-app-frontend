@@ -1,6 +1,6 @@
 .order-item {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   box-sizing: border-box;
   padding: 1.5rem;
   width: 50vw;
@@ -13,20 +13,19 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  align-items: end;
   padding-top: 0.25rem;
 }
 
 .order-section h3 {
   color: var(--purple);
-  align-self: center;
+  text-align: center;
+  font-size: 0.75rem;
 }
 
-.order-section h4{
+.order-section h4 {
   font-weight: 400;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--grey);
-  width: 10rem;
   text-align: center;
 }
 
