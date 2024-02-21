@@ -7,8 +7,12 @@ const urlBase = `http://${url}`;
 export const loadAdminOrders = createAsyncThunk(
   'adminOrders/loadAdminOrders',
   async (filter) => {
-    const serverUrl = `${urlBase}/orders/admin?filter=${filter}`;
-
+    let serverUrl;
+    if (filter) {
+      serverUrl = `${urlBase}/orders/admin?filter=${filter}`;
+    } else {
+      serverUrl = `${urlBase}/orders/admin`;
+    }
     return await getApi(serverUrl);
   }
 );

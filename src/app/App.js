@@ -17,7 +17,7 @@ import { createRoutesFromElements, Route } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
 import { Shipping } from '../Pages/checkout/shipping/Shipping';
 import { AdminOrders } from '../Pages/admin/adminOrders/AdminOrders';
-import { Users } from '../Pages/admin/users/Users';
+import { AdminUsers } from '../Pages/admin/adminUsers/adminUsers';
 import { Inventory } from '../Pages/admin/inventory/Inventory';
 
 export const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PROMISE);
@@ -81,7 +81,7 @@ function App() {
       />
       <Route
         path='admin/users'
-        element={<Users />}
+        element={<AdminUsers />}
       />
       <Route
         path='admin/orders'

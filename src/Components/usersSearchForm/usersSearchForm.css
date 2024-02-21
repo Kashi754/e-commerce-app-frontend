@@ -1,0 +1,70 @@
+.users-search-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.users-search-fieldset,
+.users-status-filter {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.users-search-fieldset input {
+  border: var(--border-style);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.users-search-fieldset button {
+  background-color: var(--purple);
+  color: var(--pink);
+  border: none;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+}
+
+.users-search-fieldset button:hover {
+  cursor: pointer;
+  background-color: var(--purple-placeholder);
+  color: var(--pink);
+}
+
+.users-status-filter button {
+  border: none;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  background-color: var(--purple);
+}
+
+.users-status-filter button:hover {
+  cursor: pointer;
+  color: var(--purple);
+}
+
+.admin-button {
+  color: rgb(255, 0, 0);
+}
+
+.admin-button:hover {
+  background-color: rgb(255, 0, 0);
+}
+
+.user-button {
+  color: rgb(255, 255, 0);
+}
+
+.user-button:hover {
+  background-color: rgb(255, 255, 0);
+}
+
+.all-button {
+  color: rgb(0, 255, 0);
+}
+
+.all-button:hover {
+  background-color: rgb(0, 255, 0);
+}

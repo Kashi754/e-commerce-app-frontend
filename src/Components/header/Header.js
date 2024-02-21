@@ -16,7 +16,6 @@ export function Header() {
 
   function handleSearch(event) {
     event.preventDefault();
-    console.log(searchParams);
     if (search) {
       if (searchParams.has('search')) {
         searchParams.set('search', search);
@@ -24,7 +23,6 @@ export function Header() {
         searchParams.append('search', search);
       }
     }
-    console.log(filter);
     for (const key in filter) {
       if (filter[key]) {
         if (searchParams.has(key)) {

@@ -1,0 +1,21 @@
+.admin-users {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.admin-users h1 {
+  width: 100%;
+  background-color: var(--purple);
+  color: var(--pink);
+  padding: 1rem;
+  border: var(--border-style);
+  border-radius: 0.5rem;
+  width: 50vw;
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}

@@ -8,6 +8,7 @@ import productsSliceReducer from '../Pages/products/productsSlice';
 import userSliceReducer from '../Pages/user/userSlice';
 import shippingSliceReducer from '../Pages/checkout/shipping/shippingSlice';
 import adminOrdersSliceReducer from '../Pages/admin/adminOrders/adminOrdersSlice';
+import adminUsersSliceReducer from '../Pages/admin/adminUsers/adminUsersSlice';
 
 const rootReducer = {
   cart: cartSliceReducer,
@@ -19,6 +20,7 @@ const rootReducer = {
   user: userSliceReducer,
   shipping: shippingSliceReducer,
   adminOrders: adminOrdersSliceReducer,
+  adminUsers: adminUsersSliceReducer,
 };
 
 export const store = configureStore({
