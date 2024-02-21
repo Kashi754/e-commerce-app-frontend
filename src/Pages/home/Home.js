@@ -18,6 +18,7 @@ export function Home() {
   const error = useSelector(selectError);
   const categories = useSelector(selectCategories);
   const dispatch = useDispatch();
+  const serverUrl = process.env.REACT_APP_SERVER_URL;
 
   useEffect(() => {
     dispatch(loadProductCategories());
@@ -55,7 +56,7 @@ export function Home() {
         to={`/products`}
       >
         <img
-          src={`/images/categories/all_products.jpg`}
+          src={`http://${serverUrl}/assets/images/categories/all_products.jpg`}
           alt='all products'
         />
         <h4>all products</h4>
@@ -68,7 +69,7 @@ export function Home() {
             to={`/products?category_id=${category.id}`}
           >
             <img
-              src={`/images/categories/${category.name}.jpg`}
+              src={`http://${serverUrl}/assets/images/categories/${category.name}.jpg`}
               alt={category.name}
             />
             <h4>{category.name}</h4>

@@ -25,6 +25,7 @@ export function Product() {
   const location = useLocation();
   const [quantity, setQuantity] = useState(1);
   const cartProducts = cart.map((product) => product.id);
+  const serverUrl = process.env.REACT_APP_SERVER_URL;
 
   useEffect(() => {
     dispatch(loadProductData(location.pathname));
@@ -75,7 +76,7 @@ export function Product() {
     <main className='product'>
       <div className='product-container'>
         <img
-          src={`/images/products/${product.id}.jpg`}
+          src={`http://${serverUrl}/assets/images/products/${product.id}.jpg`}
           alt={product.name}
         />
         <section className='product-infobox'>

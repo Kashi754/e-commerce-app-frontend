@@ -22,6 +22,7 @@ export function Cart() {
   const totalPrice = useSelector(selectPrice);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const serverUrl = process.env.REACT_APP_SERVER_URL;
 
   function handleChange(e, productId) {
     if (e.target.value === '0') {
@@ -86,7 +87,7 @@ export function Cart() {
                   key={product.id}
                 >
                   <img
-                    src={`/images/products/${product.id}.jpg`}
+                    src={`http://${serverUrl}/assets/images/products/${product.id}.jpg`}
                     alt={product.name}
                   />
                   <h4 className='cart-product-info'>{product.name}</h4>

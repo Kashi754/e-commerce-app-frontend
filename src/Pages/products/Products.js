@@ -20,6 +20,7 @@ export function Products() {
   const products = useSelector(selectProducts);
   const dispatch = useDispatch();
   const location = useLocation();
+  const serverUrl = process.env.REACT_APP_SERVER_URL;
 
   useEffect(() => {
     dispatch(loadProductsData(location.search));
@@ -61,7 +62,7 @@ export function Products() {
               to={`/products/${product.id}`}
             >
               <img
-                src={`/images/products/${product.id}.jpg`}
+                src={`http://${serverUrl}/assets/images/products/${product.id}.jpg`}
                 alt={product.name}
               />
               <h4>{product.name}</h4>
