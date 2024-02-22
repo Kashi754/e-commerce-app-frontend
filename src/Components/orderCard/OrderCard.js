@@ -60,7 +60,7 @@ export function OrderCard(props) {
             >
               <div className='product-card'>
                 <img
-                  src={`/images/products/${product.id}.jpg`}
+                  src={`/images/products/${product.image_file || product.id + '.jpg'}`}
                   alt={product.name}
                 />
                 <h4 className='product-info'>{product.name}</h4>

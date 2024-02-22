@@ -24,11 +24,13 @@ const homeSlice = createSlice({
       .addCase(loadProductCategories.pending, (state) => {
         state.isLoading = true;
         state.isError = false;
+        state.error = null;
       })
       .addCase(loadProductCategories.fulfilled, (state, action) => {
         const data = action.payload;
         state.isLoading = false;
         state.isError = false;
+        state.error = null;
         state.categories = data;
       })
       .addCase(loadProductCategories.rejected, (state, action) => {

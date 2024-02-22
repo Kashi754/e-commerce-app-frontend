@@ -30,6 +30,21 @@ export async function postApi(url, body) {
   return data;
 }
 
+export async function postFormApi(url, formData) {
+  const response = await fetch(url, {
+    method: 'POST',
+    credentials: 'include',
+    body: formData,
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw error;
+  }
+  const data = await response.json();
+  return data;
+}
+
 export async function putApi(url, body) {
   const response = await fetch(url, {
     method: 'PUT',
