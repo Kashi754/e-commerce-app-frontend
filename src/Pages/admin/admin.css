@@ -1,0 +1,49 @@
+.admin-page {
+  display: flex;
+}
+
+.admin-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: var(--pink);
+  padding: 1rem;
+  border: var(--border-style);
+  border-radius: 0.5rem;
+  -webkit-box-shadow: 0px 5px 33px -21px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 0px 5px 33px -21px rgba(66, 68, 90, 1);
+  box-shadow: 0px 5px 33px -21px rgba(66, 68, 90, 1);
+  width: 50vw;
+  align-self: center;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.admin-links h5 {
+  background-color: var(--purple);
+  padding: 1rem;
+  border: var(--border-style);
+  border-radius: 0.5rem;
+  -webkit-box-shadow: 0px 5px 33px -21px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 0px 5px 33px -21px rgba(66, 68, 90, 1);
+  box-shadow: 0px 5px 33px -21px rgba(66, 68, 90, 1);
+  width: 100%;
+  align-self: center;
+  text-align: center;
+  box-sizing: border-box;
+  color: var(--pink);
+  font-size: 1.25rem;
+}
+
+.admin-links a {
+  color: var(--purple);
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.admin-links a:hover {
+  color: grey;
+  text-decoration: none;
+}

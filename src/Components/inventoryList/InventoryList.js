@@ -9,6 +9,8 @@ import { InventoryCard } from '../inventoryCard/InventoryCard';
 import './inventoryList.css';
 import { SearchBar } from '../searchBar/SearchBar';
 import { useSearchParams } from 'react-router-dom';
+import { quantum } from 'ldrs';
+quantum.register();
 
 export function InventoryList() {
   const products = useSelector(selectProducts);
@@ -65,7 +67,18 @@ export function InventoryList() {
         handleSubmit={handleSearch}
       />
       {isLoading ? (
-        <p>Loading...</p>
+        <div
+          data-testid='loader'
+          className='loader'
+        >
+          {
+            <l-quantum
+              size={300}
+              speed={1}
+              color='#000000'
+            />
+          }
+        </div>
       ) : (
         products.map((product) => (
           <InventoryCard

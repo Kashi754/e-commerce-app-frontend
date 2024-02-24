@@ -33,6 +33,7 @@ export function Registration() {
     try {
       await postApi(serverUrl, body);
     } catch (err) {
+      setError(err.message);
       return;
     }
 
@@ -118,6 +119,7 @@ export function Registration() {
                 id='password'
                 name='password'
                 value={formData.password}
+                autoComplete='new-password'
                 onChange={handleChange}
               />
               <button
@@ -145,6 +147,7 @@ export function Registration() {
                 id='password2'
                 name='password2'
                 value={formData.password2}
+                autoComplete='new-password'
                 onChange={handleChange}
               />
             </div>
@@ -182,6 +185,7 @@ export function Registration() {
             Register User
           </button>
         </form>
+        {error && <p className='error-message'>{error}</p>}
       </section>
     </main>
   );

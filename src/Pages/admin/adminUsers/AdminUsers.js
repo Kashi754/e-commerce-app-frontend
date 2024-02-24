@@ -32,11 +32,18 @@ export function AdminUsers() {
         setSearchTerm={setSearchTerm}
       />
       {isLoading ? (
-        <l-quantum
-          size={300}
-          speed={1}
-          color='#000000'
-        />
+        <div
+          data-testid='loader'
+          className='loader'
+        >
+          {
+            <l-quantum
+              size={300}
+              speed={1}
+              color='#000000'
+            />
+          }
+        </div>
       ) : (
         <UsersList
           users={users}

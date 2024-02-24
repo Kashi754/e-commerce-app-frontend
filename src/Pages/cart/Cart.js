@@ -50,25 +50,30 @@ export function Cart() {
     dispatch(setIsHovering({ productId, isHovering: false }));
   }
 
-  // if(isLoading) {
-  //   return (
-  //     <div data-testid='loader' className="loader">
-  //         {<l-quantum
-  //             size={300}
-  //             speed={1}
-  //             color='#000000'
-  //         />}
-  //     </div>
-  //   )
-  // }
+  if (isLoading) {
+    return (
+      <div
+        data-testid='loader'
+        className='loader'
+      >
+        {
+          <l-quantum
+            size={300}
+            speed={1}
+            color='#000000'
+          />
+        }
+      </div>
+    );
+  }
 
-  // if(isError) {
-  //   return (
-  //       <div className="error">
-  //           <p role='alert'>{error}</p>
-  //       </div>
-  //   )
-  // }
+  if (isError) {
+    return (
+      <div className='error'>
+        <p role='alert'>{error}</p>
+      </div>
+    );
+  }
 
   return (
     <main className='cart'>

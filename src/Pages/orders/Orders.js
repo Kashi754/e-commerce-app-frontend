@@ -9,6 +9,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { OrderItem } from '../../Components/orderItem/OrderItem';
 import './orders.css';
+import { quantum } from 'ldrs';
+quantum.register();
 
 export function Orders() {
   const orders = useSelector(selectOrders);
@@ -38,13 +40,9 @@ export function Orders() {
     );
   }
 
-  // if(isError) {
-  //   return (
-  //       <div className="error">
-  //           <p role='alert'>{error}</p>
-  //       </div>
-  //   )
-  // }
+  if (isError) {
+    console.error(error);
+  }
 
   return (
     <main className='orders'>

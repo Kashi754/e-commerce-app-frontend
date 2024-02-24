@@ -9,6 +9,8 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import './user.css';
+import { quantum } from 'ldrs';
+quantum.register();
 
 export function User() {
   const user = useSelector(selectUser);
@@ -70,13 +72,9 @@ export function User() {
     );
   }
 
-  // if(isError) {
-  //   return (
-  //       <div className="error">
-  //           <p role='alert'>{error}</p>
-  //       </div>
-  //   )
-  // }
+  if (isError) {
+    console.error(error);
+  }
 
   if (!editMode) {
     return (
@@ -100,11 +98,11 @@ export function User() {
               <span className='label'>Email: </span>
               {user.email}
             </h4>
-            {/* {
-              user.role !== 'admin' ? */}
-            <Link to='/orders'>Order History</Link> :
-            <Link to='/admin'>Admin Panel</Link>
-            {/* } */}
+            {user.role !== 'admin' ? (
+              <Link to='/orders'>Order History</Link>
+            ) : (
+              <Link to='/admin'>Admin Panel</Link>
+            )}
             <div className='button-container'>
               <button
                 type='button'

@@ -30,6 +30,7 @@ export function LoginForm({
         name='username'
         className='username'
         value={formData.username}
+        autoComplete='username'
         onChange={handleChange}
         placeholder='Email or Username'
       />
@@ -39,6 +40,7 @@ export function LoginForm({
           name='password'
           className='password'
           value={formData.password}
+          autoComplete='current-password'
           onChange={handleChange}
           placeholder='Password'
         />

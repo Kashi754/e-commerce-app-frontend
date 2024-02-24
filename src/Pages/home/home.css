@@ -16,10 +16,27 @@
   justify-content: center;
   gap: 0.5rem;
   text-transform: capitalize;
+  position: relative;
+  margin-bottom: 2rem;
 }
 
 .category-tile img {
   width: clamp(250px, 15vw, 350px);
   height: clamp(4rem, 10vw, 350px);
   object-fit: cover;
+  border-radius: 0.5rem;
+  box-shadow: 0px 5px 33px -21px rgba(66, 68, 90, 1);
+}
+
+.category-tile h4 {
+  background-color: var(--purple);
+  box-sizing: border-box;
+  padding: 0.5rem;
+  width: 75%;
+  text-align: center;
+  font-size: 1.25rem;
+  color: var(--pink);
+  border-radius: 0.5rem;
+  position: absolute;
+  bottom: -1rem;
 }

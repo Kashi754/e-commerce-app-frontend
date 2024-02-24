@@ -64,21 +64,19 @@ export function Product() {
     );
   }
 
-  // if(isError) {
-  //   return (
-  //       <div className="error">
-  //           <p role='alert'>{error}</p>
-  //       </div>
-  //   )
-  // }
+  if (isError) {
+    console.error(error);
+  }
 
   return (
     <main className='product'>
       <div className='product-container'>
-        <img
-          src={`http://${serverUrl}/assets/images/products/${product.image_file || product.id + '.jpg'}`}
-          alt={product.name}
-        />
+        {(product.image_file || product.id) && (
+          <img
+            src={`http://${serverUrl}/assets/images/products/${product.image_file || product.id + '.jpg'}`}
+            alt={product.name}
+          />
+        )}
         <section className='product-infobox'>
           <div className='product-info'>
             <h4>{product.name}</h4>

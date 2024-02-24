@@ -43,33 +43,31 @@ export function Products() {
     );
   }
 
-  // if(isError) {
-  //   return (
-  //       <div className="error">
-  //           <p role='alert'>{error}</p>
-  //       </div>
-  //   )
-  // }
+  if (isError) {
+    console.error(error);
+  }
 
   return (
     <main className='products-page'>
       <section className='products'>
-        {products.map((product) => {
-          return (
-            <Link
-              className='product-tile'
-              key={product.id}
-              to={`/products/${product.id}`}
-            >
-              <img
-                src={`http://${serverUrl}/assets/images/products/${product.image_file || product.id + '.jpg'}`}
-                alt={product.name}
-              />
-              <h4>{product.name}</h4>
-              <h5>{formatMoney(product.price)}</h5>
-            </Link>
-          );
-        })}
+        {products
+          .filter((product) => product.qty_in_stock > 0)
+          .map((product) => {
+            return (
+              <Link
+                className='product-tile'
+                key={product.id}
+                to={`/products/${product.id}`}
+              >
+                <img
+                  src={`http://${serverUrl}/assets/images/products/${product.image_file || product.id + '.jpg'}`}
+                  alt={product.name}
+                />
+                <h4>{product.name}</h4>
+                <h5>{formatMoney(product.price)}</h5>
+              </Link>
+            );
+          })}
       </section>
     </main>
   );

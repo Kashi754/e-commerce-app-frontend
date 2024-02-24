@@ -7,13 +7,17 @@ import {
   selectError,
   selectIsError,
   selectIsLoggedIn,
+  selectIsLoading,
 } from '../user/userSlice';
 import './login.css';
+import { quantum } from 'ldrs';
+quantum.register();
 
 export function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoggedIn = useSelector(selectIsLoggedIn);
+  const isLoading = useSelector(selectIsLoading);
   const isError = useSelector(selectIsError);
   const error = useSelector(selectError);
   const [formData, setFormData] = useState({ username: '', password: '' });
@@ -42,6 +46,23 @@ export function Login() {
       navigate('/');
     }
   }, [isLoggedIn, navigate]);
+
+  if (isLoading) {
+    return (
+      <div
+        data-testid='loader'
+        className='loader'
+      >
+        {
+          <l-quantum
+            size={300}
+            speed={1}
+            color='#000000'
+          />
+        }
+      </div>
+    );
+  }
 
   return (
     <main className='login'>

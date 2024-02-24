@@ -41,13 +41,9 @@ export function Home() {
     );
   }
 
-  // if(isError) {
-  //   return (
-  //       <div className="error">
-  //           <p role='alert'>{error}</p>
-  //       </div>
-  //   )
-  // }
+  if (isError) {
+    console.error(error);
+  }
 
   return (
     <main className='categories'>

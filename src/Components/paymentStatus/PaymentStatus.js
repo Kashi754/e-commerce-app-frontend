@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useStripe } from '@stripe/react-stripe-js';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { loadCartData } from '../../Pages/cart/cartSlice';
+import './paymentStatus.css';
 
 export function PaymentStatus() {
   const stripe = useStripe();
   const [message, setMessage] = useState(null);
   const [searchParams] = useSearchParams();
+  const [url, setUrl] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -35,21 +37,32 @@ export function PaymentStatus() {
       switch (paymentIntent.status) {
         case 'succeeded':
           setMessage('Success! Payment received.');
+          setUrl('/');
           dispatch(loadCartData());
+          setTimeout(() => {
+            navigate('/');
+          }, 3000);
           break;
 
         case 'processing':
           setMessage(
             "Payment processing. We'll update you when payment is received."
           );
+          setUrl('/');
           dispatch(loadCartData());
+          setTimeout(() => {
+            navigate('/');
+          }, 3000);
           break;
 
         case 'requires_payment_method':
           // Redirect your user back to your payment page to attempt collecting
           // payment again
           setMessage('Payment failed. Please try another payment method.');
-          navigate('/checkout/payment');
+          setUrl('/checkout/payment');
+          setTimeout(() => {
+            navigate('/checkout/payment');
+          }, 3000);
           break;
 
         default:
@@ -71,5 +84,13 @@ export function PaymentStatus() {
     );
   }
 
-  return <pre>{message}</pre>;
+  return (
+    <main className='payment-status'>
+      <pre className='status-message'>{message}</pre>
+      <p>
+        Click <Link to={url}>here</Link> if you are not redirected
+        automatically.
+      </p>
+    </main>
+  );
 }

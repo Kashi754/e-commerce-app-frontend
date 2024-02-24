@@ -10,6 +10,8 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import './order.css';
 import { OrderCard } from '../../Components/orderCard/OrderCard';
+import { quantum } from 'ldrs';
+quantum.register();
 
 export function Order() {
   const isLoading = useSelector(selectIsLoading);
@@ -40,13 +42,9 @@ export function Order() {
     );
   }
 
-  // if(isError) {
-  //   return (
-  //       <div className="error">
-  //           <p role='alert'>{error}</p>
-  //       </div>
-  //   )
-  // }
+  if (isError) {
+    console.error(error);
+  }
 
   return (
     <main className='order'>

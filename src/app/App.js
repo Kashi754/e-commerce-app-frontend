@@ -11,13 +11,13 @@ import { Product } from '../Pages/product/Product';
 import { Products } from '../Pages/products/Products';
 import { Registration } from '../Pages/registration/Registration';
 import { User } from '../Pages/user/User';
-import { Admin } from '../Pages/admin/admin';
+import { Admin } from '../Pages/admin/Admin';
 import { NotFound } from '../Pages/notFound/NotFound';
 import { createRoutesFromElements, Route } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
 import { Shipping } from '../Pages/checkout/shipping/Shipping';
 import { AdminOrders } from '../Pages/admin/adminOrders/AdminOrders';
-import { AdminUsers } from '../Pages/admin/adminUsers/adminUsers';
+import { AdminUsers } from '../Pages/admin/adminUsers/AdminUsers';
 import { Inventory } from '../Pages/admin/inventory/Inventory';
 
 export const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PROMISE);

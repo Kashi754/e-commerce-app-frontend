@@ -1,7 +1,6 @@
 import OrdersSearchForm from '../../../Components/ordersSearchForm/OrdersSearchForm';
 import { useDispatch, useSelector } from 'react-redux';
 import formatMoney from 'accounting-js/lib/formatMoney';
-
 import {
   selectOrders,
   selectIsLoading,
@@ -10,6 +9,8 @@ import {
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './adminOrders.css';
+import { quantum } from 'ldrs';
+quantum.register();
 
 export function AdminOrders() {
   const dispatch = useDispatch();
@@ -25,7 +26,18 @@ export function AdminOrders() {
       <h1>Orders</h1>
       <OrdersSearchForm />
       {isLoading ? (
-        <div className='loader'>loading...</div>
+        <div
+          data-testid='loader'
+          className='loader'
+        >
+          {
+            <l-quantum
+              size={300}
+              speed={1}
+              color='#000000'
+            />
+          }
+        </div>
       ) : (
         <div className='orders-list'>
           {orders.map((order) => (

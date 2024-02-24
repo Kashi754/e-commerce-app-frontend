@@ -83,6 +83,9 @@ const cartSlice = createSlice({
           state.qty = data.products
             .map((item) => item.qty)
             .reduce((acc, val) => acc + val);
+          state.totalWeight = data.products
+            .map((item) => item.weight || 0)
+            .reduce((acc, val) => acc + val);
         } else {
           state.qty = 0;
         }
