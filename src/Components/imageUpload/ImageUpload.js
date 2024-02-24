@@ -11,7 +11,7 @@ export function ImageUpload({
   }
 
   return (
-    <>
+    <div className='image-upload'>
       <input
         type='file'
         ref={imageRef}
@@ -28,6 +28,6 @@ export function ImageUpload({
           alt='preview'
         />
       )}
-    </>
+    </div>
   );
 }

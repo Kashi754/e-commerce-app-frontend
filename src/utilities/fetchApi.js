@@ -63,6 +63,21 @@ export async function putApi(url, body) {
   return data;
 }
 
+export async function putFormApi(url, formData) {
+  const response = await fetch(url, {
+    method: 'PUT',
+    credentials: 'include',
+    body: formData,
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw error;
+  }
+  const data = await response.json();
+  return data;
+}
+
 export async function patchApi(url, body) {
   const response = await fetch(url, {
     method: 'PATCH',

@@ -3,30 +3,38 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
 
-export function SearchBar(props) {
+export function SearchBar({
+  filter,
+  setFilter,
+  search,
+  setSearch,
+  filterVisible,
+  setFilterVisible,
+  handleSubmit,
+}) {
   function handleFilterChange(e) {
-    props.setFilter((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setFilter((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
 
   return (
     <form
       className='search-form'
-      onSubmit={props.handleSubmit}
+      onSubmit={handleSubmit}
     >
       <fieldset className='search-bar'>
         <input
           id='search'
           name='search'
           type='search'
-          value={props.search}
-          onChange={(e) => props.setSearch(e.target.value)}
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
           placeholder='Search...'
           spellCheck='false'
         />
         <button
           className='filter-button'
           type='button'
-          onClick={() => props.setFilterVisible((prev) => !prev)}
+          onClick={() => setFilterVisible((prev) => !prev)}
         >
           <FontAwesomeIcon icon={faFilter} />
         </button>
@@ -38,7 +46,7 @@ export function SearchBar(props) {
           <FontAwesomeIcon icon={faMagnifyingGlass} />
         </button>
       </fieldset>
-      {props.filterVisible && (
+      {filterVisible && (
         <fieldset className='price-filter'>
           <div>
             <label htmlFor='price-greater-than'>Price Greater Than: </label>
@@ -49,7 +57,7 @@ export function SearchBar(props) {
                 name='price_greater_than'
                 type='number'
                 onChange={handleFilterChange}
-                value={props.filter.price_greater_than}
+                value={filter.price_greater_than}
               />
             </span>
           </div>
@@ -62,7 +70,7 @@ export function SearchBar(props) {
                 name='price_less_than'
                 type='number'
                 onChange={handleFilterChange}
-                value={props.filter.price_less_than}
+                value={filter.price_less_than}
               />
             </span>
           </div>

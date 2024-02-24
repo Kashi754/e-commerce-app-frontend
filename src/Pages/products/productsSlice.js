@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getApi } from '../../utilities/fetchApi';
+import naturalCompare from '../../utilities/naturalCompare';
 
 export const loadProductsData = createAsyncThunk(
   'products/loadProductsData',
@@ -33,7 +34,7 @@ const productsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(loadProductsData.pending, (state, action) => {
+      .addCase(loadProductsData.pending, (state) => {
         state.isLoading = true;
         state.isError = false;
       })
@@ -41,7 +42,8 @@ const productsSlice = createSlice({
         const data = action.payload;
         state.isLoading = false;
         state.isError = false;
-        state.products = data;
+        state.products = data.sort(naturalCompare);
+        state.error = null;
       })
       .addCase(loadProductsData.rejected, (state, action) => {
         state.isLoading = false;
