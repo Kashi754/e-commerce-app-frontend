@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom';
 import { Header } from '../../Components/header/Header';
 import { loadCartData } from '../cart/cartSlice';
 import { loadUser, selectIsLoggedIn } from '../user/userSlice';
+import { Footer } from '../../Components/footer/Footer';
 
 export function Root() {
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ export function Root() {
     <>
       <Header />
       <Outlet />
+      <Footer />
     </>
   );
 }

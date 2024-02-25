@@ -12,9 +12,9 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  padding: 1.5rem;
+  padding: 1.5rem 5%;
   margin: 1rem 0;
-  width: 50vw;
+  width: clamp(15rem, 50vw, 200rem);
   background-color: var(--pink);
   border: var(--border-style);
   border-radius: 0.5rem;
@@ -22,43 +22,51 @@
 }
 
 .checkout-product {
-  display: grid;
-  grid-gap: 3rem;
-  grid-template-columns: 1.5rem 25% 1fr;
+  display: flex;
+  gap: 0.5rem;
   border-bottom: 1px solid var(--purple);
-  padding: 0.25rem 1.5rem;
-  align-items: center;
-}
-
-.checkout-product-details {
-  grid-column: 3;
-  display: grid;
-  grid-template-columns: 1fr 5rem 1fr 5rem;
-  grid-gap: 1rem;
+  padding: 0.25rem 5%;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.details-container {
+  width: 30rem;
+}
+.checkout-product-details {
+  width: 100%;
+  display: grid;
+  align-self: flex-end;
+  grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+  grid-gap: 5px;
+  align-items: start;
+  justify-content: space-between;
+}
+
+.details {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 .details .product-header,
 .details .product-value {
   text-align: center;
+  width: fit-content;
 }
 
 .checkout-product:before {
-  grid-column: 1;
-  content: counter(item)". ";
+  content: counter(item) '. ';
   counter-increment: item;
   color: var(--purple);
   font-weight: bold;
 }
 
-.checkout-product-info {
-  display: inline-block;
-}
-
 .checkout-item {
   font-size: 0.75rem;
-  grid-column: 2;
 }
 
 .checkout-item .product-value {
@@ -77,6 +85,12 @@
 .product-value {
   display: block;
   font-weight: 400;
+}
+
+.price-container {
+  display: flex;
+  align-self: flex-end;
+  align-items: flex-start;
 }
 
 .price-section {
@@ -111,6 +125,15 @@
   padding-bottom: 0.125rem;
 }
 
+.price-container h5 {
+  font-size: 0.75rem;
+  font-weight: bold;
+
+  padding-bottom: 0.125rem;
+  color: var(--purple);
+}
+
 .shipping-service {
   font-weight: 400;
+  color: black;
 }

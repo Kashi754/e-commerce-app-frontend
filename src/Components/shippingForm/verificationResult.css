@@ -3,13 +3,12 @@
   flex-direction: column;
   align-content: center;
   align-self: center;
-  width: 96%;
+  width: 100%;
 }
 
 .apiResultContainer,
 .apiErrorText {
   padding: 1rem;
-  margin: 0 2rem;
   border-radius: 0.5rem;
   display: flex;
   flex-direction: column;
@@ -28,6 +27,10 @@
   color: var(--pink);
 }
 
+.apiResultContainer p {
+  width: 100%;
+}
+
 .apiResultContainer h5 {
   text-transform: uppercase;
 }
@@ -41,7 +44,7 @@
 }
 
 .reset-form-button {
-  width: 100%;
+  width: 50%;
   margin: 1rem 0;
   padding: 0.5rem;
   color: var(--pink);
@@ -51,6 +54,7 @@
   font-weight: bold;
   cursor: pointer;
   font-size: 0.75rem;
+  align-self: center;
 }
 
 .reset-form-button:hover {

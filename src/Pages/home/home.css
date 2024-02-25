@@ -8,7 +8,7 @@
 }
 
 .category-tile {
-  width: fit-content;
+  width: 100%;
   height: fit-content;
   display: flex;
   flex-direction: column;
@@ -18,11 +18,12 @@
   text-transform: capitalize;
   position: relative;
   margin-bottom: 2rem;
+  box-sizing: border-box;
 }
 
 .category-tile img {
-  width: clamp(250px, 15vw, 350px);
-  height: clamp(4rem, 10vw, 350px);
+  width: 100%;
+  height: clamp(5rem, 10vw, 350px);
   object-fit: cover;
   border-radius: 0.5rem;
   box-shadow: 0px 5px 33px -21px rgba(66, 68, 90, 1);

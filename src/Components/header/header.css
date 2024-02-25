@@ -2,18 +2,18 @@
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   box-sizing: border-box;
-  padding: 2rem;
+  padding: 1.5rem 5%;
   grid-row-gap: 1rem;
   height: 16rem;
 }
 
 .logo-container {
-  grid-column: 2;
+  grid-column: 1 / 4;
   justify-self: center;
   align-self: center;
 }
 
 .logo {
-  width: clamp(5rem, 13vw, 15rem);
+  width: clamp(5rem, 13vw, 13rem);
   height: auto;
 }

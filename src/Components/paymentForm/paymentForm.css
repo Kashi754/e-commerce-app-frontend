@@ -1,7 +1,7 @@
 .checkout-form {
-  width: 50vw;
+  width: clamp(15rem, 50vw, 200rem);
   background-color: var(--pink);
-  padding: 1rem;
+  padding: 1.5rem 5%;
   box-sizing: border-box;
   border: var(--border-style);
   border-radius: 0.5rem;
@@ -19,7 +19,7 @@
 
 .shipping-address-section {
   padding: 1rem;
-  width: 75%;
+  width: 100%;
   align-self: center;
 }
 
@@ -28,6 +28,11 @@
   display: flex;
   justify-content: space-between;
   font-weight: 400;
+  text-align: end;
+}
+
+.shipping-address-section h3 span {
+  text-align: start;
 }
 
 .shipping-address-section .label {

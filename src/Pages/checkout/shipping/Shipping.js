@@ -203,12 +203,21 @@ export function Shipping() {
     lob_container: (provided) => ({
       ...provided,
       borderRadius: '0.5rem',
-      padding: '1rem',
+      padding: '5%',
+    }),
+    lob_label: (provided) => ({
+      ...provided,
+      textAlign: 'left',
+      fontWeight: 'bold',
+      padding: '0.25rem 0',
     }),
     lob_row: (provided) => ({
       ...provided,
       color: '#7201b4',
       fontWeight: 'bold',
+      display: 'flex',
+      flexWrap: 'wrap',
+      width: '100%',
     }),
     lob_input: (provided) => ({
       ...provided,

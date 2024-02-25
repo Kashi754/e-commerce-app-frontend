@@ -2,7 +2,8 @@
 
 .search-form {
   justify-self: center;
-  grid-column: 2;
+  grid-column: 1 / 4;
+  width: clamp(15rem, 50vw, 200rem);
 }
 .search-bar {
   box-sizing: border-box;
@@ -10,7 +11,7 @@
   align-items: center;
   border: var(--border-style);
   border-radius: 0.5rem;
-  width: 20vw;
+  width: 100%;
   max-width: 30rem;
   box-sizing: border-box;
   padding: 0.25rem;

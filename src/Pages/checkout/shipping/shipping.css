@@ -6,9 +6,9 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  padding: 1.5rem;
+  padding: 1.5rem 5%;
   margin: 1rem 0;
-  width: 50vw;
+  width: clamp(15rem, 50vw, 200rem);
   background-color: var(--pink);
   border: var(--border-style);
   border-radius: 0.5rem;
@@ -41,7 +41,7 @@ a {
   padding-left: 2rem;
 }
 
-.address-section div > button{
+.address-section div > button {
   margin-top: 1rem;
   padding: 0.5rem;
   color: var(--pink);
@@ -64,10 +64,10 @@ a {
 }
 
 .address-section div > button:disabled {
-  background-color: rgba(114, 1, 180, 0.50);
+  background-color: rgba(114, 1, 180, 0.5);
   border: none;
   cursor: not-allowed;
-  color: rgba(255, 0, 0, 0.70);
+  color: rgba(255, 0, 0, 0.7);
 }
 
 .submit-shipping-button {
@@ -80,6 +80,10 @@ a {
   font-weight: bold;
   cursor: pointer;
   font-size: 0.75rem;
+  width: 50%;
+  justify-self: center;
+  box-sizing: border-box;
+  align-self: center;
 }
 
 .submit-shipping-button:hover {
@@ -93,7 +97,7 @@ a {
 }
 
 .submit-shipping-button:disabled {
-  background-color: rgba(114, 1, 180, 0.50);
+  background-color: rgba(114, 1, 180, 0.5);
   border: none;
   cursor: not-allowed;
   color: var(--pink);

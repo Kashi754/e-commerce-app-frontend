@@ -114,25 +114,27 @@ export function Registration() {
           <fieldset className='password-field'>
             <div className='password1-field field'>
               <label htmlFor='password'>Choose a Password: </label>
-              <input
-                type={passwordVisible ? 'text' : 'password'}
-                id='password'
-                name='password'
-                value={formData.password}
-                autoComplete='new-password'
-                onChange={handleChange}
-              />
-              <button
-                className='show-password-button'
-                type='button'
-                onClick={handleClick}
-              >
-                {
-                  <FontAwesomeIcon
-                    icon={passwordVisible ? faEyeSlash : faEye}
-                  />
-                }
-              </button>
+              <div className='password-container'>
+                <input
+                  type={passwordVisible ? 'text' : 'password'}
+                  id='password'
+                  name='password'
+                  value={formData.password}
+                  autoComplete='new-password'
+                  onChange={handleChange}
+                />
+                <button
+                  className='show-password-button'
+                  type='button'
+                  onClick={handleClick}
+                >
+                  {
+                    <FontAwesomeIcon
+                      icon={passwordVisible ? faEyeSlash : faEye}
+                    />
+                  }
+                </button>
+              </div>
             </div>
             {!correctPassword && (
               <p className='error-message password-error'>
@@ -181,6 +183,7 @@ export function Registration() {
           <button
             className='registration-submit-button'
             type='submit'
+            disabled={!correctPassword || !matchedPasswords}
           >
             Register User
           </button>

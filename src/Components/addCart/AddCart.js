@@ -20,7 +20,7 @@ export function AddCart(props) {
       onSubmit={handleSubmit}
     >
       {cartProducts.indexOf(productId) === -1 && (
-        <fieldset>
+        <fieldset className='qty'>
           <label htmlFor='qty'>Qty:</label>
           <select
             id='qty'

@@ -6,9 +6,9 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  padding: 2.5rem;
+  padding: 1.5rem 5%;
   margin: 1rem 0;
-  width: 50vw;
+  width: clamp(15rem, 50vw, 200rem);
   background-color: var(--pink);
   border: var(--border-style);
   border-radius: 0.5rem;
@@ -34,10 +34,11 @@
   border: 2px solid var(--purple);
   height: fit-content;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
-  padding: 1rem 2rem;
+  padding: 1rem 5%;
   box-sizing: border-box;
   text-transform: capitalize;
   border-radius: 0.5rem;
@@ -47,7 +48,7 @@
 .cart-product-card {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: clamp(0.5rem, 2vw, 1rem);
 }
 
 .cart-product-card img {
@@ -73,6 +74,11 @@
   box-sizing: border-box;
 }
 
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
 .checkout-button:hover {
   background-color: var(--pink);
   border: 2px solid var(--purple);
@@ -85,7 +91,7 @@
 
 .checkout-button:disabled {
   color: rgb(239, 188, 255);
-  background-color: rgba(114, 1, 180, 0.50);
+  background-color: rgba(114, 1, 180, 0.5);
   border: none;
   cursor: not-allowed;
 }
@@ -133,7 +139,7 @@
 }
 
 .cart-product-field button::before {
-  content: " ";
+  content: ' ';
   position: absolute;
   display: block;
   background-color: red;
@@ -142,20 +148,20 @@
   top: 2px;
   bottom: 2px;
   transform: rotate(45deg);
-  transition: transform .5s ease-in-out;  
+  transition: transform 0.5s ease-in-out;
 }
 
 .cart-product-field button::after {
-  content: " ";
+  content: ' ';
   position: absolute;
   display: block;
   background-color: red;
   height: 2px;
-  top:7px;
+  top: 7px;
   left: 2px;
   right: 2px;
   transform: rotate(45deg);
-  transition: transform .5s ease-in-out;  
+  transition: transform 0.5s ease-in-out;
 }
 
 .cart-product-field button:hover::before {
@@ -164,4 +170,11 @@
 
 .cart-product-field button:hover::after {
   transform: rotate(135deg);
+}
+
+.cart-product-info {
+  color: var(--purple);
+  align-self: center;
+  font-size: 1.25rem;
+  font-weight: bold;
 }

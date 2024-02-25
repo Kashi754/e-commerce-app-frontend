@@ -1,15 +1,16 @@
+import { quantum } from 'ldrs';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import './user.css';
 import {
-  selectUser,
-  editUserData,
   selectError,
   selectIsError,
   selectIsLoading,
+  selectUser,
 } from './userSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
-import './user.css';
-import { quantum } from 'ldrs';
+import { PasswordChangeForm } from '../../Components/passwordChangeForm/PasswordChangeForm';
+import { ProfileForm } from '../../Components/profileForm/ProfileForm';
 quantum.register();
 
 export function User() {
@@ -18,42 +19,8 @@ export function User() {
   const isError = useSelector(selectIsError);
   const isLoading = useSelector(selectIsLoading);
   const [editMode, setEditMode] = useState(false);
-  const [userToEdit, setUserToEdit] = useState({
-    id: user.id,
-    first_name: user.first_name,
-    last_name: user.last_name,
-    email: user.email,
-    username: user.username,
-  });
-  const dispatch = useDispatch();
 
-  function handleSubmit(e) {
-    e.preventDefault();
-
-    if (
-      userToEdit.username !== user.username ||
-      userToEdit.first_name !== user.first_name ||
-      userToEdit.last_name !== user.last_name ||
-      userToEdit.email !== user.email
-    ) {
-      dispatch(editUserData(userToEdit));
-      setUserToEdit({
-        id: user.id,
-        first_name: user.first_name,
-        last_name: user.last_name,
-        email: user.email,
-        username: user.username,
-      });
-    }
-
-    setEditMode(false);
-  }
-
-  function handleChange(e) {
-    const updatedUser = { ...userToEdit };
-    updatedUser[e.target.name] = e.target.value;
-    setUserToEdit({ ...updatedUser });
-  }
+  const [changePassword, setChangePassword] = useState(false);
 
   if (isLoading) {
     return (
@@ -81,7 +48,7 @@ export function User() {
       <main className='user-profile'>
         <div className='profile-container'>
           <h2>User Information</h2>
-          <section className='profile-form'>
+          <section className='profile-section'>
             <h4>
               <span className='label'>Username: </span>
               {user.username}
@@ -95,22 +62,33 @@ export function User() {
               {user.last_name}
             </h4>
             <h4>
-              <span className='label'>Email: </span>
+              <span className='label'>Email Address: </span>
               {user.email}
             </h4>
-            {user.role !== 'admin' ? (
-              <Link to='/orders'>Order History</Link>
+            {!changePassword ? (
+              <>
+                {user.role !== 'admin' ? (
+                  <Link to='/orders'>Order History</Link>
+                ) : (
+                  <Link to='/admin'>Admin Panel</Link>
+                )}
+                <Link
+                  to=''
+                  onClick={() => setChangePassword(true)}
+                >
+                  Change Password
+                </Link>
+                <button
+                  type='button'
+                  className='edit-button'
+                  onClick={() => setEditMode(true)}
+                >
+                  Edit Profile
+                </button>
+              </>
             ) : (
-              <Link to='/admin'>Admin Panel</Link>
+              <PasswordChangeForm setChangePassword={setChangePassword} />
             )}
-            <div className='button-container'>
-              <button
-                type='button'
-                onClick={() => setEditMode(true)}
-              >
-                Edit Profile
-              </button>
-            </div>
           </section>
         </div>
       </main>
@@ -120,52 +98,10 @@ export function User() {
       <main className='user-profile'>
         <div className='profile-container'>
           <h2>User Information</h2>
-          <form
-            className='profile-form'
-            onSubmit={handleSubmit}
-          >
-            <fieldset className='field'>
-              <label htmlFor='username'>Username: </label>
-              <input
-                type='text'
-                id='username'
-                name='username'
-                onChange={handleChange}
-                value={userToEdit.username}
-              />
-            </fieldset>
-            <fieldset className='field'>
-              <label htmlFor='first-name'>First Name: </label>
-              <input
-                type='text'
-                id='first-name'
-                name='first_name'
-                onChange={handleChange}
-                value={userToEdit.first_name}
-              />
-            </fieldset>
-            <fieldset className='field'>
-              <label htmlFor='last-name'>Last Name: </label>
-              <input
-                type='text'
-                id='last-name'
-                name='last_name'
-                onChange={handleChange}
-                value={userToEdit.last_name}
-              />
-            </fieldset>
-            <fieldset className='field'>
-              <label htmlFor='email'>Email: </label>
-              <input
-                type='email'
-                id='email'
-                name='email'
-                onChange={handleChange}
-                value={userToEdit.email}
-              />
-            </fieldset>
-            <button type='submit'>Save Changes</button>
-          </form>
+          <ProfileForm
+            user={user}
+            setEditMode={setEditMode}
+          />
         </div>
       </main>
     );
