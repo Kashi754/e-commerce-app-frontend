@@ -6,7 +6,7 @@ const urlBase = `http://${url}`;
 
 export const loadAdminUsers = createAsyncThunk(
   'adminUsers/loadAdminUsers',
-  async (filter) => {
+  async (filter, { rejectWithValue }) => {
     let serverUrl;
     if (filter) {
       serverUrl = `${urlBase}/users/admin?filter=${filter}`;
@@ -14,34 +14,51 @@ export const loadAdminUsers = createAsyncThunk(
       serverUrl = `${urlBase}/users/admin`;
     }
 
-    return await getApi(serverUrl);
+    try {
+      const response = await getApi(serverUrl);
+      return response;
+    } catch (err) {
+      return rejectWithValue(err.message);
+    }
   }
 );
 
 export const editUser = createAsyncThunk(
   'adminUsers/editUser',
-  async ({ userId, data, filter }) => {
+  async ({ userId, data, filter }, { rejectWithValue }) => {
     let serverUrl;
     if (filter) {
       serverUrl = `${urlBase}/users/${userId}?filter=${filter}`;
     } else {
       serverUrl = `${urlBase}/users/${userId}`;
     }
-
-    return await patchApi(serverUrl, data);
+    try {
+      const response = await patchApi(serverUrl, data);
+      return response;
+    } catch (err) {
+      console.log(err);
+      return rejectWithValue(err.message);
+    }
   }
 );
 
 export const deleteUser = createAsyncThunk(
   'adminUsers/deleteUser',
-  async ({ userId, filter }) => {
+  async ({ userId, filter }, { rejectWithValue }) => {
     let serverUrl;
     if (filter) {
       serverUrl = `${urlBase}/users/${userId}?filter=${filter}`;
     } else {
       serverUrl = `${urlBase}/users/${userId}`;
     }
-    return await deleteApi(serverUrl);
+
+    try {
+      const response = await deleteApi(serverUrl);
+      return response;
+    } catch (err) {
+      console.log(err);
+      return rejectWithValue(err.message);
+    }
   }
 );
 
@@ -50,70 +67,63 @@ const adminUsersSlice = createSlice({
   initialState: {
     users: [],
     isLoading: false,
-    isError: false,
-    error: null,
+    error: {
+      edit: null,
+      load: null,
+      delete: null,
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(loadAdminUsers.pending, (state) => {
         state.isLoading = true;
-        state.isError = false;
-        state.error = null;
+        state.error = { ...state.error, load: null };
       })
       .addCase(loadAdminUsers.fulfilled, (state, action) => {
         const users = action.payload;
         state.isLoading = false;
-        state.isError = false;
         state.users = users.sort((a, b) =>
           a.last_name > b.last_name ? 1 : -1
         );
-        state.error = null;
+        state.error = { ...state.error, load: null };
       })
       .addCase(loadAdminUsers.rejected, (state, action) => {
         state.isLoading = false;
-        state.isError = true;
-        state.error = action.error;
-        console.log(action.error);
+        state.error = { ...state.error, load: action.payload };
       })
       .addCase(editUser.pending, (state) => {
         state.isLoading = true;
-        state.isError = false;
-        state.error = null;
+        state.error = { ...state.error, edit: null };
       })
       .addCase(editUser.fulfilled, (state, action) => {
         const users = action.payload;
         state.isLoading = false;
-        state.isError = false;
         state.users = users.sort((a, b) =>
           a.last_name > b.last_name ? 1 : -1
         );
-        state.error = null;
+        state.error = { ...state.error, edit: null };
       })
       .addCase(editUser.rejected, (state, action) => {
         state.isLoading = false;
-        state.isError = true;
         state.error = action.error;
-        console.log(action.error);
+        state.error = { ...state.error, edit: action.payload };
       })
       .addCase(deleteUser.pending, (state) => {
         state.isLoading = true;
-        state.isError = false;
-        state.error = null;
+        state.error = { ...state.error, delete: null };
       })
       .addCase(deleteUser.fulfilled, (state, action) => {
         const users = action.payload;
         state.isLoading = false;
-        state.isError = false;
         state.users = users.sort((a, b) =>
           a.last_name > b.last_name ? 1 : -1
         );
-        state.error = null;
+        state.error = { ...state.error, delete: null };
       })
       .addCase(deleteUser.rejected, (state, action) => {
         state.isLoading = false;
-        state.isError = true;
         state.error = action.error;
-        console.log(action.error);
+        state.error = { ...state.error, delete: action.payload };
       });
   },
 });

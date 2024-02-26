@@ -1,12 +1,30 @@
 .order-item {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
   box-sizing: border-box;
-  padding: 1.5rem;
-  width: 50vw;
+  padding: 1.5rem clamp(2rem, 5%, 10rem);
+  width: clamp(15rem, 50vw, 200rem);
   background-color: var(--pink);
   border: var(--border-style);
   border-radius: 0.5rem;
+  gap: 0.5rem;
+}
+
+.order-link {
+  cursor: pointer;
+}
+
+.order-link:hover {
+  background-color: var(--purple);
+}
+
+.order-link:hover h3 {
+  color: var(--pink);
+}
+
+.order-link:hover h4 {
+  color: white;
 }
 
 .order-section {
@@ -14,6 +32,7 @@
   flex-direction: column;
   gap: 0.5rem;
   padding-top: 0.25rem;
+  width: 120px;
 }
 
 .order-section h3 {
@@ -27,10 +46,4 @@
   font-size: 0.75rem;
   color: var(--grey);
   text-align: center;
-}
-
-.order-section a {
-  text-decoration: underline;
-  text-align: center;
-  font-size: 0.8rem;
 }

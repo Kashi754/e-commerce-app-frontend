@@ -8,7 +8,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import './usersList.css';
 
-export function UsersList({ users, editUser, deleteUser, searchTerm }) {
+export function UsersList({ users, editUser, deleteUser, searchTerm, error }) {
   const [editing, setEditing] = useState(null);
   const [userToEdit, setUserToEdit] = useState({
     email: '',
@@ -64,8 +64,29 @@ export function UsersList({ users, editUser, deleteUser, searchTerm }) {
     setUserToEdit((prev) => ({ ...prev, [name]: value }));
   }
 
+  if (Object.values(error).join('')) {
+    return (
+      <div className='error-container'>
+        {Object.keys(error).map((key) => {
+          if (error[key]) {
+            return (
+              <div
+                data-testid='error'
+                className='error'
+                key={key}
+              >
+                {`${error[key].status}: ${error[key].message}`}
+              </div>
+            );
+          }
+        })}
+      </div>
+    );
+  }
+
   return (
     <div className='users-list'>
+      {}
       {users.map((user) => {
         {
           return editing !== user.id ? (

@@ -9,6 +9,8 @@ export function UsersSearchForm({ searchTerm, setSearchTerm }) {
     e.preventDefault();
     if (searchTerm) {
       dispatch(loadAdminUsers(searchTerm));
+    } else {
+      dispatch(loadAdminUsers());
     }
   };
 

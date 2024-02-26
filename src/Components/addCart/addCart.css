@@ -4,6 +4,8 @@
   flex-wrap: wrap;
   align-self: end;
   margin-top: 2rem;
+  align-items: center;
+  justify-content: center;
 }
 
 .add-cart-form fieldset {

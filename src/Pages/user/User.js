@@ -47,7 +47,7 @@ export function User() {
     return (
       <main className='user-profile'>
         <div className='profile-container'>
-          <h2>User Information</h2>
+          <h2>User Profile</h2>
           <section className='profile-section'>
             <h4>
               <span className='label'>Username: </span>

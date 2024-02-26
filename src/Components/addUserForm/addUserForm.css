@@ -3,7 +3,14 @@
 }
 
 .role-field #role {
-  margin-right: 13.75rem;
   width: 1.25rem;
   height: 1.25rem;
+}
+
+.role-field {
+  justify-content: flex-start;
+}
+
+#role-label {
+  width: fit-content;
 }

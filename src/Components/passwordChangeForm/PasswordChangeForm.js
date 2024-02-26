@@ -1,9 +1,9 @@
+import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import validator from 'validator';
 import { putApi } from '../../utilities/fetchApi';
 import './passwordChangeForm.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 
 export function PasswordChangeForm({ setChangePassword }) {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -82,6 +82,12 @@ export function PasswordChangeForm({ setChangePassword }) {
       className='change-password-form'
       onSubmit={handlePasswordSubmit}
     >
+      <input
+        type='text'
+        name='username'
+        autoComplete='username'
+        style={{ display: 'none' }}
+      />
       <div className='old-password-field field'>
         <label htmlFor='password2'>Old Password: </label>
         <div className='password-container'>

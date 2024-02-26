@@ -8,10 +8,12 @@
 
 .user-item {
   display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
   justify-content: space-around;
   box-sizing: border-box;
-  padding: 1.5rem;
-  width: 50vw;
+  padding: 1.5rem 5%;
+  width: clamp(15rem, 50vw, 200rem);
   background-color: var(--pink);
   border: var(--border-style);
   border-radius: 0.5rem;

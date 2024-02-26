@@ -9,6 +9,7 @@ import {
   loadAdminUsers,
   deleteUser,
   editUser,
+  selectError,
 } from './adminUsersSlice';
 import './adminUsers.css';
 import { quantum } from 'ldrs';
@@ -18,6 +19,7 @@ export function AdminUsers() {
   const dispatch = useDispatch();
   const users = useSelector(selectUsers);
   const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
@@ -50,6 +52,7 @@ export function AdminUsers() {
           editUser={editUser}
           deleteUser={deleteUser}
           searchTerm={searchTerm}
+          error={error}
         />
       )}
       <AddUserForm

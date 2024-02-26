@@ -118,7 +118,12 @@ export function AddUserForm({ loadAdminUsers, searchTerm }) {
           />
         </fieldset>
         <fieldset className='role-field field'>
-          <label htmlFor='last-name'>Admin?: </label>
+          <label
+            htmlFor='role'
+            id='role-label'
+          >
+            Admin?:{' '}
+          </label>
           <input
             type='checkbox'
             id='role'

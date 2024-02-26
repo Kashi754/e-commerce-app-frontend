@@ -1,13 +1,13 @@
 .login {
-  height: calc(100vh - 50px - 16rem);
   display: flex;
   align-items: center;
   justify-content: center;
+  height: fit-content;
 }
 
-
 .login-field {
-  width: 60%;
+  width: clamp(15rem, 50vw, 200rem);
+  padding: 1.5rem 5%;
   height: 75%;
   background-color: var(--pink);
   border: var(--border-style);
@@ -19,8 +19,8 @@
   flex-direction: column;
 }
 
-.login-title{
-  color:var(--pink);
+.login-title {
+  color: var(--pink);
   background-color: var(--purple);
   padding: 1rem;
   border: var(--border-style);
@@ -36,26 +36,30 @@
   display: flex;
   align-items: center;
   width: 100%;
+  height: 100%;
   flex-grow: 1;
 }
 
-.left,.right{
+.left,
+.right {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 1rem;
 }
 
-.center{
-  height: 100%;
+.center {
+  height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+  padding: 0 1rem;
 }
 
-.or{
+.or {
   border: var(--border-style);
   border-radius: 50%;
   padding: 10px;
@@ -65,19 +69,20 @@
   z-index: 1;
 }
 
-.line{
+.line {
   width: 0.5px;
-  height: 70%;
+  height: 100%;
   background-color: var(--purple);
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  margin: auto;
+  margin: 0 auto;
+  padding: 0;
 }
 
-.loginButton{
+.loginButton {
   width: 150px;
   padding: 15px 25px;
   border-radius: 5px;
@@ -90,21 +95,15 @@
   gap: 1rem;
 }
 
-.google{
+.google {
   background-color: #df4930;
 }
 
-.facebook{
+.facebook {
   background-color: #507cc0;
 }
 
-
 @media screen and (max-width: 992px) {
-  .login-field {
-    width: 65%;
-    height: 90%;
-  }
-  
   .wrapper {
     flex-direction: column;
   }
@@ -115,7 +114,14 @@
 
   .center {
     width: 100%;
+    height: auto;
     position: relative;
+  }
+
+  .line {
+    height: 0.5px;
+    width: 70%;
+    margin: auto;
   }
 
   .left {
@@ -124,10 +130,5 @@
 
   .right {
     padding: 20px;
-  }
-
-  .line {
-    height: 0.5px;
-    width: 300px;
   }
 }

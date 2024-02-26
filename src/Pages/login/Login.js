@@ -27,10 +27,6 @@ export function Login() {
     window.open(`http://${url}/login/google`, '_self');
   };
 
-  const facebook = () => {
-    window.open(`http://${url}/login/facebook`, '_self');
-  };
-
   async function handleSubmit(e) {
     e.preventDefault();
     dispatch(login(formData));
@@ -80,17 +76,6 @@ export function Login() {
                 className='icon'
               />
               Google
-            </div>
-            <div
-              className='loginButton facebook'
-              onClick={facebook}
-            >
-              <img
-                src='/images/facebook.png'
-                alt=''
-                className='icon'
-              />
-              Facebook
             </div>
           </div>
           <div className='center'>

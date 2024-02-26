@@ -5,6 +5,7 @@ export function OrderCard(props) {
   const { order } = props;
   const dt = new Date(order.date);
   const navigate = useNavigate();
+  const serverUrl = process.env.REACT_APP_SERVER_URL;
 
   return (
     <>
@@ -26,16 +27,19 @@ export function OrderCard(props) {
           <Link to={''}>track order</Link>
         </div>
       </section>
+
       <section className='order-card shipping-address'>
         <h2>Shipping Information</h2>
         <h3>
           <span className='label'>Address 1: </span>
           {order.shipping_address.addr_line_1}
         </h3>
-        <h3>
-          <span className='label'>Address 2: </span>
-          {order.shipping_address.addr_line_2}
-        </h3>
+        {order.shipping_address.addr_line_2 && (
+          <h3>
+            <span className='label'>Address 2: </span>
+            {order.shipping_address.addr_line_2}
+          </h3>
+        )}
         <h3>
           <span className='label'>City: </span>
           {order.shipping_address.city}
@@ -49,6 +53,7 @@ export function OrderCard(props) {
           {order.shipping_address.zip_code}
         </h3>
       </section>
+
       <section className='order-card'>
         <h2>Ordered Items</h2>
         {order.products.map((product) => {
@@ -60,7 +65,7 @@ export function OrderCard(props) {
             >
               <div className='product-card'>
                 <img
-                  src={`/images/products/${product.image_file || product.id + '.jpg'}`}
+                  src={`http://${serverUrl}/assets/images/products/${product.image_file || product.id + '.jpg'}`}
                   alt={product.name}
                 />
                 <h4 className='product-info'>{product.name}</h4>

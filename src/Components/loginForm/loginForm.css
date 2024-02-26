@@ -49,13 +49,14 @@
   padding: 0.5rem;
   color: var(--pink);
   background-color: var(--purple);
-  border: none;
   border-radius: 0.5rem;
   font-weight: bold;
+  border: none;
   cursor: pointer;
   font-size: 0.75rem;
-  width: 25%;
+  width: 50%;
   justify-self: center;
+  box-sizing: border-box;
 }
 
 .login-submit-button:hover {

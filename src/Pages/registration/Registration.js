@@ -102,7 +102,7 @@ export function Registration() {
             />
           </fieldset>
           <fieldset className='email-field field'>
-            <label htmlFor='email'>Email: </label>
+            <label htmlFor='email'>Email Address: </label>
             <input
               type='email'
               id='email'
@@ -111,9 +111,29 @@ export function Registration() {
               onChange={handleChange}
             />
           </fieldset>
+          <fieldset className='first-name-field field'>
+            <label htmlFor='first-name'>First Name: </label>
+            <input
+              type='text'
+              id='first-name'
+              name='first_name'
+              value={formData.first_name}
+              onChange={handleChange}
+            />
+          </fieldset>
+          <fieldset className='last-name-field field'>
+            <label htmlFor='last-name'>Last Name: </label>
+            <input
+              type='text'
+              id='last-name'
+              name='last_name'
+              value={formData.last_name}
+              onChange={handleChange}
+            />
+          </fieldset>
           <fieldset className='password-field'>
             <div className='password1-field field'>
-              <label htmlFor='password'>Choose a Password: </label>
+              <label htmlFor='password'>Password: </label>
               <div className='password-container'>
                 <input
                   type={passwordVisible ? 'text' : 'password'}
@@ -160,26 +180,6 @@ export function Registration() {
             )}
           </fieldset>
 
-          <fieldset className='first-name-field field'>
-            <label htmlFor='first-name'>First Name: </label>
-            <input
-              type='text'
-              id='first-name'
-              name='first_name'
-              value={formData.first_name}
-              onChange={handleChange}
-            />
-          </fieldset>
-          <fieldset className='last-name-field field'>
-            <label htmlFor='last-name'>Last Name: </label>
-            <input
-              type='text'
-              id='last-name'
-              name='last_name'
-              value={formData.last_name}
-              onChange={handleChange}
-            />
-          </fieldset>
           <button
             className='registration-submit-button'
             type='submit'
