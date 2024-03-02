@@ -3,13 +3,18 @@ import { postApi } from '../../../utilities/fetchApi';
 
 export const determineShippingServicesAndTransitTimes = createAsyncThunk(
   'shipping/determineShippingServicesAndTransitTimes',
-  async (params) => {
+  async (params, { rejectWithValue }) => {
     const url = process.env.REACT_APP_SERVER_URL;
     const urlBase = `http://${url}`;
 
     const serverUrl = `${urlBase}/cart/shipping`;
 
-    return await postApi(serverUrl, params);
+    try {
+      const response = await postApi(serverUrl, params, rejectWithValue);
+      return response;
+    } catch (error) {
+      return rejectWithValue({ message: error.message, status: 400 });
+    }
   }
 );
 
@@ -28,7 +33,6 @@ const shippingSlice = createSlice({
     shippingInfo: [],
     selectedShippingInfo: {},
     isLoading: false,
-    isError: false,
     error: null,
   },
   reducers: {
@@ -49,7 +53,6 @@ const shippingSlice = createSlice({
     builder
       .addCase(determineShippingServicesAndTransitTimes.pending, (state) => {
         state.isLoading = true;
-        state.isError = false;
         state.error = null;
       })
       .addCase(
@@ -60,7 +63,6 @@ const shippingSlice = createSlice({
           );
           state.selectedShippingInfo = data[0];
           state.isLoading = false;
-          state.isError = false;
           state.error = null;
           state.shippingInfo = data;
         }
@@ -69,8 +71,7 @@ const shippingSlice = createSlice({
         determineShippingServicesAndTransitTimes.rejected,
         (state, action) => {
           state.isLoading = false;
-          state.isError = true;
-          state.error = action.error;
+          state.error = action.payload;
         }
       );
   },
@@ -80,7 +81,6 @@ export const selectAccessToken = (state) => state.shipping.accessToken;
 export const selectAddress = (state) => state.shipping.address;
 export const selectShippingInfo = (state) => state.shipping.shippingInfo;
 export const selectIsLoading = (state) => state.shipping.isLoading;
-export const selectIsError = (state) => state.shipping.isError;
 export const selectError = (state) => state.shipping.error;
 export const selectSelectedShippingInfo = (state) =>
   state.shipping.selectedShippingInfo;

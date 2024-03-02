@@ -10,16 +10,23 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './adminOrders.css';
 import { quantum } from 'ldrs';
+import { selectUser } from '../../user/userSlice';
+import { NotFound } from '../../notFound/NotFound';
 quantum.register();
 
 export function AdminOrders() {
   const dispatch = useDispatch();
   const orders = useSelector(selectOrders);
   const isLoading = useSelector(selectIsLoading);
+  const user = useSelector(selectUser);
 
   useEffect(() => {
-    dispatch(loadAdminOrders());
+    if (user.role === 'admin') dispatch(loadAdminOrders());
   }, [dispatch]);
+
+  if (user.role !== 'admin') {
+    return <NotFound />;
+  }
 
   return (
     <main className='admin-orders'>

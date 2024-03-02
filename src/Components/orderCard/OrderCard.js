@@ -23,7 +23,6 @@ export function OrderCard(props) {
           <h4>{order.shipping_status}</h4>
         </div>
         <div className='order-section'>
-          <h3>{`ORDER # ${order.id}`}</h3>
           <Link to={''}>track order</Link>
         </div>
       </section>

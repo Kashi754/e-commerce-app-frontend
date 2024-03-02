@@ -26,10 +26,8 @@ export function Header() {
     for (const key in filter) {
       if (filter[key]) {
         if (searchParams.has(key)) {
-          console.log(key, filter[key]);
           searchParams.set(key, filter[key]);
         } else {
-          console.log(key, filter[key]);
           searchParams.append(key, filter[key]);
         }
       }

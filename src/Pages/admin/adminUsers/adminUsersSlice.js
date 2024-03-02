@@ -15,17 +15,17 @@ export const loadAdminUsers = createAsyncThunk(
     }
 
     try {
-      const response = await getApi(serverUrl);
+      const response = await getApi(serverUrl, rejectWithValue);
       return response;
     } catch (err) {
-      return rejectWithValue(err.message);
+      return rejectWithValue({ message: err.message, status: 400 });
     }
   }
 );
 
 export const editUser = createAsyncThunk(
   'adminUsers/editUser',
-  async ({ userId, data, filter }, { rejectWithValue }) => {
+  async ({ userId, body, filter }, { rejectWithValue }) => {
     let serverUrl;
     if (filter) {
       serverUrl = `${urlBase}/users/${userId}?filter=${filter}`;
@@ -33,11 +33,10 @@ export const editUser = createAsyncThunk(
       serverUrl = `${urlBase}/users/${userId}`;
     }
     try {
-      const response = await patchApi(serverUrl, data);
+      const response = await patchApi(serverUrl, body, rejectWithValue);
       return response;
     } catch (err) {
-      console.log(err);
-      return rejectWithValue(err.message);
+      return rejectWithValue({ message: err.message, status: 400 });
     }
   }
 );
@@ -53,11 +52,10 @@ export const deleteUser = createAsyncThunk(
     }
 
     try {
-      const response = await deleteApi(serverUrl);
+      const response = await deleteApi(serverUrl, rejectWithValue);
       return response;
     } catch (err) {
-      console.log(err);
-      return rejectWithValue(err.message);
+      return rejectWithValue({ message: err.message, status: 400 });
     }
   }
 );
@@ -130,6 +128,5 @@ const adminUsersSlice = createSlice({
 
 export const selectUsers = (state) => state.adminUsers.users;
 export const selectIsLoading = (state) => state.adminUsers.isLoading;
-export const selectIsError = (state) => state.adminUsers.isError;
 export const selectError = (state) => state.adminUsers.error;
 export default adminUsersSlice.reducer;

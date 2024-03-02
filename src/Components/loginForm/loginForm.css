@@ -83,7 +83,7 @@
 .register-button:hover {
   cursor: pointer;
   text-decoration: none;
-  color: var(--grey);
+  color: var(--purple-placeholder);
 }
 
 .error-message {

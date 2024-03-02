@@ -8,7 +8,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import './usersList.css';
 
-export function UsersList({ users, editUser, deleteUser, searchTerm, error }) {
+export function UsersList({ users, editUser, deleteUser, searchTerm }) {
   const [editing, setEditing] = useState(null);
   const [userToEdit, setUserToEdit] = useState({
     email: '',
@@ -50,7 +50,6 @@ export function UsersList({ users, editUser, deleteUser, searchTerm, error }) {
   }
 
   function handleDelete(id) {
-    console.log(id);
     dispatch(deleteUser({ userId: id, filter: searchTerm }));
     setUserToEdit({
       email: '',
@@ -62,26 +61,6 @@ export function UsersList({ users, editUser, deleteUser, searchTerm, error }) {
   function handleChange(e) {
     const { name, value } = e.target;
     setUserToEdit((prev) => ({ ...prev, [name]: value }));
-  }
-
-  if (Object.values(error).join('')) {
-    return (
-      <div className='error-container'>
-        {Object.keys(error).map((key) => {
-          if (error[key]) {
-            return (
-              <div
-                data-testid='error'
-                className='error'
-                key={key}
-              >
-                {`${error[key].status}: ${error[key].message}`}
-              </div>
-            );
-          }
-        })}
-      </div>
-    );
   }
 
   return (

@@ -7,7 +7,6 @@ import './products.css';
 import {
   loadProductsData,
   selectError,
-  selectIsError,
   selectIsLoading,
   selectProducts,
 } from './productsSlice';
@@ -15,7 +14,6 @@ quantum.register();
 
 export function Products() {
   const isLoading = useSelector(selectIsLoading);
-  const isError = useSelector(selectIsError);
   const error = useSelector(selectError);
   const products = useSelector(selectProducts);
   const dispatch = useDispatch();
@@ -43,8 +41,8 @@ export function Products() {
     );
   }
 
-  if (isError) {
-    console.error(error);
+  if (error) {
+    console.error('Error %d: ' + error.message, error.status);
   }
 
   return (

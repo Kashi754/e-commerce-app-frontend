@@ -44,6 +44,18 @@
   display: flex;
   gap: 0.25rem;
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.order-section a {
+  text-decoration: underline;
+  color: var(--purple);
+}
+
+.order-section a:hover {
+  color: var(--purple-placeholder);
+  text-decoration: none;
 }
 
 .order-product {

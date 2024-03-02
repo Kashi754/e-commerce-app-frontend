@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   selectCategories,
   selectIsLoading,
-  selectIsError,
   selectError,
   loadProductCategories,
 } from './homeSlice';
@@ -14,7 +13,6 @@ quantum.register();
 
 export function Home() {
   const isLoading = useSelector(selectIsLoading);
-  const isError = useSelector(selectIsError);
   const error = useSelector(selectError);
   const categories = useSelector(selectCategories);
   const dispatch = useDispatch();
@@ -41,8 +39,8 @@ export function Home() {
     );
   }
 
-  if (isError) {
-    console.error(error);
+  if (error) {
+    console.error('Error %d: ' + error.message, error.status);
   }
 
   return (

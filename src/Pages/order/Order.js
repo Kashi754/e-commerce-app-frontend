@@ -1,7 +1,6 @@
 import {
   loadOrderData,
   selectError,
-  selectIsError,
   selectIsLoading,
   selectOrder,
 } from './orderSlice';
@@ -15,7 +14,6 @@ quantum.register();
 
 export function Order() {
   const isLoading = useSelector(selectIsLoading);
-  const isError = useSelector(selectIsError);
   const error = useSelector(selectError);
   const order = useSelector(selectOrder);
   const dispatch = useDispatch();
@@ -42,8 +40,8 @@ export function Order() {
     );
   }
 
-  if (isError) {
-    console.error(error);
+  if (error) {
+    console.error('Error %d: ' + error.message, error.status);
   }
 
   return (

@@ -5,7 +5,6 @@ import {
   selectCart,
   selectPrice,
   selectIsLoading,
-  selectIsError,
   selectError,
   setIsHovering,
 } from './cartSlice';
@@ -13,11 +12,13 @@ import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import './cart.css';
 import formatMoney from 'accounting-js/lib/formatMoney';
+import { selectUser } from '../user/userSlice';
+import { useEffect } from 'react';
 
 export function Cart() {
   const cart = useSelector(selectCart);
+  const user = useSelector(selectUser);
   const isLoading = useSelector(selectIsLoading);
-  const isError = useSelector(selectIsError);
   const error = useSelector(selectError);
   const totalPrice = useSelector(selectPrice);
   const dispatch = useDispatch();
@@ -50,6 +51,22 @@ export function Cart() {
     dispatch(setIsHovering({ productId, isHovering: false }));
   }
 
+  useEffect(() => {
+    if (!user.role) {
+      navigate('/login');
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (Object.values(error).join('')) {
+      Object.keys(error).forEach((key) => {
+        if (error[key]) {
+          console.error('Error %d: ' + error[key].message, error[key].status);
+        }
+      });
+    }
+  }, [error]);
+
   if (isLoading) {
     return (
       <div
@@ -63,14 +80,6 @@ export function Cart() {
             color='#000000'
           />
         }
-      </div>
-    );
-  }
-
-  if (isError) {
-    return (
-      <div className='error'>
-        <p role='alert'>{error}</p>
       </div>
     );
   }

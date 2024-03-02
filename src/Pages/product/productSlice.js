@@ -3,11 +3,16 @@ import { getApi } from '../../utilities/fetchApi';
 
 export const loadProductData = createAsyncThunk(
   'product/loadProductData',
-  async (path) => {
+  async (path, { rejectWithValue }) => {
     const url = process.env.REACT_APP_SERVER_URL;
     const serverUrl = `http://${url}${path}`;
 
-    return await getApi(serverUrl);
+    try {
+      const response = await getApi(serverUrl, rejectWithValue);
+      return response;
+    } catch (error) {
+      return rejectWithValue({ message: error.message, status: 400 });
+    }
   }
 );
 
@@ -16,7 +21,6 @@ const productSlice = createSlice({
   initialState: {
     product: {},
     isLoading: false,
-    isError: false,
     error: null,
   },
   reducers: {
@@ -34,25 +38,22 @@ const productSlice = createSlice({
     builder
       .addCase(loadProductData.pending, (state) => {
         state.isLoading = true;
-        state.isError = false;
+        state.error = null;
       })
       .addCase(loadProductData.fulfilled, (state, action) => {
         const data = action.payload;
-        state.product = data;
+        state.error = null;
         state.isLoading = false;
-        state.isError = false;
+        state.product = data;
       })
       .addCase(loadProductData.rejected, (state, action) => {
         state.isLoading = false;
-        state.isError = true;
-        state.error = action.error;
+        state.error = action.payload;
       });
   },
 });
 
 export const selectProduct = (state) => state.product.product;
 export const selectIsLoading = (state) => state.product.isLoading;
-export const selectIsError = (state) => state.product.isError;
 export const selectError = (state) => state.product.error;
-// export const { incrementCount, decrementCount, resetCount } = homeSlice.actions;
 export default productSlice.reducer;

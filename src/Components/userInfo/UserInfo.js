@@ -1,9 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import {
   selectIsLoggedIn,
-  selectIsError,
   selectIsLoading,
-  selectError,
   logout,
 } from '../../Pages/user/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,9 +15,7 @@ export function UserInfo() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  const isError = useSelector(selectIsError);
   const isLoading = useSelector(selectIsLoading);
-  const error = useSelector(selectError);
 
   function handleClick(event) {
     event.preventDefault();

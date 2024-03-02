@@ -3,7 +3,6 @@ import {
   selectOrders,
   selectIsLoading,
   selectError,
-  selectIsError,
 } from './ordersSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
@@ -15,7 +14,6 @@ quantum.register();
 export function Orders() {
   const orders = useSelector(selectOrders);
   const isLoading = useSelector(selectIsLoading);
-  const isError = useSelector(selectIsError);
   const error = useSelector(selectError);
   const dispatch = useDispatch();
 
@@ -40,20 +38,24 @@ export function Orders() {
     );
   }
 
-  if (isError) {
-    console.error(error);
+  if (error) {
+    console.error('Error %d: ' + error.message, error.status);
   }
 
   return (
     <main className='orders'>
-      <ul>
-        {orders.map((order) => (
-          <OrderItem
-            order={order}
-            key={order.id}
-          />
-        ))}
-      </ul>
+      {orders.length > 0 ? (
+        <ul>
+          {orders.map((order) => (
+            <OrderItem
+              order={order}
+              key={order.id}
+            />
+          ))}
+        </ul>
+      ) : (
+        <h2>No orders found</h2>
+      )}
     </main>
   );
 }

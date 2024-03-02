@@ -12,7 +12,6 @@ import {
   toggleResidential,
   setSelectedShippingInfo,
   selectIsLoading,
-  selectIsError,
   selectError,
 } from './shippingSlice';
 import { selectPrice, selectWeight } from '../../cart/cartSlice';
@@ -30,7 +29,6 @@ export function Shipping() {
   const shippingInfo = useSelector(selectShippingInfo);
   const selectedShippingInfo = useSelector(selectSelectedShippingInfo);
   const isLoading = useSelector(selectIsLoading);
-  const isError = useSelector(selectIsError);
   const error = useSelector(selectError);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -52,7 +50,7 @@ export function Shipping() {
     });
     if (!response.ok) {
       const error = await response.json();
-      throw error;
+      console.error('Error %d: ' + error.message, error.status);
     }
     const data = await response.json();
     const token = JSON.stringify(data);
@@ -96,7 +94,7 @@ export function Shipping() {
         setVerificationResult(verification);
       })
       .catch((err) => {
-        console.log(err);
+        console.error('Error %d: ' + err.message, err.status);
         setErrorMessage(err.message);
       });
 
@@ -156,6 +154,12 @@ export function Shipping() {
       verifyButton.disabled = false;
     }
   }, [fieldsVerified, verificationResult?.deliverability]);
+
+  useEffect(() => {
+    if (error) {
+      console.error('Error %d: ' + error.message, error.status);
+    }
+  }, [error]);
 
   function handleSelect(selection) {
     setSelectedAddress(selection.value);
@@ -235,7 +239,7 @@ export function Shipping() {
             onFieldChange={handleChange}
             onSelection={handleSelect}
             onSubmit={verifyAddress}
-            onError={(err) => console.log(err)}
+            onError={(err) => console.error(err)}
             submitButtonLabel='Verify Address'
             hideSubmitButton={!fieldsVerified}
             disableLobLogo={true}
@@ -280,7 +284,7 @@ export function Shipping() {
             <button
               className='submit-shipping-button'
               onClick={handleSubmit}
-              disabled={isLoading && !isError}
+              disabled={isLoading && !error}
             >
               Go to payment
             </button>

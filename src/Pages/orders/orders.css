@@ -4,3 +4,16 @@
   align-items: center;
   gap: 0.75rem;
 }
+
+.orders h2 {
+  background-color: var(--purple);
+  color: var(--pink);
+  padding: 1.5rem 5%;
+  border: var(--border-style);
+  border-radius: 0.5rem;
+  width: clamp(15rem, 50vw, 200rem);
+  text-align: center;
+  font-size: 1.5rem;
+  box-sizing: border-box;
+  align-self: center;
+}

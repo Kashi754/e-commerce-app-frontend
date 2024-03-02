@@ -91,6 +91,6 @@ select::-webkit-scrollbar {
 
 .checkout-link:hover {
   text-decoration: none;
-  color: var(--grey);
+  color: var(--purple-placeholder);
   cursor: pointer;
 }

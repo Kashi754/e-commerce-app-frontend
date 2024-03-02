@@ -5,13 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import { useNavigate } from 'react-router';
 
-export function LoginForm({
-  handleSubmit,
-  formData,
-  handleChange,
-  isError,
-  error,
-}) {
+export function LoginForm({ handleSubmit, formData, handleChange, error }) {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const navigate = useNavigate();
 
@@ -52,7 +46,9 @@ export function LoginForm({
           {<FontAwesomeIcon icon={passwordVisible ? faEyeSlash : faEye} />}
         </button>
       </div>
-      {isError && <h4 className='error-message'>{error.message}</h4>}
+      {error && (
+        <h4 className='error-message'>{`Error ${error.status}: ${error.message}`}</h4>
+      )}
       <button
         type='submit'
         className='login-submit-button'

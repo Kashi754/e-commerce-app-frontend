@@ -31,8 +31,9 @@ export function Registration() {
     const { password2, ...body } = formData;
 
     try {
-      await postApi(serverUrl, body);
+      await postApi(serverUrl, { ...body, role: 'user' });
     } catch (err) {
+      console.error('Error %d: ' + (await err.message), await err.status);
       setError(err.message);
       return;
     }

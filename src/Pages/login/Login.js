@@ -5,7 +5,6 @@ import { LoginForm } from '../../Components/loginForm/LoginForm';
 import {
   login,
   selectError,
-  selectIsError,
   selectIsLoggedIn,
   selectIsLoading,
 } from '../user/userSlice';
@@ -18,7 +17,6 @@ export function Login() {
   const navigate = useNavigate();
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const isLoading = useSelector(selectIsLoading);
-  const isError = useSelector(selectIsError);
   const error = useSelector(selectError);
   const [formData, setFormData] = useState({ username: '', password: '' });
   const url = process.env.REACT_APP_SERVER_URL;
@@ -86,8 +84,7 @@ export function Login() {
             formData={formData}
             handleSubmit={handleSubmit}
             handleChange={handleChange}
-            isError={isError}
-            error={error}
+            error={error.login}
           />
         </div>
       </div>

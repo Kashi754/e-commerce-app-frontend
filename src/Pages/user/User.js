@@ -1,14 +1,9 @@
 import { quantum } from 'ldrs';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './user.css';
-import {
-  selectError,
-  selectIsError,
-  selectIsLoading,
-  selectUser,
-} from './userSlice';
+import { selectError, selectIsLoading, selectUser } from './userSlice';
 import { PasswordChangeForm } from '../../Components/passwordChangeForm/PasswordChangeForm';
 import { ProfileForm } from '../../Components/profileForm/ProfileForm';
 quantum.register();
@@ -16,11 +11,20 @@ quantum.register();
 export function User() {
   const user = useSelector(selectUser);
   const error = useSelector(selectError);
-  const isError = useSelector(selectIsError);
   const isLoading = useSelector(selectIsLoading);
   const [editMode, setEditMode] = useState(false);
 
   const [changePassword, setChangePassword] = useState(false);
+
+  useEffect(() => {
+    if (Object.values(error).join('')) {
+      Object.keys(error).forEach((key) => {
+        if (error[key]) {
+          console.error('Error %d: ' + error[key].message, error[key].status);
+        }
+      });
+    }
+  }, [error]);
 
   if (isLoading) {
     return (
@@ -37,10 +41,6 @@ export function User() {
         }
       </div>
     );
-  }
-
-  if (isError) {
-    console.error(error);
   }
 
   if (!editMode) {

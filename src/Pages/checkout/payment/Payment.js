@@ -4,7 +4,6 @@ import {
   selectCart,
   selectPrice,
   selectIsLoading,
-  selectIsError,
   selectError,
 } from '../../cart/cartSlice';
 import { useEffect, useState } from 'react';
@@ -21,7 +20,6 @@ quantum.register();
 export function Payment() {
   const cart = useSelector(selectCart);
   const isLoading = useSelector(selectIsLoading);
-  const isError = useSelector(selectIsError);
   const error = useSelector(selectError);
   const cartTotal = useSelector(selectPrice);
   const shippingInfo = useSelector(selectSelectedShippingInfo);
@@ -46,11 +44,21 @@ export function Payment() {
           postApi(serverUrl, { paymentIntent: paymentIntent });
         })
         .catch((err) => {
-          console.log(err);
+          console.error('Error %d: ' + err.message, err.status);
           navigate('/cart');
         });
     }
   }, [url, cartTotal, shippingInfo, isLoading, navigate]);
+
+  useEffect(() => {
+    if (Object.values(error).join('')) {
+      Object.keys(error).forEach((key) => {
+        if (error[key]) {
+          console.error(error[key].message);
+        }
+      });
+    }
+  }, [error]);
 
   const options = {
     clientSecret: clientSecret,
@@ -103,10 +111,6 @@ export function Payment() {
         }
       </div>
     );
-  }
-
-  if (isError) {
-    console.error(error);
   }
 
   return (

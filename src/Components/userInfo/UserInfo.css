@@ -25,7 +25,7 @@
 
 .logout-button:hover {
   text-decoration: none;
-  color: var(--grey);
+  color: var(--purple-placeholder);
 }
 
 .login-button {

@@ -8,7 +8,6 @@ import './product.css';
 import {
   loadProductData,
   selectError,
-  selectIsError,
   selectIsLoading,
   selectProduct,
 } from './productSlice';
@@ -18,7 +17,6 @@ quantum.register();
 export function Product() {
   const cart = useSelector(selectCart);
   const isLoading = useSelector(selectIsLoading);
-  const isError = useSelector(selectIsError);
   const error = useSelector(selectError);
   const product = useSelector(selectProduct);
   const dispatch = useDispatch();
@@ -47,6 +45,10 @@ export function Product() {
     dispatch(deleteCartItem(product.id));
   }
 
+  if (error) {
+    console.error('Error %d: ' + error.message, error.status);
+  }
+
   if (isLoading) {
     return (
       <div
@@ -62,10 +64,6 @@ export function Product() {
         }
       </div>
     );
-  }
-
-  if (isError) {
-    console.error(error);
   }
 
   return (

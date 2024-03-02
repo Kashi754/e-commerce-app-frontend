@@ -45,6 +45,6 @@
 }
 
 .not-found a:hover {
-  color: grey;
+  color: var(--purple-placeholder);
   text-decoration: none;
 }

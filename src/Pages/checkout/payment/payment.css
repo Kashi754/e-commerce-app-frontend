@@ -22,7 +22,6 @@
 }
 
 .link:hover {
-  color: var(--grey);
+  color: var(--purple-placeholder);
   text-decoration: none;
 }
-

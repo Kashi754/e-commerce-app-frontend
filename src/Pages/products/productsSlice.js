@@ -4,12 +4,18 @@ import naturalCompare from '../../utilities/naturalCompare';
 
 export const loadProductsData = createAsyncThunk(
   'products/loadProductsData',
-  async (params) => {
+  async (params, { rejectWithValue }) => {
     const url = process.env.REACT_APP_SERVER_URL;
     const serverUrl = params
       ? `http://${url}/products${params}`
       : `http://${url}/products`;
-    return await getApi(serverUrl);
+
+    try {
+      const response = await getApi(serverUrl, rejectWithValue);
+      return response;
+    } catch (error) {
+      return rejectWithValue({ message: error.message, status: 400 });
+    }
   }
 );
 
@@ -18,7 +24,6 @@ const productsSlice = createSlice({
   initialState: {
     products: [],
     isLoading: false,
-    isError: false,
     error: null,
   },
   reducers: {
@@ -36,26 +41,22 @@ const productsSlice = createSlice({
     builder
       .addCase(loadProductsData.pending, (state) => {
         state.isLoading = true;
-        state.isError = false;
+        state.error = null;
       })
       .addCase(loadProductsData.fulfilled, (state, action) => {
         const data = action.payload;
         state.isLoading = false;
-        state.isError = false;
         state.products = data.sort(naturalCompare);
         state.error = null;
       })
       .addCase(loadProductsData.rejected, (state, action) => {
         state.isLoading = false;
-        state.isError = true;
-        state.error = action.error;
+        state.error = action.payload;
       });
   },
 });
 
 export const selectProducts = (state) => state.products.products;
 export const selectIsLoading = (state) => state.products.isLoading;
-export const selectIsError = (state) => state.products.isError;
 export const selectError = (state) => state.products.error;
-// export const { incrementCount, decrementCount, resetCount } = homeSlice.actions;
 export default productsSlice.reducer;

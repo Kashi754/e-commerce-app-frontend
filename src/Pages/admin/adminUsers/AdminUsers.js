@@ -13,6 +13,8 @@ import {
 } from './adminUsersSlice';
 import './adminUsers.css';
 import { quantum } from 'ldrs';
+import { selectUser } from '../../user/userSlice';
+import { NotFound } from '../../notFound/NotFound';
 quantum.register();
 
 export function AdminUsers() {
@@ -22,9 +24,25 @@ export function AdminUsers() {
   const error = useSelector(selectError);
   const [searchTerm, setSearchTerm] = useState('');
 
+  const user = useSelector(selectUser);
+
   useEffect(() => {
-    dispatch(loadAdminUsers());
-  }, [dispatch]);
+    if (user.role === 'admin') dispatch(loadAdminUsers());
+  }, [dispatch, user]);
+
+  if (user.role !== 'admin') {
+    return <NotFound />;
+  }
+
+  useEffect(() => {
+    if (Object.values(error).join('')) {
+      Object.keys(error).forEach((key) => {
+        if (error[key]) {
+          console.error(error[key].message);
+        }
+      });
+    }
+  }, [error]);
 
   return (
     <main className='admin-users'>
@@ -52,7 +70,6 @@ export function AdminUsers() {
           editUser={editUser}
           deleteUser={deleteUser}
           searchTerm={searchTerm}
-          error={error}
         />
       )}
       <AddUserForm

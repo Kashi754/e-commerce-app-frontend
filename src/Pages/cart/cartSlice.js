@@ -2,16 +2,23 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getApi, postApi, putApi, deleteApi } from '../../utilities/fetchApi';
 
 const url = process.env.REACT_APP_SERVER_URL;
+const serverUrl = `http://${url}/cart/`;
 
-export const loadCartData = createAsyncThunk('cart/loadCartData', async () => {
-  const serverUrl = `http://${url}/cart/`;
-
-  return await getApi(serverUrl);
-});
+export const loadCartData = createAsyncThunk(
+  'cart/loadCartData',
+  async (_params, { rejectWithValue }) => {
+    try {
+      const response = await getApi(serverUrl);
+      return response;
+    } catch (error) {
+      return rejectWithValue({ message: error.message, status: 400 });
+    }
+  }
+);
 
 export const addCartItem = createAsyncThunk(
   'cart/addCartItem',
-  async (params) => {
+  async (params, { rejectWithValue }) => {
     const { productId, qty } = params;
 
     const itemData = {
@@ -19,15 +26,18 @@ export const addCartItem = createAsyncThunk(
       qty,
     };
 
-    const serverUrl = `http://${url}/cart/`;
-
-    return await postApi(serverUrl, itemData);
+    try {
+      const response = await postApi(serverUrl, itemData);
+      return response;
+    } catch (error) {
+      return rejectWithValue({ message: error.message, status: 400 });
+    }
   }
 );
 
 export const editCartItem = createAsyncThunk(
   'cart/editCartItem',
-  async (params) => {
+  async (params, { rejectWithValue }) => {
     const { productId, qty } = params;
 
     const itemData = {
@@ -37,16 +47,26 @@ export const editCartItem = createAsyncThunk(
 
     const serverUrl = `http://${url}/cart/`;
 
-    return await putApi(serverUrl, itemData);
+    try {
+      const response = await putApi(serverUrl, itemData);
+      return response;
+    } catch (error) {
+      return rejectWithValue({ message: error.message, status: 400 });
+    }
   }
 );
 
 export const deleteCartItem = createAsyncThunk(
   'cart/deleteCartItem',
-  async (productId) => {
+  async (productId, { rejectWithValue }) => {
     const serverUrl = `http://${url}/cart/?product_id=${productId}`;
 
-    return await deleteApi(serverUrl);
+    try {
+      const response = await deleteApi(serverUrl);
+      return response;
+    } catch (error) {
+      return rejectWithValue({ message: error.message, status: 400 });
+    }
   }
 );
 
@@ -57,7 +77,6 @@ const cartSlice = createSlice({
     qty: 0,
     totalPrice: 0,
     isLoading: false,
-    isError: false,
     error: {},
     totalWeight: 0,
   },
@@ -73,11 +92,12 @@ const cartSlice = createSlice({
     builder
       .addCase(loadCartData.pending, (state) => {
         state.isLoading = true;
-        state.isError = false;
-        state.error = null;
+        state.error = { ...state.error, load: null };
       })
       .addCase(loadCartData.fulfilled, (state, action) => {
         const data = action.payload;
+        state.isLoading = false;
+        state.error = { ...state.error, load: null };
         if (data.products.length > 0) {
           data.products.forEach((item) => (item.isHovering = false));
           state.qty = data.products
@@ -91,25 +111,24 @@ const cartSlice = createSlice({
         }
         state.cart = data.products;
         state.totalPrice = parseFloat(data.total);
-        state.isLoading = false;
-        state.isError = false;
-        state.error = null;
       })
       .addCase(loadCartData.rejected, (state, action) => {
         state.isLoading = false;
-        state.isError = true;
-        state.error = action.error;
+        state.error = { ...state.error, load: action.payload };
+        state.cart = [];
+        state.qty = 0;
+        state.totalPrice = 0;
+        state.totalWeight = 0;
       })
       .addCase(addCartItem.pending, (state) => {
         state.isLoading = true;
-        state.isError = false;
         state.error = null;
+        state.error = { ...state.error, add: null };
       })
       .addCase(addCartItem.fulfilled, (state, action) => {
         const data = action.payload;
         state.isLoading = false;
-        state.isError = false;
-        state.error = null;
+        state.error = { ...state.error, add: null };
         data.products.forEach((item) => (item.isHovering = false));
         state.cart = data.products;
         state.qty = data.products
@@ -122,19 +141,16 @@ const cartSlice = createSlice({
       })
       .addCase(addCartItem.rejected, (state, action) => {
         state.isLoading = false;
-        state.isError = true;
-        state.error = action.error;
+        state.error = { ...state.error, add: action.payload };
       })
       .addCase(editCartItem.pending, (state) => {
         state.isLoading = true;
-        state.isError = false;
-        state.error = null;
+        state.error = { ...state.error, edit: null };
       })
       .addCase(editCartItem.fulfilled, (state, action) => {
         const data = action.payload;
         state.isLoading = false;
-        state.isError = false;
-        state.error = null;
+        state.error = { ...state.error, edit: null };
         data.products.forEach((item) => (item.isHovering = false));
         state.cart = data.products;
         state.qty = data.products
@@ -144,19 +160,16 @@ const cartSlice = createSlice({
       })
       .addCase(editCartItem.rejected, (state, action) => {
         state.isLoading = false;
-        state.isError = true;
-        state.error = action.error;
+        state.error = { ...state.error, edit: action.payload };
       })
       .addCase(deleteCartItem.pending, (state) => {
         state.isLoading = true;
-        state.isError = false;
-        state.error = null;
+        state.error = { ...state.error, delete: null };
       })
       .addCase(deleteCartItem.fulfilled, (state, action) => {
         const data = action.payload;
         state.isLoading = false;
-        state.isError = false;
-        state.error = null;
+        state.error = { ...state.error, delete: null };
         if (data.products.length > 0) {
           data.products.forEach((item) => (item.isHovering = false));
           state.qty = data.products
@@ -170,8 +183,7 @@ const cartSlice = createSlice({
       })
       .addCase(deleteCartItem.rejected, (state, action) => {
         state.isLoading = false;
-        state.isError = true;
-        state.error = action.error;
+        state.error = { ...state.error, delete: action.payload };
       });
   },
 });
@@ -181,7 +193,6 @@ export const selectQty = (state) => state.cart.qty;
 export const selectPrice = (state) => state.cart.totalPrice;
 export const selectWeight = (state) => state.cart.totalWeight;
 export const selectIsLoading = (state) => state.cart.isLoading;
-export const selectIsError = (state) => state.cart.isError;
 export const selectError = (state) => state.cart.error;
 export const { setIsHovering } = cartSlice.actions;
 export default cartSlice.reducer;

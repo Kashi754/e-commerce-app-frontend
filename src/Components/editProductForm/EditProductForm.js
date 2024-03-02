@@ -9,7 +9,10 @@ import { useSearchParams } from 'react-router-dom';
 import { loadProductsData } from '../../Pages/products/productsSlice';
 
 export function EditProductForm({ product, handleCancel }) {
-  const [previewImage, setPreviewImage] = useState(null);
+  const serverUrl = process.env.REACT_APP_SERVER_URL;
+  const [previewImage, setPreviewImage] = useState(
+    `http://${serverUrl}/assets/images/products/${product.image_file || product.id + '.jpg'}`
+  );
   const [disabled, setDisabled] = useState(true);
   const [form, setForm] = useState({
     product_name: product.name,
@@ -28,7 +31,6 @@ export function EditProductForm({ product, handleCancel }) {
   }, [form]);
 
   useEffect(() => {
-    console.log(JSON.stringify(product, null, 2));
     setForm({
       product_name: product.name,
       price: product.price,
@@ -68,6 +70,9 @@ export function EditProductForm({ product, handleCancel }) {
       'categories',
       JSON.stringify(form.categories.map((category) => category.id))
     );
+    if (!form.image) {
+      formData.append('image_file', product.image_file);
+    }
 
     try {
       await putFormApi(

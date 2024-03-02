@@ -22,10 +22,6 @@ export function CheckoutProductCard(props) {
               <div className='details-container'>
                 <div className='checkout-product-details'>
                   <h5 className='checkout-product-info details'>
-                    <span className='product-header'>Product ID:</span>
-                    <span className='product-value'>{product.id}</span>
-                  </h5>
-                  <h5 className='checkout-product-info details'>
                     <span className='product-header'>Price:</span>
                     <span className='product-value'>
                       {formatMoney(product.price)}

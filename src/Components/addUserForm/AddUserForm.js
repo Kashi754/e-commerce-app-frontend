@@ -40,7 +40,7 @@ export function AddUserForm({ loadAdminUsers, searchTerm }) {
       });
       dispatch(loadAdminUsers(searchTerm));
     } catch (err) {
-      console.log(err);
+      console.error('Error %d: ' + (await err.message), await err.status);
       return;
     }
   }

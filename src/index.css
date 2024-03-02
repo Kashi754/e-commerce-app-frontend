@@ -13,7 +13,12 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #fbeeff;
+  background-image: url('/public/images/e-commerce-background.webp');
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-size: auto;
+  color: var(--grey);
 }
 
 code {
