@@ -44,9 +44,6 @@ export function Shipping() {
     const response = await fetch('http://localhost:5000/cart/shipping', {
       method: 'GET',
       credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-      },
     });
     if (!response.ok) {
       const error = await response.json();
