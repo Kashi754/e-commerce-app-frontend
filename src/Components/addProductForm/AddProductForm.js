@@ -5,6 +5,9 @@ import { postFormApi } from '../../utilities/fetchApi';
 import { CurrencyInput } from '../currencyInput/CurrencyInput';
 import { unformat } from 'accounting-js';
 import './addProductForm.css';
+import { useSearchParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { loadProductsData } from '../../Pages/products/productsSlice';
 
 export function AddProductForm() {
   const [previewImage, setPreviewImage] = useState(null);
@@ -18,6 +21,8 @@ export function AddProductForm() {
     image: null,
   });
   const imageRef = useRef(null);
+  const dispatch = useDispatch();
+  const [searchParams] = useSearchParams();
 
   function checkFields() {
     if (
@@ -38,7 +43,7 @@ export function AddProductForm() {
     checkFields();
   }, [form]);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
     const formData = new FormData();
@@ -56,7 +61,7 @@ export function AddProductForm() {
     const serverUrl = process.env.REACT_APP_SERVER_URL;
 
     try {
-      postFormApi(`${serverUrl}/products`, formData);
+      await postFormApi(`${serverUrl}/products`, formData);
       imageRef.current.value = '';
       setForm({
         product_name: '',
@@ -67,6 +72,7 @@ export function AddProductForm() {
         image: null,
       });
       setPreviewImage(null);
+      dispatch(loadProductsData('?' + searchParams.toString()));
     } catch (err) {
       console.error(err);
     }
