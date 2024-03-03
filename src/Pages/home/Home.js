@@ -9,6 +9,7 @@ import {
 import { Link } from 'react-router-dom';
 import './home.css';
 import { quantum } from 'ldrs';
+import { addDefaultImg } from '../../utilities/addDefaultImage';
 quantum.register();
 
 export function Home() {
@@ -52,6 +53,7 @@ export function Home() {
         <img
           src={`${serverUrl}/assets/images/categories/all_products.jpg`}
           alt='all products'
+          onError={addDefaultImg}
         />
         <h4>all products</h4>
       </Link>
@@ -65,6 +67,7 @@ export function Home() {
             <img
               src={`${serverUrl}/assets/images/categories/${category.name}.jpg`}
               alt={category.name}
+              onError={addDefaultImg}
             />
             <h4>{category.name}</h4>
           </Link>

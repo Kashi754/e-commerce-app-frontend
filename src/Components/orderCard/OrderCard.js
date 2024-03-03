@@ -1,5 +1,6 @@
 import formatMoney from 'accounting-js/lib/formatMoney';
 import { Link, useNavigate } from 'react-router-dom';
+import { addDefaultImg } from '../../utilities/addDefaultImage';
 
 export function OrderCard(props) {
   const { order } = props;
@@ -66,6 +67,7 @@ export function OrderCard(props) {
                 <img
                   src={`${serverUrl}/assets/images/products/${product.image_file || product.id + '.jpg'}`}
                   alt={product.name}
+                  onError={addDefaultImg}
                 />
                 <h4 className='product-info'>{product.name}</h4>
               </div>

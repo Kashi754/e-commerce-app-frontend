@@ -8,9 +8,9 @@ export function InventoryCard({ product }) {
 
   return !editing ? (
     <div className='inventory-card'>
+      <h5 className='product-id'>{product.id}</h5>
       <div className='inventory-card-info'>
         <h5>{product.name}</h5>
-        <h5>{product.id}</h5>
       </div>
       <p>{product.description}</p>
       <div className='inventory-card-info'>

@@ -10,6 +10,7 @@ import {
   selectIsLoading,
   selectProducts,
 } from './productsSlice';
+import { addDefaultImg } from '../../utilities/addDefaultImage';
 quantum.register();
 
 export function Products() {
@@ -60,6 +61,7 @@ export function Products() {
                 <img
                   src={`${serverUrl}/assets/images/products/${product.image_file || product.id + '.jpg'}`}
                   alt={product.name}
+                  onError={addDefaultImg}
                 />
                 <h4>{product.name}</h4>
                 <h5>{formatMoney(product.price)}</h5>

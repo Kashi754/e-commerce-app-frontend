@@ -14,6 +14,7 @@ import './cart.css';
 import formatMoney from 'accounting-js/lib/formatMoney';
 import { selectUser } from '../user/userSlice';
 import { useEffect } from 'react';
+import { addDefaultImg } from '../../utilities/addDefaultImage';
 
 export function Cart() {
   const cart = useSelector(selectCart);
@@ -103,6 +104,7 @@ export function Cart() {
                   <img
                     src={`${serverUrl}/assets/images/products/${product.image_file || product.id + '.jpg'}`}
                     alt={product.name}
+                    onError={addDefaultImg}
                   />
                   <h4 className='cart-product-info'>{product.name}</h4>
                 </Link>

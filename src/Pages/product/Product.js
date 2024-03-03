@@ -12,6 +12,7 @@ import {
   selectProduct,
 } from './productSlice';
 import formatMoney from 'accounting-js/lib/formatMoney';
+import { addDefaultImg } from '../../utilities/addDefaultImage';
 quantum.register();
 
 export function Product() {
@@ -73,6 +74,7 @@ export function Product() {
           <img
             src={`${serverUrl}/assets/images/products/${product.image_file || product.id + '.jpg'}`}
             alt={product.name}
+            onError={addDefaultImg}
           />
         )}
         <section className='product-infobox'>
