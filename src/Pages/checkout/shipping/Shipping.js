@@ -39,9 +39,10 @@ export function Shipping() {
   });
   const [errorMessage, setErrorMessage] = useState(null);
   const { residential } = useSelector(selectAddress);
+  const serverUrl = process.env.REACT_APP_SERVER_URL;
 
   async function fetchApiToken() {
-    const response = await fetch('http://localhost:5000/cart/shipping', {
+    const response = await fetch(`${serverUrl}/cart/shipping`, {
       method: 'GET',
       credentials: 'include',
     });
