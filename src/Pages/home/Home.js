@@ -63,7 +63,7 @@ export function Home() {
             to={`/products?category_id=${category.id}`}
           >
             <img
-              src={`http://${serverUrl}/assets/images/categories/${category.name}.jpg`}
+              src={`${serverUrl}/assets/images/categories/${category.name}.jpg`}
               alt={category.name}
             />
             <h4>{category.name}</h4>
