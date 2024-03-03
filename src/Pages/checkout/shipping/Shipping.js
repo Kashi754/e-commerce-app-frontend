@@ -100,7 +100,7 @@ export function Shipping() {
       try {
         dispatch(
           determineShippingServicesAndTransitTimes({
-            cart: {
+            cartInfo: {
               totalPrice: cartPrice,
               totalWeight: cartWeight,
             },
