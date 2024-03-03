@@ -4,6 +4,9 @@
   justify-self: center;
   grid-column: 1 / 4;
   width: clamp(15rem, 50vw, 200rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 .search-bar {
   box-sizing: border-box;
@@ -127,6 +130,7 @@
 
 .price-filter div label {
   font-size: 0.75rem;
+  color: var(--purple);
 }
 
 .price-selector {
@@ -139,6 +143,7 @@
   padding-left: 0.25rem;
   font-size: 0.9rem;
   align-items: center;
+  background-color: var(--pink);
 }
 
 .price-selector input {

@@ -28,10 +28,11 @@ export const editUser = createAsyncThunk(
   async ({ userId, body, filter }, { rejectWithValue }) => {
     let serverUrl;
     if (filter) {
-      serverUrl = `${urlBase}/users/${userId}?filter=${filter}`;
+      serverUrl = `${urlBase}/users/admin/${userId}?filter=${filter}`;
     } else {
-      serverUrl = `${urlBase}/users/${userId}`;
+      serverUrl = `${urlBase}/users/admin/${userId}`;
     }
+    console.log(body);
     try {
       const response = await patchApi(serverUrl, body, rejectWithValue);
       return response;
@@ -46,9 +47,9 @@ export const deleteUser = createAsyncThunk(
   async ({ userId, filter }, { rejectWithValue }) => {
     let serverUrl;
     if (filter) {
-      serverUrl = `${urlBase}/users/${userId}?filter=${filter}`;
+      serverUrl = `${urlBase}/users/admin/${userId}?filter=${filter}`;
     } else {
-      serverUrl = `${urlBase}/users/${userId}`;
+      serverUrl = `${urlBase}/users/admin/${userId}`;
     }
 
     try {
@@ -96,6 +97,7 @@ const adminUsersSlice = createSlice({
       .addCase(editUser.fulfilled, (state, action) => {
         const users = action.payload;
         state.isLoading = false;
+        console.log(users);
         state.users = users.sort((a, b) =>
           a.last_name > b.last_name ? 1 : -1
         );

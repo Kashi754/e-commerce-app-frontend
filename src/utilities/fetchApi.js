@@ -129,7 +129,7 @@ export async function patchApi(url, body, rejectWithValue) {
     }
   }
   const data = await response.json();
-  return { data };
+  return data;
 }
 
 export async function deleteApi(url, rejectWithValue) {

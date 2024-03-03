@@ -62,7 +62,7 @@ export function SearchBar({
             </span>
           </div>
           <div>
-            <label htmlFor='price-greater-than'>Price Less Than: </label>
+            <label htmlFor='price-less-than'>Price Less Than: </label>
             <span className='price-selector'>
               $
               <input

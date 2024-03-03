@@ -19,8 +19,7 @@ export function UsersList({ users, editUser, deleteUser, searchTerm }) {
   function handleEdit(e) {
     e.preventDefault();
 
-    const user = users.find((user) => user.id === Number(e.target.id));
-
+    const user = users.find((user) => user.id === e.target.id);
     const userEmail = user.email;
     const userRole = user.role;
 
@@ -34,7 +33,7 @@ export function UsersList({ users, editUser, deleteUser, searchTerm }) {
       dispatch(
         editUser({
           userId: e.target.id,
-          data: {
+          body: {
             email: userToEdit.email || userEmail,
             role: userToEdit.role || userRole,
           },
@@ -151,13 +150,13 @@ export function UsersList({ users, editUser, deleteUser, searchTerm }) {
                   name='role'
                   value={userToEdit.role}
                   checked={userToEdit.role === 'admin'}
-                  onChange={(e) =>
+                  onChange={(e) => {
                     setUserToEdit((prev) => {
                       const newValue =
                         e.target.value === 'admin' ? 'user' : 'admin';
                       return { ...prev, role: newValue };
-                    })
-                  }
+                    });
+                  }}
                 />
               </div>
               <button
