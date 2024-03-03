@@ -30,10 +30,6 @@ export function AdminUsers() {
     if (user.role === 'admin') dispatch(loadAdminUsers());
   }, [dispatch, user]);
 
-  if (user.role !== 'admin') {
-    return <NotFound />;
-  }
-
   useEffect(() => {
     if (Object.values(error).join('')) {
       Object.keys(error).forEach((key) => {
@@ -43,6 +39,10 @@ export function AdminUsers() {
       });
     }
   }, [error]);
+
+  if (user.role !== 'admin') {
+    return <NotFound />;
+  }
 
   return (
     <main className='admin-users'>
