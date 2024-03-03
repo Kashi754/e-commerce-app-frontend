@@ -57,6 +57,7 @@ export function Shipping() {
   }
 
   function verifyAllFields(address) {
+    console.log(address);
     const { city, primary_line, state, zip_code } = address;
 
     if (!primary_line || zip_code.length < 5) {
@@ -159,13 +160,16 @@ export function Shipping() {
     }
   }, [error]);
 
+  useEffect(() => {
+    verifyAllFields(selectedAddress);
+  });
+
   function handleSelect(selection) {
     setSelectedAddress(selection.value);
   }
 
   function handleChange(payload) {
     setSelectedAddress(payload.address);
-    verifyAllFields(payload.address);
     resetApiResult();
   }
 
