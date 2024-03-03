@@ -20,7 +20,10 @@ export function User() {
     if (Object.values(error).join('')) {
       Object.keys(error).forEach((key) => {
         if (error[key]) {
-          console.error('Error %d: ' + error[key].message, error[key].status);
+          console.error(
+            `%{key} Error %d: ` + error[key].message,
+            error[key].status
+          );
         }
       });
     }
