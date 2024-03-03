@@ -50,7 +50,7 @@ export function Home() {
         to={`/products`}
       >
         <img
-          src={`http://${serverUrl}/assets/images/categories/all_products.jpg`}
+          src={`${serverUrl}/assets/images/categories/all_products.jpg`}
           alt='all products'
         />
         <h4>all products</h4>

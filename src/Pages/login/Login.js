@@ -22,7 +22,7 @@ export function Login() {
   const url = process.env.REACT_APP_SERVER_URL;
 
   const google = () => {
-    window.open(`http://${url}/login/google`, '_self');
+    window.open(`${url}/login/google`, '_self');
   };
 
   async function handleSubmit(e) {

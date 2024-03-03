@@ -13,7 +13,7 @@ export function CategorySelect({ form, setForm }) {
   const isLoading = useSelector(selectIsLoading);
   const dispatch = useDispatch();
   const url = process.env.REACT_APP_SERVER_URL;
-  const serverUrl = `http://${url}/products/categories`;
+  const serverUrl = `${url}/products/categories`;
 
   const options = categories.map((category) => ({
     value: category.id,

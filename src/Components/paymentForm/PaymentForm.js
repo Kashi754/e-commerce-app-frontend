@@ -22,7 +22,6 @@ export function PaymentForm() {
   const user = useSelector(selectUser);
 
   const url = process.env.REACT_APP_URL;
-  const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https';
 
   const handleSubmit = async (event) => {
     // We don't want to let default form submission happen here,
@@ -46,7 +45,7 @@ export function PaymentForm() {
           address: shippingAddress,
           carrier: selectedShippingInfo.serviceType,
         },
-        return_url: `${protocol}://${url}/checkout/complete`,
+        return_url: `${url}/checkout/complete`,
       },
     });
 

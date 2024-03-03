@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getApi, postApi, putApi, deleteApi } from '../../utilities/fetchApi';
 
 const url = process.env.REACT_APP_SERVER_URL;
-const serverUrl = `http://${url}/cart/`;
+const serverUrl = `${url}/cart/`;
 
 export const loadCartData = createAsyncThunk(
   'cart/loadCartData',
@@ -45,8 +45,6 @@ export const editCartItem = createAsyncThunk(
       qty,
     };
 
-    const serverUrl = `http://${url}/cart/`;
-
     try {
       const response = await putApi(serverUrl, itemData);
       return response;
@@ -59,10 +57,10 @@ export const editCartItem = createAsyncThunk(
 export const deleteCartItem = createAsyncThunk(
   'cart/deleteCartItem',
   async (productId, { rejectWithValue }) => {
-    const serverUrl = `http://${url}/cart/?product_id=${productId}`;
+    const serverProductUrl = `${url}/cart/?product_id=${productId}`;
 
     try {
-      const response = await deleteApi(serverUrl);
+      const response = await deleteApi(serverProductUrl);
       return response;
     } catch (error) {
       return rejectWithValue({ message: error.message, status: 400 });

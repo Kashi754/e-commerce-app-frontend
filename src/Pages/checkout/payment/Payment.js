@@ -31,7 +31,7 @@ export function Payment() {
   useEffect(() => {
     if (cartTotal && !!shippingInfo && !isLoading) {
       const totalPrice = cartTotal + shippingInfo.totalCharge;
-      fetch(`http://${url}/secret?total=${totalPrice}`, {
+      fetch(`${url}/secret?total=${totalPrice}`, {
         method: 'GET',
         credentials: 'include',
       })
@@ -39,7 +39,7 @@ export function Payment() {
         .then((data) => {
           const { client_secret: clientSecret } = data;
           setClientSecret(clientSecret);
-          const serverUrl = `http://${url}/cart/checkout`;
+          const serverUrl = `${url}/cart/checkout`;
           const paymentIntent = clientSecret.split('_secret_')[0];
           postApi(serverUrl, { paymentIntent: paymentIntent });
         })

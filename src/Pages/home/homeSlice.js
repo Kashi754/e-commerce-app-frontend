@@ -5,7 +5,7 @@ export const loadProductCategories = createAsyncThunk(
   'home/loadProductCategories',
   async (_params, { rejectWithValue }) => {
     const url = process.env.REACT_APP_SERVER_URL;
-    const serverUrl = `http://${url}/products/categories`;
+    const serverUrl = `${url}/products/categories`;
 
     try {
       const response = await getApi(serverUrl, rejectWithValue);

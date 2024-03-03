@@ -16,7 +16,6 @@ export function PasswordChangeForm({ setChangePassword }) {
     newPassword2: '',
   });
   const url = process.env.REACT_APP_SERVER_URL;
-  const urlBase = `http://${url}`;
 
   function handlePasswordChange(e) {
     const { name, value } = e.target;
@@ -33,7 +32,7 @@ export function PasswordChangeForm({ setChangePassword }) {
       newPassword2: '',
     });
     setPasswordError(null);
-    const serverUrl = `${urlBase}/users/password`;
+    const serverUrl = `${url}/users/password`;
     // eslint-disable-next-line no-unused-vars
     const { newPassword2, ...body } = passwordForm;
 

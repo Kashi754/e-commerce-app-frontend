@@ -2,16 +2,15 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { patchApi, getApi, deleteApi } from '../../../utilities/fetchApi';
 
 const url = process.env.REACT_APP_SERVER_URL;
-const urlBase = `http://${url}`;
 
 export const loadAdminUsers = createAsyncThunk(
   'adminUsers/loadAdminUsers',
   async (filter, { rejectWithValue }) => {
     let serverUrl;
     if (filter) {
-      serverUrl = `${urlBase}/users/admin?filter=${filter}`;
+      serverUrl = `${url}/users/admin?filter=${filter}`;
     } else {
-      serverUrl = `${urlBase}/users/admin`;
+      serverUrl = `${url}/users/admin`;
     }
 
     try {
@@ -28,9 +27,9 @@ export const editUser = createAsyncThunk(
   async ({ userId, body, filter }, { rejectWithValue }) => {
     let serverUrl;
     if (filter) {
-      serverUrl = `${urlBase}/users/admin/${userId}?filter=${filter}`;
+      serverUrl = `${url}/users/admin/${userId}?filter=${filter}`;
     } else {
-      serverUrl = `${urlBase}/users/admin/${userId}`;
+      serverUrl = `${url}/users/admin/${userId}`;
     }
     console.log(body);
     try {
@@ -47,9 +46,9 @@ export const deleteUser = createAsyncThunk(
   async ({ userId, filter }, { rejectWithValue }) => {
     let serverUrl;
     if (filter) {
-      serverUrl = `${urlBase}/users/admin/${userId}?filter=${filter}`;
+      serverUrl = `${url}/users/admin/${userId}?filter=${filter}`;
     } else {
-      serverUrl = `${urlBase}/users/admin/${userId}`;
+      serverUrl = `${url}/users/admin/${userId}`;
     }
 
     try {

@@ -189,7 +189,7 @@ export function Shipping() {
     };
 
     dispatch(setAddress(shippingAddress));
-    const serverUrl = `http://${process.env.REACT_APP_SERVER_URL}/cart/shipping`;
+    const serverUrl = `${process.env.REACT_APP_SERVER_URL}/cart/shipping`;
 
     try {
       await patchApi(serverUrl, {

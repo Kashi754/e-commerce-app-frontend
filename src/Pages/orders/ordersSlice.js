@@ -5,7 +5,7 @@ export const loadOrdersData = createAsyncThunk(
   'orders/loadOrdersData',
   async (_params, { rejectWithValue }) => {
     const url = process.env.REACT_APP_SERVER_URL;
-    const serverUrl = `http://${url}/orders`;
+    const serverUrl = `${url}/orders`;
 
     try {
       const response = await getApi(serverUrl, rejectWithValue);

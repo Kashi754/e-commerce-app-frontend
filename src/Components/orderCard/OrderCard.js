@@ -64,7 +64,7 @@ export function OrderCard(props) {
             >
               <div className='product-card'>
                 <img
-                  src={`http://${serverUrl}/assets/images/products/${product.image_file || product.id + '.jpg'}`}
+                  src={`${serverUrl}/assets/images/products/${product.image_file || product.id + '.jpg'}`}
                   alt={product.name}
                 />
                 <h4 className='product-info'>{product.name}</h4>

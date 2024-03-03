@@ -58,7 +58,7 @@ export function Products() {
                 to={`/products/${product.id}`}
               >
                 <img
-                  src={`http://${serverUrl}/assets/images/products/${product.image_file || product.id + '.jpg'}`}
+                  src={`${serverUrl}/assets/images/products/${product.image_file || product.id + '.jpg'}`}
                   alt={product.name}
                 />
                 <h4>{product.name}</h4>

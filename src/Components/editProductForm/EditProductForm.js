@@ -11,7 +11,7 @@ import { loadProductsData } from '../../Pages/products/productsSlice';
 export function EditProductForm({ product, handleCancel }) {
   const serverUrl = process.env.REACT_APP_SERVER_URL;
   const [previewImage, setPreviewImage] = useState(
-    `http://${serverUrl}/assets/images/products/${product.image_file || product.id + '.jpg'}`
+    `${serverUrl}/assets/images/products/${product.image_file || product.id + '.jpg'}`
   );
   const [disabled, setDisabled] = useState(true);
   const [form, setForm] = useState({
@@ -75,10 +75,7 @@ export function EditProductForm({ product, handleCancel }) {
     }
 
     try {
-      await putFormApi(
-        `http://localhost:5000/products/${product.id}`,
-        formData
-      );
+      await putFormApi(`${serverUrl}/products/${product.id}`, formData);
       imageRef.current.value = '';
       dispatch(loadProductsData('?' + searchParams.toString()));
       handleCancel();

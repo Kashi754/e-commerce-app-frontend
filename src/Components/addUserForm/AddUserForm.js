@@ -25,8 +25,7 @@ export function AddUserForm({ loadAdminUsers, searchTerm }) {
   async function handleAddUser(e) {
     e.preventDefault();
     const url = process.env.REACT_APP_SERVER_URL;
-    const urlBase = `http://${url}`;
-    const serverUrl = `${urlBase}/register`;
+    const serverUrl = `${url}/register`;
 
     try {
       await postApi(serverUrl, userFormData);

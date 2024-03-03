@@ -21,12 +21,11 @@ export function Registration() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const url = process.env.REACT_APP_SERVER_URL;
-  const urlBase = `http://${url}`;
 
   async function handleSubmit(e) {
     e.preventDefault();
     setError(null);
-    const serverUrl = `${urlBase}/register`;
+    const serverUrl = `${url}/register`;
     // eslint-disable-next-line no-unused-vars
     const { password2, ...body } = formData;
 

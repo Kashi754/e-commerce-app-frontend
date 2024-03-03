@@ -5,9 +5,8 @@ export const determineShippingServicesAndTransitTimes = createAsyncThunk(
   'shipping/determineShippingServicesAndTransitTimes',
   async (params, { rejectWithValue }) => {
     const url = process.env.REACT_APP_SERVER_URL;
-    const urlBase = `http://${url}`;
 
-    const serverUrl = `${urlBase}/cart/shipping`;
+    const serverUrl = `${url}/cart/shipping`;
 
     try {
       const response = await postApi(serverUrl, params, rejectWithValue);

@@ -2,16 +2,15 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getApi } from '../../../utilities/fetchApi';
 
 const url = process.env.REACT_APP_SERVER_URL;
-const urlBase = `http://${url}`;
 
 export const loadAdminOrders = createAsyncThunk(
   'adminOrders/loadAdminOrders',
   async (filter, { rejectWithValue }) => {
     let serverUrl;
     if (filter) {
-      serverUrl = `${urlBase}/orders/admin?filter=${filter}`;
+      serverUrl = `${url}/orders/admin?filter=${filter}`;
     } else {
-      serverUrl = `${urlBase}/orders/admin`;
+      serverUrl = `${url}/orders/admin`;
     }
     try {
       const response = await getApi(serverUrl, rejectWithValue);

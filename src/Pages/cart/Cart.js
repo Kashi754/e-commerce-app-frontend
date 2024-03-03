@@ -101,7 +101,7 @@ export function Cart() {
                   key={product.id}
                 >
                   <img
-                    src={`http://${serverUrl}/assets/images/products/${product.image_file || product.id + '.jpg'}`}
+                    src={`${serverUrl}/assets/images/products/${product.image_file || product.id + '.jpg'}`}
                     alt={product.name}
                   />
                   <h4 className='cart-product-info'>{product.name}</h4>

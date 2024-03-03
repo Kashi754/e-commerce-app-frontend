@@ -2,12 +2,11 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { postApi, putApi } from '../../utilities/fetchApi';
 
 const url = process.env.REACT_APP_SERVER_URL;
-const urlBase = `http://${url}`;
 
 export const loadUser = createAsyncThunk(
   'user/loadUser',
   async (_params, { rejectWithValue }) => {
-    const serverUrl = `${urlBase}/login/success`;
+    const serverUrl = `${url}/login/success`;
     try {
       const response = await fetch(serverUrl, {
         method: 'GET',
@@ -35,7 +34,7 @@ export const loadUser = createAsyncThunk(
 export const editUserData = createAsyncThunk(
   'user/editUserData',
   async (user, { rejectWithValue }) => {
-    const serverUrl = `${urlBase}/users`;
+    const serverUrl = `${url}/users`;
     const body = {
       username: user.username,
       email: user.email,
@@ -55,7 +54,7 @@ export const editUserData = createAsyncThunk(
 export const login = createAsyncThunk(
   'user/login',
   async (params, { rejectWithValue }) => {
-    const serverUrl = `${urlBase}/login`;
+    const serverUrl = `${url}/login`;
     try {
       const response = await postApi(serverUrl, params, rejectWithValue);
       return response;
@@ -68,7 +67,7 @@ export const login = createAsyncThunk(
 export const logout = createAsyncThunk(
   'user/logout',
   async (_params, { rejectWithValue }) => {
-    const serverUrl = `${urlBase}/logout`;
+    const serverUrl = `${url}/logout`;
 
     try {
       const response = await fetch(serverUrl, {

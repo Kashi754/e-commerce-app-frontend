@@ -53,8 +53,10 @@ export function AddProductForm() {
       JSON.stringify(form.categories.map((category) => category.id))
     );
 
+    const serverUrl = process.env.REACT_APP_SERVER_URL;
+
     try {
-      postFormApi('http://localhost:5000/products', formData);
+      postFormApi(`${serverUrl}/products`, formData);
       imageRef.current.value = '';
       setForm({
         product_name: '',
