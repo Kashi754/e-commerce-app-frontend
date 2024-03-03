@@ -22,7 +22,7 @@ export function AdminOrders() {
 
   useEffect(() => {
     if (user.role === 'admin') dispatch(loadAdminOrders());
-  }, [dispatch]);
+  }, [dispatch, user]);
 
   if (user.role !== 'admin') {
     return <NotFound />;

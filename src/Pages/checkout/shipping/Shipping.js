@@ -136,7 +136,7 @@ export function Shipping() {
     }
 
     verifyToken();
-  }, [accessToken, dispatch]);
+  }, [accessToken, dispatch, fetchApiToken]);
 
   useEffect(() => {
     const verifyButton = document.querySelector(

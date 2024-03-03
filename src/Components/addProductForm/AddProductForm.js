@@ -19,10 +19,6 @@ export function AddProductForm() {
   });
   const imageRef = useRef(null);
 
-  useEffect(() => {
-    checkFields();
-  }, [form]);
-
   function checkFields() {
     if (
       !form.product_name &&
@@ -37,6 +33,10 @@ export function AddProductForm() {
       setDisabled(false);
     }
   }
+
+  useEffect(() => {
+    checkFields();
+  }, [form]);
 
   function handleSubmit(e) {
     e.preventDefault();

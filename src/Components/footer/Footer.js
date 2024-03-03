@@ -33,6 +33,7 @@ export function Footer() {
               verticalAlign: 'text-bottom',
             }}
             src='https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1'
+            alt='cc icon'
           />
           <img
             style={{
@@ -41,6 +42,7 @@ export function Footer() {
               verticalAlign: 'text-bottom',
             }}
             src='https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1'
+            alt='cc by icon'
           />
           <img
             style={{
@@ -49,6 +51,7 @@ export function Footer() {
               verticalAlign: 'text-bottom',
             }}
             src='https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1'
+            alt='cc nc icon'
           />
           <img
             style={{
@@ -57,6 +60,7 @@ export function Footer() {
               verticalAlign: 'text-bottom',
             }}
             src='https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1'
+            alt='cc sa icon'
           />
         </a>
       </p>

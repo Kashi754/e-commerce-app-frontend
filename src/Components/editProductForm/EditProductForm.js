@@ -26,21 +26,6 @@ export function EditProductForm({ product, handleCancel }) {
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
 
-  useEffect(() => {
-    checkFields();
-  }, [form]);
-
-  useEffect(() => {
-    setForm({
-      product_name: product.name,
-      price: product.price,
-      quantity: product.qty_in_stock,
-      description: product.description || '',
-      categories: product.categories,
-      image: null,
-    });
-  }, [product]);
-
   function checkFields() {
     if (
       form.product_name === product.name &&
@@ -55,6 +40,21 @@ export function EditProductForm({ product, handleCancel }) {
       setDisabled(false);
     }
   }
+
+  useEffect(() => {
+    checkFields();
+  }, [form]);
+
+  useEffect(() => {
+    setForm({
+      product_name: product.name,
+      price: product.price,
+      quantity: product.qty_in_stock,
+      description: product.description || '',
+      categories: product.categories,
+      image: null,
+    });
+  }, [product]);
 
   async function handleSubmit(e) {
     e.preventDefault();

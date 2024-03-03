@@ -55,7 +55,7 @@ export function Cart() {
     if (!user.role) {
       navigate('/login');
     }
-  }, [user]);
+  }, [user, navigate]);
 
   useEffect(() => {
     if (Object.values(error).join('')) {
