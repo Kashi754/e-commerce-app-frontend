@@ -17,7 +17,6 @@ body {
   background-attachment: fixed;
   background-size: cover;
   background-repeat: no-repeat;
-  background-size: auto;
   color: var(--grey);
 }
 
@@ -36,4 +35,14 @@ main {
 
 .error {
   white-space: pre-wrap;
+}
+
+.swagger-ui {
+  margin: 0 auto;
+  width: fit-content;
+  padding: 0 5vw;
+  background-color: white;
+  box-shadow: 0px 5px 33px -21px rgba(66, 68, 90, 1);
+  -webkit-box-shadow: 0px 5px 33px -21px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 0px 5px 33px -21px rgba(66, 68, 90, 1);
 }

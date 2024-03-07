@@ -14,9 +14,9 @@
   flex-direction: column;
 }
 
-.footer h2 {
+.footer .disclaimer {
   color: red;
-  font-size: 1rem;
+  font-size: 0.75rem;
   font-weight: 400;
   padding: 0.25rem;
   background-color: rgba(255, 255, 255, 0.75);
@@ -40,4 +40,8 @@
 .footer a:hover {
   text-decoration: none;
   color: var(--purple-placeholder);
+}
+
+.footer .disclaimer-link {
+  color: var(--purple);
 }

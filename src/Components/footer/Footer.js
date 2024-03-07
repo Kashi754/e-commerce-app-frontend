@@ -1,11 +1,30 @@
+import { Link } from 'react-router-dom';
 import './footer.css';
 
 export function Footer() {
   return (
     <div className='footer'>
-      <h2>
-        For Educational Purposes Only (Do not attempt to purchase any items)
-      </h2>
+      <p className='disclaimer'>
+        For Educational Purposes Only. Payments are simulated. (See{' '}
+        <Link
+          className='disclaimer-link'
+          to='https://docs.stripe.com/testing?testing-method=card-numbers#use-test-cards'
+        >
+          Stripe API documentation
+        </Link>{' '}
+        for valid card numbers.)
+        <br />
+        <br />
+        Click
+        <Link
+          className='disclaimer-link'
+          to='/docs'
+        >
+          {' '}
+          here{' '}
+        </Link>
+        to view the documentation for the API.
+      </p>
       <h3>Powered by Stripe</h3>
       <p>
         <span>E-Commerce App </span>

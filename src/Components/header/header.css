@@ -16,4 +16,5 @@
 .logo {
   width: clamp(5rem, 13vw, 13rem);
   height: auto;
+  border-radius: 0.5rem;
 }
