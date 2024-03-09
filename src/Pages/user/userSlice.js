@@ -3,33 +3,27 @@ import { postApi, putApi } from '../../utilities/fetchApi';
 
 const url = process.env.REACT_APP_SERVER_URL;
 
-export const loadUser = createAsyncThunk(
-  'user/loadUser',
-  async (_params, { rejectWithValue }) => {
-    const serverUrl = `${url}/login/success`;
-    try {
-      const response = await fetch(serverUrl, {
-        method: 'GET',
-        credentials: 'include',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Credentials': true,
-        },
-      });
+export const loadUser = createAsyncThunk('user/loadUser', async () => {
+  const serverUrl = `${url}/login/success`;
 
-      if (!response.ok) {
-        const error = await response.json();
-        return rejectWithValue(error.message);
-      }
+  const response = await fetch(serverUrl, {
+    method: 'GET',
+    credentials: 'include',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Credentials': true,
+    },
+  });
 
-      const data = await response.json();
-      return data;
-    } catch (err) {
-      return rejectWithValue({ message: err.message, status: 400 });
-    }
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error);
   }
-);
+
+  const data = await response.json();
+  return data;
+});
 
 export const editUserData = createAsyncThunk(
   'user/editUserData',
@@ -118,10 +112,9 @@ const userSlice = createSlice({
       })
       .addCase(logout.fulfilled, (state) => {
         state.isLoading = false;
-        state.error = null;
-        state.error = null;
         state.error = { ...state.error, logout: null };
         state.isLoggedIn = false;
+        state.user = {};
       })
       .addCase(logout.rejected, (state, action) => {
         state.isLoading = false;
@@ -144,6 +137,7 @@ const userSlice = createSlice({
         state.isLoggedIn = false;
         state.isLoading = false;
         state.error = { ...state.error, login: action.payload };
+        state.user = {};
       })
       .addCase(loadUser.pending, (state) => {
         state.isLoading = true;
@@ -157,10 +151,10 @@ const userSlice = createSlice({
         state.isLoggedIn = true;
         state.user = data;
       })
-      .addCase(loadUser.rejected, (state, action) => {
+      .addCase(loadUser.rejected, (state) => {
         state.isLoading = false;
-        state.error = { ...state.error, load: action.payload };
         state.isLoggedIn = false;
+        state.user = {};
       });
   },
 });

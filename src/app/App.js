@@ -109,7 +109,6 @@ function App() {
             withCredentials={true}
             persistAuthorization={true}
             tryItOutEnabled={false}
-            supportedSubmitMethods={['get']}
           />
         }
       />
