@@ -28,6 +28,7 @@ export function ImageUpload({
           alt='preview'
         />
       )}
+      <p className='image-upload-text'>Max image size: 1MB</p>
     </div>
   );
 }

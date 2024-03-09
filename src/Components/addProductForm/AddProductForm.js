@@ -23,6 +23,10 @@ export function AddProductForm() {
   const imageRef = useRef(null);
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
+  const [error, setError] = useState({
+    status: null,
+    message: null,
+  });
 
   function checkFields() {
     if (
@@ -71,10 +75,11 @@ export function AddProductForm() {
         categories: [],
         image: null,
       });
+      setError({ status: null, message: null });
       setPreviewImage(null);
       dispatch(loadProductsData('?' + searchParams.toString()));
     } catch (err) {
-      console.error(err);
+      setError(err);
     }
   }
 
@@ -154,6 +159,7 @@ export function AddProductForm() {
       >
         Submit
       </button>
+      <p className='error'>{error.message}</p>
     </form>
   );
 }

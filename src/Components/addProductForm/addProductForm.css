@@ -146,3 +146,17 @@
   cursor: not-allowed;
   color: rgba(255, 0, 0, 0.7);
 }
+
+.error {
+  color: red;
+  font-size: 0.75rem;
+  align-self: center;
+}
+
+.image-upload-text {
+  font-size: 0.75rem;
+  align-self: center;
+  width: 80%;
+  text-align: center;
+  color: var(--purple);
+}

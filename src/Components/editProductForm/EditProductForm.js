@@ -25,6 +25,10 @@ export function EditProductForm({ product, handleCancel }) {
   const imageRef = useRef(null);
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
+  const [error, setError] = useState({
+    status: null,
+    message: null,
+  });
 
   function checkFields() {
     if (
@@ -79,9 +83,10 @@ export function EditProductForm({ product, handleCancel }) {
       imageRef.current.value = '';
       dispatch(loadProductsData('?' + searchParams.toString()));
       handleCancel();
+      setError({ status: null, message: null });
       setPreviewImage(null);
     } catch (err) {
-      console.error(err);
+      setError(err);
     }
   }
 
@@ -168,6 +173,7 @@ export function EditProductForm({ product, handleCancel }) {
       >
         Cancel
       </button>
+      <p className='error'>{error.message}</p>
     </form>
   );
 }
