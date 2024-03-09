@@ -147,6 +147,7 @@ export function Registration() {
                   className='show-password-button'
                   type='button'
                   onClick={handleClick}
+                  aria-label='Show Password'
                 >
                   {
                     <FontAwesomeIcon

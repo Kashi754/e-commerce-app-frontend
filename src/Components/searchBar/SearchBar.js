@@ -35,6 +35,7 @@ export function SearchBar({
           className='filter-button'
           type='button'
           onClick={() => setFilterVisible((prev) => !prev)}
+          aria-label='Filter'
         >
           <FontAwesomeIcon icon={faFilter} />
         </button>
@@ -42,6 +43,7 @@ export function SearchBar({
           className='search-button'
           data-testid='search-button'
           type='submit'
+          aria-label='Search'
         >
           <FontAwesomeIcon icon={faMagnifyingGlass} />
         </button>

@@ -115,6 +115,7 @@ export function UsersList({ users, editUser, deleteUser, searchTerm }) {
               type='button'
               className='delete-btn icon-btn'
               onClick={() => handleDelete(user.id)}
+              aria-label='Delete User'
             >
               <FontAwesomeIcon icon={faTrashCan} />
             </button>
@@ -161,6 +162,7 @@ export function UsersList({ users, editUser, deleteUser, searchTerm }) {
             <button
               className='submit-btn icon-btn'
               type='submit'
+              aria-label='Submit'
             >
               <FontAwesomeIcon icon={faCheck} />
             </button>
@@ -168,6 +170,7 @@ export function UsersList({ users, editUser, deleteUser, searchTerm }) {
               className='cancel-btn icon-btn'
               type='button'
               onClick={() => setEditing(null)}
+              aria-label='Cancel'
             >
               <FontAwesomeIcon icon={faXmark} />
             </button>

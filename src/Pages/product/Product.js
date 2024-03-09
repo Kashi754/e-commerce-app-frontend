@@ -1,9 +1,10 @@
 import { quantum } from 'ldrs';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { AddCart } from '../../Components/addCart/AddCart';
 import { addCartItem, selectCart, deleteCartItem } from '../cart/cartSlice';
+import { selectIsLoggedIn } from '../user/userSlice';
 import './product.css';
 import {
   loadProductData,
@@ -25,6 +26,8 @@ export function Product() {
   const [quantity, setQuantity] = useState(1);
   const cartProducts = cart.map((product) => product.id);
   const serverUrl = process.env.REACT_APP_SERVER_URL;
+  const navigate = useNavigate();
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   useEffect(() => {
     dispatch(loadProductData(location.pathname));
@@ -32,12 +35,16 @@ export function Product() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(
-      addCartItem({
-        productId: product.id,
-        qty: quantity,
-      })
-    );
+    if (!isLoggedIn) {
+      navigate('/login');
+    } else {
+      dispatch(
+        addCartItem({
+          productId: product.id,
+          qty: quantity,
+        })
+      );
+    }
     setQuantity(1);
   }
 

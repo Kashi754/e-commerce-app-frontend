@@ -102,6 +102,7 @@ export function PasswordChangeForm({ setChangePassword }) {
             className='show-password-button'
             type='button'
             onClick={() => setPasswordVisible((prev) => !prev)}
+            aria-label='Show Password'
           >
             {<FontAwesomeIcon icon={passwordVisible ? faEyeSlash : faEye} />}
           </button>

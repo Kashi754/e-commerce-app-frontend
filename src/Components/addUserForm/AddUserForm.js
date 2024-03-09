@@ -90,6 +90,7 @@ export function AddUserForm({ loadAdminUsers, searchTerm }) {
               className='show-password-button'
               type='button'
               onClick={handleClick}
+              aria-label='Show Password'
             >
               {<FontAwesomeIcon icon={passwordVisible ? faEyeSlash : faEye} />}
             </button>
